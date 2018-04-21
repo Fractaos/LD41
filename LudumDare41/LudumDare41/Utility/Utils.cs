@@ -5,6 +5,10 @@ namespace LudumDare41
 {
     class Utils
     {
+        //Constantes
+
+        public const int WIDTH = 1600, HEIGHT = 900;
+
         //DESSIN DE HITBOX
         public static Texture2D CreateTexture(int w, int h, Color col)
         {

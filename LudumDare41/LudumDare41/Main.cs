@@ -17,8 +17,6 @@ namespace LudumDare41
         public static Random Rand;
         public static Screen CurrentScreen;
 
-        public static int Width = 800, Height = 600;
-
         public Main(GraphicsDeviceManager graphics, Game game)
         {
             Main.Graphics = graphics;
@@ -32,8 +30,8 @@ namespace LudumDare41
         {
             Assets.LoadAll();
 
-            Graphics.PreferredBackBufferWidth = Width;
-            Graphics.PreferredBackBufferHeight = Height;
+            Graphics.PreferredBackBufferWidth = Utils.WIDTH;
+            Graphics.PreferredBackBufferHeight = Utils.HEIGHT;
             Graphics.SynchronizeWithVerticalRetrace = false;
             Graphics.ApplyChanges();
             Instance.IsMouseVisible = true;

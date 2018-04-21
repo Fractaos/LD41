@@ -67,7 +67,7 @@ namespace LudumDare41.Utility
 
         public void Draw(SpriteBatch batch)
         {
-            batch.Draw(Texture, new Rectangle(0, 0, Main.Width, Main.Height), new Color(0, 0, 0, MathHelper.Clamp(_alphaValue, 0, 255)));
+            batch.Draw(Texture, new Rectangle(0, 0, Utils.WIDTH, Utils.HEIGHT), new Color(0, 0, 0, MathHelper.Clamp(_alphaValue, 0, 255)));
         }
     }
 }
