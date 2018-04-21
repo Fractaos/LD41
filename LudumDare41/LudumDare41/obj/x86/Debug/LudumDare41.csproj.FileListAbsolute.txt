@@ -29,10 +29,6 @@ H:\Dropbox\Travaux\C#\Projets\LD41\LudumDare41\LudumDare41\bin\Windows\x86\Debug
 H:\Dropbox\Travaux\C#\Projets\LD41\LudumDare41\LudumDare41\bin\Windows\x86\Debug\Content\DEMOS\DemoGUI\skull.xnb
 H:\Dropbox\Travaux\C#\Projets\LD41\LudumDare41\LudumDare41\bin\Windows\x86\Debug\Content\Assets\Fonts\littlefont.xnb
 D:\Document\Gamecodeur\COde\LD41\LudumDare41\LudumDare41\bin\Windows\x86\Debug\Content\Assets\Fonts\littlefont.xnb
-D:\Document\Gamecodeur\COde\LD41\LudumDare41\LudumDare41\bin\Windows\x86\Debug\Content\DEMOS\DemoGUI\buttonset.xnb
-D:\Document\Gamecodeur\COde\LD41\LudumDare41\LudumDare41\bin\Windows\x86\Debug\Content\DEMOS\DemoGUI\buttonset2.xnb
-D:\Document\Gamecodeur\COde\LD41\LudumDare41\LudumDare41\bin\Windows\x86\Debug\Content\DEMOS\DemoGUI\heart.xnb
-D:\Document\Gamecodeur\COde\LD41\LudumDare41\LudumDare41\bin\Windows\x86\Debug\Content\DEMOS\DemoGUI\skull.xnb
 D:\Document\Gamecodeur\COde\LD41\LudumDare41\LudumDare41\bin\Windows\x86\Debug\LudumDare41.exe
 D:\Document\Gamecodeur\COde\LD41\LudumDare41\LudumDare41\bin\Windows\x86\Debug\LudumDare41.pdb
 D:\Document\Gamecodeur\COde\LD41\LudumDare41\LudumDare41\bin\Windows\x86\Debug\MonoGame.Framework.dll
