@@ -7,7 +7,7 @@ namespace LudumDare41.Graphics
     public class Assets
     {
         #region Variable
-        public static Texture2D PixelW, PixelB, CrossAim;
+        public static Texture2D PixelW, PixelB, CrossAim, Gun;
 
         //SPRITE
         //SON
@@ -23,6 +23,7 @@ namespace LudumDare41.Graphics
 
             //SPRITE
             CrossAim = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/viseur");
+            Gun = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/gun");
 
             //SON
 

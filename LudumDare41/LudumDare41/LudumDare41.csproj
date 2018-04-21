@@ -55,6 +55,7 @@
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="Screens\ShooterScreen.cs" />
     <Compile Include="ShooterPhase\CrossAim.cs" />
+    <Compile Include="ShooterPhase\Gun.cs" />
     <Compile Include="ShooterPhase\Player.cs" />
     <Compile Include="ShooterPhase\Weapon.cs" />
     <Compile Include="Sounds\Sound.cs" />

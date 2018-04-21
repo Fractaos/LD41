@@ -1,23 +1,48 @@
-﻿using LudumDare41.Graphics;
+﻿using System.Windows.Markup;
+using LudumDare41.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace LudumDare41.ShooterPhase
 {
+
+    public enum WeaponState
+    {
+        Holded,
+        Empty,
+        OnFloor
+    }
+
     public abstract class Weapon : Sprite
     {
-        private float _fireSpeed, _bulletSpeed;
-        private int _numberBulletInLoader, _totalBullet;
+        protected float _timeBetweenFire, _bulletSpeed, _rotation;
+        protected int _numberBulletInLoader, _totalBullet;
+        protected bool _playerHold = false;
+        protected WeaponState _weaponState;
+        protected bool _canDestroy = false;
 
-        protected Weapon(Texture2D texture, Vector2 position) : base(texture, position)
+        protected Weapon(Texture2D texture, Vector2 position, int bulletInWeapon, WeaponState weaponState) : base(texture, position)
         {
-
+            _totalBullet = bulletInWeapon;
+            _weaponState = weaponState;
         }
 
-        public float FireSpeed
+        public WeaponState WeaponState
         {
-            get => _fireSpeed;
-            set => _fireSpeed = value;
+            get => _weaponState;
+            set => _weaponState = value;
+        }
+
+        public bool CanDestroy
+        {
+            get => _canDestroy;
+            set => _canDestroy = value;
+        }
+
+        public float TimeBetweenFire
+        {
+            get => _timeBetweenFire;
+            set => _timeBetweenFire = value;
         }
 
         public float BulletSpeed
@@ -34,6 +59,12 @@ namespace LudumDare41.ShooterPhase
         {
             get => _totalBullet;
             set => _totalBullet = value;
+        }
+
+        public bool PlayerHold
+        {
+            get => _playerHold;
+            set => _playerHold = value;
         }
 
         public abstract void Update(GameTime time);
