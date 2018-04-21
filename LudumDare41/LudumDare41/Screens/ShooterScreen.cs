@@ -30,16 +30,12 @@ namespace LudumDare41.Screens
 
         public override void Update(GameTime time)
         {
-            
             foreach (var weapon in _weapons)
             {
                 if (_player.Hitbox.Intersects(weapon.Hitbox))
                 {
                     _player.CanGrabWeapon(weapon);
-                }
-                else
-                {
-                    _player.CantGrabWeapon();
+                    break;
                 }
             }
 
