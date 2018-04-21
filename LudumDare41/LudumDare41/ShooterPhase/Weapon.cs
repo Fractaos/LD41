@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Markup;
 using LudumDare41.Graphics;
+using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace LudumDare41.ShooterPhase
@@ -22,6 +25,7 @@ namespace LudumDare41.ShooterPhase
         protected WeaponState _weaponState;
         protected bool _canDestroy = false;
         protected List<Bullet> _bulletsFired;
+        protected SoundEffect _shotSound;
 
         protected Weapon(Texture2D texture, Vector2 position, int bulletInWeapon, WeaponState weaponState) : base(texture, position)
         {
@@ -70,10 +74,65 @@ namespace LudumDare41.ShooterPhase
             set => _playerHold = value;
         }
 
-        public abstract void Fire();
+        public virtual void Fire()
+        {
+            if (_timeElaspedSinceLastShot > _timeBetweenFire)
+            {
+                _timeElaspedSinceLastShot = 0;
+                Vector2 direction = Input.MousePos - Position;
+                direction.Normalize();
+                _bulletsFired.Add(new Bullet(Assets.Bullet, Position, _bulletSpeed, direction));
+                _shotSound.Play();
+            }
+        }
 
-        public abstract void Update(GameTime time);
+        public virtual void Update(GameTime time)
+        {
+            switch (_weaponState)
+            {
+                case WeaponState.OnFloor:
 
-        public new abstract void Draw(SpriteBatch spriteBatch);
+                    break;
+                case WeaponState.Holded:
+                    Vector2 direction = Input.MousePos - Position;
+                    direction.Normalize();
+
+                    _rotation = (float)Math.Atan2(direction.Y, direction.X);
+                    foreach (var bullet in _bulletsFired)
+                    {
+                        bullet.Update(time);
+                    }
+
+                    _bulletsFired.RemoveAll(bullet => bullet.ToDestroy);
+
+                    _timeElaspedSinceLastShot += time.ElapsedGameTime.Milliseconds;
+                    break;
+                case WeaponState.Empty:
+                    _canDestroy = true;
+                    break;
+            }
+        }
+
+        public new virtual void Draw(SpriteBatch spriteBatch)
+        {
+            switch (_weaponState)
+            {
+                case WeaponState.OnFloor:
+                    spriteBatch.Draw(Texture, Position, Color.White);
+                    break;
+                case WeaponState.Holded:
+                    if (_playerHold)
+                    {
+                        spriteBatch.Draw(Texture, Position, null, Color.White, _rotation,
+                            new Vector2((float)Texture.Width / 2, (float)Texture.Height / 2), 1f, SpriteEffects.None, 0f);
+                    }
+
+                    foreach (var bullet in _bulletsFired)
+                    {
+                        bullet.Draw(spriteBatch);
+                    }
+                    break;
+            }
+        }
     }
 }

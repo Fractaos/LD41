@@ -57,7 +57,8 @@
     <Compile Include="ShooterPhase\Bullet.cs" />
     <Compile Include="ShooterPhase\CrossAim.cs" />
     <Compile Include="ShooterPhase\Gun.cs" />
-    <Compile Include="ShooterPhase\MachineGun.cs" />
+    <Compile Include="ShooterPhase\Sniper.cs" />
+    <Compile Include="ShooterPhase\SubMachine.cs" />
     <Compile Include="ShooterPhase\Player.cs" />
     <Compile Include="ShooterPhase\Weapon.cs" />
     <Compile Include="Sounds\Sound.cs" />
