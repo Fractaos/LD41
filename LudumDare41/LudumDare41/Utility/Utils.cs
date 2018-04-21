@@ -1,10 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Runtime.InteropServices;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace LudumDare41
 {
-    class Utils
+    static class Utils
     {
+
         //Constantes
 
         public const int WIDTH = 1600, HEIGHT = 900;
@@ -12,6 +14,7 @@ namespace LudumDare41
         //DESSIN DE HITBOX
         public static Texture2D CreateTexture(int w, int h, Color col)
         {
+            
             var texture = new Texture2D(Main.Device, w, h);
             var cols = new Color[w * h];
             for (var i = 0; i < cols.Length; i++)

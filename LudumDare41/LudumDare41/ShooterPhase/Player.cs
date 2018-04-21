@@ -13,11 +13,26 @@ namespace LudumDare41.ShooterPhase
         private float _moveSpeed = .6f, _aimSpeed = 1, _shootSpeed = 1;
         private float _rotation = 0f;
 
+        private bool _canGrabWeapon = false;
+        private Weapon _currentWeapon, _grabbableWeapon;
+
         private CrossAim _crossAim;
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position)
         {
             _crossAim = new CrossAim(Assets.CrossAim, new Vector2((float)Utils.WIDTH/2, (float)Utils.HEIGHT/2), this);
+        }
+
+        public void CanGrabWeapon(Weapon grabbableWeapon)
+        {
+            _canGrabWeapon = true;
+            _grabbableWeapon = grabbableWeapon;
+        }
+
+        public void CantGrabWeapon()
+        {
+            _canGrabWeapon = false;
+            _grabbableWeapon = null;
         }
 
         public void Update(GameTime time)
@@ -32,6 +47,27 @@ namespace LudumDare41.ShooterPhase
             if (Input.KeyPressed(Keys.D, false))
                 Position.X += _moveSpeed * elapsedGameTimeMillis;
 
+            if (_canGrabWeapon && Input.KeyPressed(Keys.E, true))
+            {
+                _currentWeapon = _grabbableWeapon;
+                _currentWeapon.PlayerHold = true;
+                _currentWeapon.WeaponState = WeaponState.Holded;
+                _grabbableWeapon = null;
+                _canGrabWeapon = false;
+            }
+
+            if (_currentWeapon != null)
+            {
+                _currentWeapon.Position = Position;
+                if (Input.Left(false))
+                {
+                    _currentWeapon.Fire();
+                }
+                if (_currentWeapon.CanDestroy)
+                    _currentWeapon = null;
+            }
+
+            _currentWeapon?.Update(time);
             Vector2 direction = Input.MousePos - Position;
             direction.Normalize();
 
@@ -48,6 +84,7 @@ namespace LudumDare41.ShooterPhase
             spriteBatch.Draw(Texture, Position, null, Color.White, _rotation,
                 new Vector2((float) Texture.Width / 2, (float) Texture.Height / 2), 1f,
                 SpriteEffects.None, 1f);
+            _currentWeapon?.Draw(spriteBatch);
         }
     }
 }

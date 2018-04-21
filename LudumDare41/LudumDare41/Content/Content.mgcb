@@ -33,3 +33,69 @@
 /processorParam:TextureFormat=Color
 /build:Assets/Graphics/ShooterPhase/viseur.png
 
+#begin Assets/Graphics/ShooterPhase/gun.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Graphics/ShooterPhase/gun.png
+
+#begin Assets/Graphics/ShooterPhase/bullet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Graphics/ShooterPhase/bullet.png
+
+#begin Assets/Graphics/ShooterPhase/machinegun.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Graphics/ShooterPhase/machinegun.png
+
+#begin Assets/Graphics/ShooterPhase/sniper.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Graphics/ShooterPhase/sniper.png
+
+#begin Assets/Sounds/ShooterPhase/gun_shoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Sounds/ShooterPhase/gun_shoot.wav
+
+#begin Assets/Sounds/ShooterPhase/sniper_shoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Sounds/ShooterPhase/sniper_shoot.wav
+
+#begin Assets/Sounds/ShooterPhase/submachine_shoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Sounds/ShooterPhase/submachine_shoot.wav
+
