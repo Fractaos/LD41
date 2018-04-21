@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>H:/Dropbox/Travaux/C#/Projets/LD41/LudumDare41/LudumDare41/Content/Assets/Fonts/littlefont.bmp</File>
+    <File>H:/Dropbox/Travaux/C#/Projets/LD41/LudumDare41/LudumDare41/Content/DEMOS/DemoGUI/buttonset.png</File>
+    <File>H:/Dropbox/Travaux/C#/Projets/LD41/LudumDare41/LudumDare41/Content/DEMOS/DemoGUI/buttonset2.png</File>
+    <File>H:/Dropbox/Travaux/C#/Projets/LD41/LudumDare41/LudumDare41/Content/DEMOS/DemoGUI/heart.png</File>
+    <File>H:/Dropbox/Travaux/C#/Projets/LD41/LudumDare41/LudumDare41/Content/DEMOS/DemoGUI/skull.png</File>
+  </SourceFiles>
+</SourceFileCollection>
