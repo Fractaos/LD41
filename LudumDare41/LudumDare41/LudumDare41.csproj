@@ -47,7 +47,8 @@
     <Compile Include="Entity.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GestionPhase\Anticorps.cs" />
-    <Compile Include="GestionPhase\Organ.cs" />
+    <Compile Include="GestionPhase\AntiFactory.cs" />
+    <Compile Include="GestionPhase\Bodypart.cs" />
     <Compile Include="Graphics\AnimatedSprite.cs" />
     <Compile Include="Graphics\Assets.cs" />
     <Compile Include="Graphics\Sprite.cs" />
