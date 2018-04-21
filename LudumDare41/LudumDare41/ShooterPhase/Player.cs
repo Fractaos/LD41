@@ -51,6 +51,7 @@ namespace LudumDare41.ShooterPhase
             {
                 _currentWeapon = _grabbableWeapon;
                 _currentWeapon.PlayerHold = true;
+                _currentWeapon.WeaponState = WeaponState.Holded;
                 _grabbableWeapon = null;
                 _canGrabWeapon = false;
             }
@@ -58,6 +59,12 @@ namespace LudumDare41.ShooterPhase
             if (_currentWeapon != null)
             {
                 _currentWeapon.Position = Position;
+                if (Input.Left(true))
+                {
+                    _currentWeapon.Fire();
+                }
+                if (_currentWeapon.CanDestroy)
+                    _currentWeapon = null;
             }
 
             _currentWeapon?.Update(time);

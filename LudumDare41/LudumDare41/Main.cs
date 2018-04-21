@@ -5,11 +5,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Runtime.InteropServices;
+
 
 namespace LudumDare41
 {
     class Main
     {
+        
         public static GraphicsDeviceManager Graphics;
         public static GraphicsDevice Device;
         public static Game Instance;

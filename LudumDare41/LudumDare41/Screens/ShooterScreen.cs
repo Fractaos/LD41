@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using LudumDare41.Graphics;
 using LudumDare41.ShooterPhase;
+using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace LudumDare41.Screens
 {
@@ -11,11 +14,12 @@ namespace LudumDare41.Screens
         private Player _player;
         private List<Weapon> _weapons;
 
+
         public override void Create()
         {
             Main.Instance.IsMouseVisible = false;
             _weapons = new List<Weapon>();
-            Gun gun = new Gun(Assets.Gun, new Vector2(100, 100), 150);
+            Gun gun = new Gun(Assets.Gun, new Vector2(100, 100), 150, WeaponState.OnFloor);
             _weapons.Add(gun);
             _player = new Player(Utils.CreateTexture(50, 50, Color.Blue), new Vector2(Utils.WIDTH/2-25, Utils.HEIGHT/2-25));
 
@@ -23,6 +27,7 @@ namespace LudumDare41.Screens
 
         public override void Update(GameTime time)
         {
+            
             foreach (var weapon in _weapons)
             {
                 if (_player.Hitbox.Intersects(weapon.Hitbox))
@@ -42,6 +47,7 @@ namespace LudumDare41.Screens
             }
 
             _player.Update(time);
+            
         }
 
         public override void Draw()

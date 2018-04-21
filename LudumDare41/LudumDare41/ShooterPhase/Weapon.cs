@@ -1,4 +1,5 @@
-﻿using System.Windows.Markup;
+﻿using System.Collections.Generic;
+using System.Windows.Markup;
 using LudumDare41.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,9 +21,11 @@ namespace LudumDare41.ShooterPhase
         protected bool _playerHold = false;
         protected WeaponState _weaponState;
         protected bool _canDestroy = false;
+        protected List<Bullet> _bulletsFired;
 
         protected Weapon(Texture2D texture, Vector2 position, int bulletInWeapon, WeaponState weaponState) : base(texture, position)
         {
+            _bulletsFired = new List<Bullet>();
             _totalBullet = bulletInWeapon;
             _weaponState = weaponState;
         }
@@ -66,6 +69,8 @@ namespace LudumDare41.ShooterPhase
             get => _playerHold;
             set => _playerHold = value;
         }
+
+        public abstract void Fire();
 
         public abstract void Update(GameTime time);
 
