@@ -13,15 +13,34 @@ namespace LudumDare41.GestionPhase
         List<Anticorps> anticorps;
         public Rectangle Bounds;
 
-        public Bodypart()
+        public Bodypart(Rectangle bounds)
         {
+            Bounds = bounds;
             anticorps = new List<Anticorps>();
+        }
+
+        public void AddAnti()
+        {
+            anticorps.Add(new Anticorps(new Vector2(Main.Rand.Next(Bounds.X, Bounds.Width - 40), Main.Rand.Next(Main.Rand.Next(Bounds.Y, Bounds.Height - 40)))));
+        }
+
+        public void RemoveAnti()
+        {
+            if(anticorps.Count>0)
+            {
+                anticorps[0].End = true;
+            }
+                
         }
 
 
         public void Update(float time)
         {
-
+            foreach (var item in anticorps)
+            {
+                item.Position += new Vector2(Main.Rand.Next(0, 2) - 2, Main.Rand.Next(0, 2) - 1);
+            }
+            anticorps.RemoveAll(k => k.End = true);
         }
 
 

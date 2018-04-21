@@ -11,16 +11,22 @@ using LudumDare41.GestionPhase;
 
 using Microsoft.Xna.Framework.Graphics;
 using LudumDare41.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace LudumDare41.Screens
 {
     public class GestionScreen : Screen
     {
+        UiManager manager = new UiManager();
         List<Anticorps> anticorps;
         Texture2D textAnti;
-        Dictionary<string, int> lol;
+        public Dictionary<string, int> lol;
 
-        //private int vision, vitesseTir, vitesseDeplacement, vieMax;
+        //FACTORY
+        bool showFactory;
+        AntiFactory factory;
+
+        public int sucre, gras, vitc;
 
         public int Vision
         {
@@ -44,6 +50,9 @@ namespace LudumDare41.Screens
 
         public override void Create()
         {
+            showFactory = false;
+            factory = new AntiFactory(this);
+
             textAnti = Utils.CreateTexture(40, 40, Color.Red);
             anticorps = new List<Anticorps>();
             lol = new Dictionary<string, int>
@@ -55,36 +64,36 @@ namespace LudumDare41.Screens
                 { "Legs", 0 }
             };
 
-            UiManager.AddParticle(new UiButton(new Vector2(50, 300), 100, 50, () => { lol["None"]++; }, Color.White));
+            manager.AddParticle(new UiButton(new Vector2(50, 300), 100, 50, () => { lol["None"]++; }, Color.White));
 
 
-            UiManager.AddParticle(new UiButton(new Vector2(300, 180), 50, 50, () => { GestionAnti(true, Organ.Head); }, Color.White));
-            UiManager.AddParticle(new UiButton(new Vector2(719, 176), 50, 50, () => { GestionAnti(true, Organ.Arms); }, Color.White));
-            UiManager.AddParticle(new UiButton(new Vector2(1010, 193), 50, 50, () => { GestionAnti(true, Organ.Corps); }, Color.White));
-            UiManager.AddParticle(new UiButton(new Vector2(1507, 182), 50, 50, () => { GestionAnti(true, Organ.Legs); }, Color.White));
+            manager.AddParticle(new UiButton(new Vector2(300, 180), 50, 50, () => { GestionAnti(true, Organ.Head); }, Color.White));
+            manager.AddParticle(new UiButton(new Vector2(719, 176), 50, 50, () => { GestionAnti(true, Organ.Arms); }, Color.White));
+            manager.AddParticle(new UiButton(new Vector2(1010, 193), 50, 50, () => { GestionAnti(true, Organ.Corps); }, Color.White));
+            manager.AddParticle(new UiButton(new Vector2(1507, 182), 50, 50, () => { GestionAnti(true, Organ.Legs); }, Color.White));
 
-            UiManager.AddParticle(new UiButton(new Vector2(300, 236), 50, 50, () => { GestionAnti(false, Organ.Head); }, Color.Red));
-            UiManager.AddParticle(new UiButton(new Vector2(719, 232), 50, 50, () => { GestionAnti(false, Organ.Arms); }, Color.Red));
-            UiManager.AddParticle(new UiButton(new Vector2(1010, 249), 50, 50, () => { GestionAnti(false, Organ.Corps); }, Color.Red));
-            UiManager.AddParticle(new UiButton(new Vector2(1507, 238), 50, 50, () => { GestionAnti(false, Organ.Legs); }, Color.Red));
+            manager.AddParticle(new UiButton(new Vector2(300, 236), 50, 50, () => { GestionAnti(false, Organ.Head); }, Color.Red));
+            manager.AddParticle(new UiButton(new Vector2(719, 232), 50, 50, () => { GestionAnti(false, Organ.Arms); }, Color.Red));
+            manager.AddParticle(new UiButton(new Vector2(1010, 249), 50, 50, () => { GestionAnti(false, Organ.Corps); }, Color.Red));
+            manager.AddParticle(new UiButton(new Vector2(1507, 238), 50, 50, () => { GestionAnti(false, Organ.Legs); }, Color.Red));
         }
 
         public override void Update(GameTime time)
         {
-            UiManager.Update(time.ElapsedGameTime.Milliseconds);
-            //GestionCarreOrgane();
-        }
+            if (Input.KeyPressed(Keys.A, true))
+                showFactory = !showFactory;
+            if (showFactory)
+                factory.Update(time.ElapsedGameTime.Milliseconds);
+            else
+                manager.Update(time.ElapsedGameTime.Milliseconds);
 
-        //private void GestionCarreOrgane()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        }
 
         public override void Draw()
         {
             spriteBatch.Begin();
             spriteBatch.Draw(Assets.backgroundGestion, Vector2.Zero, Color.White);
-            UiManager.Draw(spriteBatch);
+            manager.Draw(spriteBatch);
 
             #region Affichage nombre anti
             spriteBatch.DrawString(Assets.Font, lol["None"].ToString(), new Vector2(50, 50), Color.White);
@@ -140,6 +149,9 @@ namespace LudumDare41.Screens
             //    spriteBatch.Draw(textAnti, new Vector2(800 + (x * 40) + 5, 100 + (y * 40) + 5), Color.White);
             //}
             #endregion
+
+            if (showFactory)
+                factory.Draw(spriteBatch);
 
             spriteBatch.End();
         }

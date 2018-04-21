@@ -7,37 +7,36 @@ namespace LudumDare41.Utility
 {
     public class UiManager
     {
-
+        List<Ui> UiList;
         public UiManager()
         {
+            UiList = new List<Ui>();
         }
 
-        public static void Update(float time)
+        public void Update(float time)
         {
 
-            for (var i = 0; i < ListParticles.Count; i++)
+            for (var i = 0; i < UiList.Count; i++)
             {
-                ListParticles[i].Update(time);
+                UiList[i].Update(time);
             }
-            ListParticles.RemoveAll(k => k.Ended == true);
+            UiList.RemoveAll(k => k.Ended == true);
         }
 
-        public static void Draw(SpriteBatch batch)
+        public void Draw(SpriteBatch batch)
         {
 
-            for (var i = 0; i < ListParticles.Count; i++)
+            for (var i = 0; i < UiList.Count; i++)
             {
-                ListParticles[i].Draw(batch);
+                UiList[i].Draw(batch);
             }
         }
 
         //GESTION PARTICLE
-        public static void AddParticle(Ui par)
+        public void AddParticle(Ui par)
         {
-            ListParticles.Add(par);
+            UiList.Add(par);
         }
-
-        public static List<Ui> ListParticles = new List<Ui>();
     }
 
     public class Ui
