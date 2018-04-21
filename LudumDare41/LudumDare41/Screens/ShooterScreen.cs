@@ -37,6 +37,23 @@ namespace LudumDare41.Screens
 
         }
 
+        //TODO : S'occuper de cette horreur
+        /*public bool ProcessBulletCollision(Bullet bullet)
+        {
+            if (bullet.Hitbox.Intersects(_player.Hitbox))
+            {
+                bullet.ToDestroy = true;
+                _player.Life -= 5;
+                return true;
+            }
+            else
+            {
+                _enemies.Find(enemy => enemy.Hitbox.Intersects(bullet.Hitbox)).Life -= 5;
+            }
+
+            return false;
+        }*/
+
         public override void Update(GameTime time)
         {
             foreach (var weapon in _weapons)

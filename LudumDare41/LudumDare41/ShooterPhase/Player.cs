@@ -9,9 +9,12 @@ namespace LudumDare41.ShooterPhase
 {
     public class Player : Sprite
     {
+        private const int MAX_LIFE = 100;
 
         private float _moveSpeed = .6f, _aimSpeed = 1, _shootSpeed = 1;
         private float _rotation;
+
+        private int _life;
 
         private bool _canGrabWeapon;
         private Weapon _currentWeapon, _grabbableWeapon;
@@ -21,6 +24,13 @@ namespace LudumDare41.ShooterPhase
         public Player(Texture2D texture, Vector2 position) : base(texture, position)
         {
             _crossAim = new CrossAim(Assets.CrossAim, new Vector2((float)Utils.WIDTH/2, (float)Utils.HEIGHT/2), this);
+            _life = MAX_LIFE;
+        }
+
+        public int Life
+        {
+            get => _life;
+            set => _life = value;
         }
 
         public void CanGrabWeapon(Weapon grabbableWeapon)

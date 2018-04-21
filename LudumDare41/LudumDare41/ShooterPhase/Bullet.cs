@@ -22,6 +22,7 @@ namespace LudumDare41.ShooterPhase
         {
             Position.X += _direction.X * _speed;
             Position.Y += _direction.Y * _speed;
+            
             if (Position.X > Utils.WIDTH || Position.X < 0 || Position.Y > Utils.HEIGHT || Position.Y < 0)
             {
                 ToDestroy = true;
