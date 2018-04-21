@@ -67,7 +67,6 @@
     <Compile Include="ShooterPhase\SubMachine.cs" />
     <Compile Include="ShooterPhase\Player.cs" />
     <Compile Include="ShooterPhase\Weapon.cs" />
-    <Compile Include="Screens\ShooterScreen.cs" />
     <Compile Include="Sounds\Sound.cs" />
     <Compile Include="Utility\GUI.cs" />
     <Compile Include="Utility\Input.cs" />
