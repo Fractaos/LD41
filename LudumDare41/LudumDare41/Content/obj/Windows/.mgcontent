@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Profile>Reach</Profile>
-  <Platform>Windows</Platform>
-  <Config />
-  <SourceFiles>
-    <File>D:/Document/Gamecodeur/COde/LD41/LudumDare41/LudumDare41/Content/Assets/Fonts/littlefont.bmp</File>
-  </SourceFiles>
-</SourceFileCollection>
