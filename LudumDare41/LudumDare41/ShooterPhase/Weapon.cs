@@ -16,7 +16,7 @@ namespace LudumDare41.ShooterPhase
 
     public abstract class Weapon : Sprite
     {
-        protected float _timeBetweenFire, _bulletSpeed, _rotation;
+        protected float _timeBetweenFire, _bulletSpeed, _rotation, _timeElaspedSinceLastShot;
         protected int _numberBulletInLoader, _totalBullet;
         protected bool _playerHold = false;
         protected WeaponState _weaponState;

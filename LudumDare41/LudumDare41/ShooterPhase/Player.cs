@@ -59,7 +59,7 @@ namespace LudumDare41.ShooterPhase
             if (_currentWeapon != null)
             {
                 _currentWeapon.Position = Position;
-                if (Input.Left(true))
+                if (Input.Left(false))
                 {
                     _currentWeapon.Fire();
                 }

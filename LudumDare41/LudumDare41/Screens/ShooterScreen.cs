@@ -20,7 +20,9 @@ namespace LudumDare41.Screens
             Main.Instance.IsMouseVisible = false;
             _weapons = new List<Weapon>();
             Gun gun = new Gun(Assets.Gun, new Vector2(100, 100), 150, WeaponState.OnFloor);
+            MachineGun machineGun = new MachineGun(Assets.MachineGun, new Vector2(650, 700), 150, WeaponState.OnFloor);
             _weapons.Add(gun);
+            _weapons.Add(machineGun);
             _player = new Player(Utils.CreateTexture(50, 50, Color.Blue), new Vector2(Utils.WIDTH/2-25, Utils.HEIGHT/2-25));
 
         }
@@ -40,11 +42,7 @@ namespace LudumDare41.Screens
                 }
             }
 
-            for (int i = _weapons.Count - 1; i >= 0; i--)
-            {
-                if(_weapons[i].PlayerHold)
-                    _weapons.RemoveAt(i);
-            }
+            _weapons.RemoveAll(weapon => weapon.PlayerHold);
 
             _player.Update(time);
             
