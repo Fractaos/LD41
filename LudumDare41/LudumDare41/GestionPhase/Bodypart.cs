@@ -31,7 +31,7 @@ namespace LudumDare41.GestionPhase
                 anticorps[0].End = true;
             }
                 
-        }
+        }//LOL
 
 
         public void Update(float time)
