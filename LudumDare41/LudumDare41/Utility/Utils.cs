@@ -16,7 +16,8 @@ namespace LudumDare41
         //DESSIN DE HITBOX
         public static Texture2D CreateTexture(int w, int h, Color col)
         {
-            
+            if (w == 0)
+                w = 1;
             var texture = new Texture2D(Main.Device, w, h);
             var cols = new Color[w * h];
             for (var i = 0; i < cols.Length; i++)

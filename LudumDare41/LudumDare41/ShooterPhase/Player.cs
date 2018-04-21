@@ -11,9 +11,9 @@ namespace LudumDare41.ShooterPhase
     {
 
         private float _moveSpeed = .6f, _aimSpeed = 1, _shootSpeed = 1;
-        private float _rotation = 0f;
+        private float _rotation;
 
-        private bool _canGrabWeapon = false;
+        private bool _canGrabWeapon;
         private Weapon _currentWeapon, _grabbableWeapon;
 
         private CrossAim _crossAim;
@@ -27,12 +27,6 @@ namespace LudumDare41.ShooterPhase
         {
             _canGrabWeapon = true;
             _grabbableWeapon = grabbableWeapon;
-        }
-
-        public void CantGrabWeapon()
-        {
-            _canGrabWeapon = false;
-            _grabbableWeapon = null;
         }
 
         public void Update(GameTime time)
@@ -61,8 +55,11 @@ namespace LudumDare41.ShooterPhase
                 _currentWeapon.Position = Position;
                 if (Input.Left(false))
                 {
-                    _currentWeapon.Fire();
+                    _currentWeapon.Fire(Input.MousePos);
                 }
+
+                if (Input.KeyPressed(Keys.R, true))
+                    _currentWeapon.WeaponState = WeaponState.Reload;
                 if (_currentWeapon.CanDestroy)
                     _currentWeapon = null;
             }
@@ -81,6 +78,10 @@ namespace LudumDare41.ShooterPhase
         public new void Draw(SpriteBatch spriteBatch)
         {
             _crossAim.Draw(spriteBatch);
+            if (_currentWeapon != null)
+                spriteBatch.DrawString(Assets.Font,
+                    _currentWeapon.NumberBulletInLoader + "/" + _currentWeapon.TotalBullet, new Vector2(10, 10),
+                    Color.White);
             spriteBatch.Draw(Texture, Position, null, Color.White, _rotation,
                 new Vector2((float) Texture.Width / 2, (float) Texture.Height / 2), 1f,
                 SpriteEffects.None, 1f);

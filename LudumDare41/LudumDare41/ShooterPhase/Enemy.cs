@@ -45,6 +45,11 @@ namespace LudumDare41.ShooterPhase
             direction.Normalize();
 
             _rotation = (float)Math.Atan2(direction.Y, direction.X);
+
+            _weaponHolded?.Fire(_thePlayer.Position);
+            if (_weaponHolded != null && _weaponHolded.CanDestroy)
+                _weaponHolded = null;
+            _weaponHolded?.Update(time);
         }
 
         public new void Draw(SpriteBatch spriteBatch)

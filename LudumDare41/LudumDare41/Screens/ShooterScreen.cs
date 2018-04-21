@@ -22,7 +22,7 @@ namespace LudumDare41.Screens
             _weapons = new List<Weapon>();
             _enemies = new List<Enemy>();
             Gun gun = new Gun(new Vector2(100, 100), 150, WeaponState.OnFloor);
-            SubMachine subMachine = new SubMachine(new Vector2(650, 700), 150, WeaponState.OnFloor);
+            SubMachine subMachine = new SubMachine(new Vector2(650, 700), 15, WeaponState.OnFloor);
             Sniper sniper = new Sniper(new Vector2(400, 300), 150, WeaponState.OnFloor);
             _weapons.Add(gun);
             _weapons.Add(subMachine);
