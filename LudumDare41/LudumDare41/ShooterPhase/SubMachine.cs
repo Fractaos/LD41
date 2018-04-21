@@ -8,7 +8,7 @@ namespace LudumDare41.ShooterPhase
 {
     public class SubMachine : Weapon
     {
-        public SubMachine(Texture2D texture, Vector2 position, int bulletInWeapon, WeaponState weaponState) : base(texture, position, bulletInWeapon, weaponState)
+        public SubMachine(Vector2 position, int bulletInWeapon, WeaponState weaponState) : base(Assets.SubMachine, position, bulletInWeapon, weaponState)
         {
             _numberBulletInLoader = 32;
             _bulletSpeed = 40f;

@@ -13,19 +13,28 @@ namespace LudumDare41.Screens
 
         private Player _player;
         private List<Weapon> _weapons;
+        private List<Enemy> _enemies;
 
 
         public override void Create()
         {
             Main.Instance.IsMouseVisible = false;
             _weapons = new List<Weapon>();
-            Gun gun = new Gun(Assets.Gun, new Vector2(100, 100), 150, WeaponState.OnFloor);
-            SubMachine subMachine = new SubMachine(Assets.SubMachine, new Vector2(650, 700), 150, WeaponState.OnFloor);
-            Sniper sniper = new Sniper(Assets.Sniper, new Vector2(400, 300), 150, WeaponState.OnFloor);
+            _enemies = new List<Enemy>();
+            Gun gun = new Gun(new Vector2(100, 100), 150, WeaponState.OnFloor);
+            SubMachine subMachine = new SubMachine(new Vector2(650, 700), 150, WeaponState.OnFloor);
+            Sniper sniper = new Sniper(new Vector2(400, 300), 150, WeaponState.OnFloor);
             _weapons.Add(gun);
             _weapons.Add(subMachine);
             _weapons.Add(sniper);
             _player = new Player(Utils.CreateTexture(50, 50, Color.Blue), new Vector2(Utils.WIDTH/2-25, Utils.HEIGHT/2-25));
+
+            for (int i = 0; i < 5; i++)
+            {
+                _enemies.Add(new Enemy(Utils.CreateTexture(50, 50, Color.Red), new Vector2(Utils.RANDOM.Next(100, Utils.WIDTH - 200), Utils.RANDOM.Next(100, Utils.HEIGHT-200)), _player));
+            }
+
+
         }
 
         public override void Update(GameTime time)
@@ -40,6 +49,7 @@ namespace LudumDare41.Screens
             }
 
             _weapons.RemoveAll(weapon => weapon.PlayerHold);
+            _enemies.ForEach(enemy => enemy.Update(time));
 
             _player.Update(time);
             
@@ -53,6 +63,7 @@ namespace LudumDare41.Screens
                 {
                     weapon.Draw(spriteBatch);
                 }
+                _enemies.ForEach(enemy => enemy.Draw(spriteBatch));
                 _player.Draw(spriteBatch);
             }
             spriteBatch.End();

@@ -9,7 +9,7 @@ namespace LudumDare41.ShooterPhase
 {
     public class Gun : Weapon
     {
-        public Gun(Texture2D texture, Vector2 position, int bulletInWeapon, WeaponState weaponState) : base(texture, position, bulletInWeapon, weaponState)
+        public Gun(Vector2 position, int bulletInWeapon, WeaponState weaponState) : base(Assets.Gun, position, bulletInWeapon, weaponState)
         {
             _numberBulletInLoader = 9;
             _bulletSpeed = 20f;

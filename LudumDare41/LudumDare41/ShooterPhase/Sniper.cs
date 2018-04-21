@@ -6,7 +6,7 @@ namespace LudumDare41.ShooterPhase
 {
     public class Sniper : Weapon
     {
-        public Sniper(Texture2D texture, Vector2 position, int bulletInWeapon, WeaponState weaponState) : base(texture, position, bulletInWeapon, weaponState)
+        public Sniper(Vector2 position, int bulletInWeapon, WeaponState weaponState) : base(Assets.Sniper, position, bulletInWeapon, weaponState)
         {
             _numberBulletInLoader = 5;
             _bulletSpeed = 50;

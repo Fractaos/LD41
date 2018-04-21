@@ -22,12 +22,15 @@ namespace LudumDare41.ShooterPhase
         public void Update(GameTime time)
         {
             float elapsedGameTimeMillis = time.ElapsedGameTime.Milliseconds;
+
+            //Déplacement circulaire
             /*Vector2 mouseDistanceFromPlayer = new Vector2(Input.MousePos.X - _player.Position.X, Input.MousePos.Y - _player.Position.Y);
             mouseDistanceFromPlayer.Normalize();
             float angleRadians = (float)Math.Atan2(mouseDistanceFromPlayer.Y, mouseDistanceFromPlayer.X);
             
             Position = new Vector2(_player.Position.X - (float)Texture.Width/2 + ((float)Math.Cos(angleRadians)*Distance),
             _player.Position.Y - (float)Texture.Height/2 + ((float)Math.Sin(angleRadians)*Distance));*/
+
             Position = new Vector2(Input.MousePos.X - (float)Texture.Width/2, Input.MousePos.Y - (float)Texture.Height/2);
             ClampWithOffset(50);
 

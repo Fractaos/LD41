@@ -62,6 +62,7 @@
     <Compile Include="Screens\ShooterScreen.cs" />
     <Compile Include="ShooterPhase\Bullet.cs" />
     <Compile Include="ShooterPhase\CrossAim.cs" />
+    <Compile Include="ShooterPhase\Enemy.cs" />
     <Compile Include="ShooterPhase\Gun.cs" />
     <Compile Include="ShooterPhase\Sniper.cs" />
     <Compile Include="ShooterPhase\SubMachine.cs" />

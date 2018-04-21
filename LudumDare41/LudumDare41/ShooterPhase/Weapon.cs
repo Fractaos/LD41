@@ -134,5 +134,29 @@ namespace LudumDare41.ShooterPhase
                     break;
             }
         }
+
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 target)
+        {
+            switch (_weaponState)
+            {
+                case WeaponState.OnFloor:
+                    spriteBatch.Draw(Texture, Position, Color.White);
+                    break;
+                case WeaponState.Holded:
+                    Vector2 direction = target - Position;
+                    direction.Normalize();
+
+                    float rotation = (float)Math.Atan2(direction.Y, direction.X);
+
+                    spriteBatch.Draw(Texture, Position, null, Color.White, rotation,
+                        new Vector2((float)Texture.Width / 2, (float)Texture.Height / 2), 1f, SpriteEffects.None, 0f);
+
+                    foreach (var bullet in _bulletsFired)
+                    {
+                        bullet.Draw(spriteBatch);
+                    }
+                    break;
+            }
+        }
     }
 }
