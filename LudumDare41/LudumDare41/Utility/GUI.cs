@@ -7,6 +7,7 @@ namespace LudumDare41.Utility
 {
     public class UiManager
     {
+
         public UiManager()
         {
         }
@@ -121,11 +122,11 @@ namespace LudumDare41.Utility
                 this._texture = texture;
         }
 
-        public UiButton(Vector2 position, int width, int height, WhenPressed action, Texture2D texture) : base(position)
+        public UiButton(Vector2 position, int width, int height, WhenPressed action, Color color) : base(position)
         {
+            _texture = Utils.CreateTexture(width, height, color);
             _bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
             this._action = action;
-            this._texture = texture;
         }
 
         public override void Update(float time)

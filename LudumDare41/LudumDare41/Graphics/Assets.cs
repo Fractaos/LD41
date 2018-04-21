@@ -10,6 +10,7 @@ namespace LudumDare41.Graphics
         public static Texture2D PixelW, PixelB;
 
         //SPRITE
+        public static Texture2D backgroundGestion;
         //SON
         //FONT
         public static SpriteFont Font;
@@ -22,7 +23,7 @@ namespace LudumDare41.Graphics
             PixelB = Utils.CreateTexture(1, 1, Color.Black);
 
             //SPRITE
-
+            backgroundGestion = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/corps");
             //SON
 
             //FONT

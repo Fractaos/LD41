@@ -36,7 +36,7 @@ namespace LudumDare41
             Graphics.ApplyChanges();
             Instance.IsMouseVisible = true;
 
-            SetScreen(new GameScreen());
+            SetScreen(new GestionScreen());
 
         }
 
