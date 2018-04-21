@@ -300,3 +300,7 @@ __pycache__/
 
 # End of https://www.gitignore.io/api/visualstudio
 *.mgcontent
+
+LudumDare41/LudumDare41/bin/
+
+LudumDare41/LudumDare41/obj/
