@@ -1,4 +1,5 @@
-﻿using LudumDare41.Graphics;
+﻿using System;
+using LudumDare41.Graphics;
 using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,6 +11,7 @@ namespace LudumDare41.ShooterPhase
     {
 
         private float _moveSpeed = .6f, _aimSpeed = 1, _shootSpeed = 1;
+        private float _rotation = 0f;
 
         private CrossAim _crossAim;
 
@@ -30,14 +32,22 @@ namespace LudumDare41.ShooterPhase
             if (Input.KeyPressed(Keys.D, false))
                 Position.X += _moveSpeed * elapsedGameTimeMillis;
 
+            Vector2 direction = Input.MousePos - Position;
+            direction.Normalize();
+
+            _rotation = (float) Math.Atan2(direction.Y, direction.X);
+
+
             _crossAim.Update(time);
             base.Update(elapsedGameTimeMillis);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public new void Draw(SpriteBatch spriteBatch)
         {
             _crossAim.Draw(spriteBatch);
-            base.Draw(spriteBatch);
+            spriteBatch.Draw(Texture, Position, null, Color.White, _rotation,
+                new Vector2((float) Texture.Width / 2, (float) Texture.Height / 2), 1f,
+                SpriteEffects.None, 1f);
         }
     }
 }
