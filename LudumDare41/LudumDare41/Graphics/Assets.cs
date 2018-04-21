@@ -12,6 +12,7 @@ namespace LudumDare41.Graphics
         //SPRITE
         public static Texture2D PixelW, PixelB, CrossAim, Gun, SubMachine, Sniper, Bullet;
 
+        public static Texture2D backgroundGestion;
         //SON
         public static SoundEffect GunShot, SubMachineShot, SniperShot;
 
@@ -32,6 +33,7 @@ namespace LudumDare41.Graphics
             Sniper = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/sniper");
             Bullet = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/bullet");
 
+            backgroundGestion = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/corps");
             //SON
             GunShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/gun_shoot");
             SubMachineShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/submachine_shoot");

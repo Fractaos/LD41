@@ -45,6 +45,7 @@ namespace LudumDare41
 
         public void Update(GameTime time)
         {
+            TimerManager.Update(time.ElapsedGameTime.Milliseconds);
             Input.Update();
 
             CurrentScreen?.Update(time);
