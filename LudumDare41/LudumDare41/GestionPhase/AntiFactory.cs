@@ -13,6 +13,8 @@ namespace LudumDare41.GestionPhase
 {
     public class AntiFactory
     {
+        ProgressBar sucreBar, vitCBar, grasBar;
+        ProgressBar[] listProgress;
         UiManager manager;
         private GestionScreen _instance;
         public Vector2 position;
@@ -22,19 +24,33 @@ namespace LudumDare41.GestionPhase
 
         public AntiFactory(GestionScreen instance)
         {
+
             manager = new UiManager();
             _instance = instance;
             position = new Vector2(200, 200);
             texture = Utils.CreateTexture(1000, 600, Color.Gray);
-            manager.AddParticle(new UiButton(new Vector2(position.X + 50, position.Y + 50), 50, 50, () => { instance.lol["None"]++; }, Color.Red));
-            manager.AddParticle(new UiButton(new Vector2(position.X + 150, position.Y + 50), 50, 50, () => { instance.lol["None"]++; }, Color.Red));
-            manager.AddParticle(new UiButton(new Vector2(position.X + 250, position.Y + 50), 50, 50, () => { instance.lol["None"]++; }, Color.Red));
+            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 100), 50, 50, () => { sucreBar.DecreaseBar(10); }, Color.Red));
+            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 200), 50, 50, () => { vitCBar.DecreaseBar(10); }, Color.Green));
+            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 300), 50, 50, () => { grasBar.DecreaseBar(10); }, Color.Yellow));
+
+            listProgress = new ProgressBar[3];
+            sucreBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 100), 200, 50, Color.Red, 100, true);
+            vitCBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 200), 200, 50, Color.Green, 100, true);
+            grasBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 300), 200, 50, Color.Yellow, 100, true);
+
+            listProgress[0] = sucreBar;
+            listProgress[1] = grasBar;
+            listProgress[2] = vitCBar;
         }
 
 
         public void Update(float time)
         {
             manager.Update(time);
+            foreach (var item in listProgress)
+            {
+                item.Update(time);
+            }
         }
 
 
@@ -42,6 +58,10 @@ namespace LudumDare41.GestionPhase
         {
             batch.Draw(texture, position, Color.White);
             manager.Draw(batch);
+            foreach (var item in listProgress)
+            {
+                item.Draw(batch);
+            }
         }
     }
 }
