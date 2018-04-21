@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using LudumDare41.Graphics;
 using Microsoft.Xna.Framework;
+using LudumDare41.Utility;
 
 namespace LudumDare41.GestionPhase
 {
@@ -15,6 +16,7 @@ namespace LudumDare41.GestionPhase
     {
         public int level;
         public Bodypart ActualPart;
+        public bool Dragged;
 
         public bool End;
 
@@ -26,7 +28,18 @@ namespace LudumDare41.GestionPhase
 
         public void Update(float time)
         {
+            if (ActualPart != null)
+                Position = Vector2.Clamp(Position, new Vector2(ActualPart.Bounds.X, ActualPart.Bounds.Y),
+                    new Vector2(ActualPart.Bounds.X + ActualPart.Bounds.Width, ActualPart.Bounds.Y + ActualPart.Bounds.Height));
+            if (Input.Left(true) && Dragged)
+                Dragged = false;
+            else if (Input.Left(true) && Input.MouseOn(Hitbox))
+                Dragged = true;
 
+            if (Dragged)
+            {
+                Position = Input.MousePos;
+            }
         }
 
     }

@@ -21,7 +21,6 @@ namespace LudumDare41.Screens
         public override void Update(GameTime time)
         {
 
-            TimerManager.Update(time.ElapsedGameTime.Milliseconds);
         }
 
         public override void Draw()

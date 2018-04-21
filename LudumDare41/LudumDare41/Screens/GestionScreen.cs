@@ -26,6 +26,10 @@ namespace LudumDare41.Screens
         bool showFactory;
         AntiFactory factory;
 
+        //BODYPARTS
+        Bodypart[] Parts;
+        Bodypart Head, Arms, Corps, Legs;
+
         public int sucre, gras, vitc;
 
         public int Vision
@@ -76,6 +80,13 @@ namespace LudumDare41.Screens
             manager.AddParticle(new UiButton(new Vector2(719, 232), 50, 50, () => { GestionAnti(false, Organ.Arms); }, Color.Red));
             manager.AddParticle(new UiButton(new Vector2(1010, 249), 50, 50, () => { GestionAnti(false, Organ.Corps); }, Color.Red));
             manager.AddParticle(new UiButton(new Vector2(1507, 238), 50, 50, () => { GestionAnti(false, Organ.Legs); }, Color.Red));
+
+            Head = new Bodypart(new Rectangle(148, 163, 148, 135));
+            Arms = new Bodypart(new Rectangle(587, 166, 128, 133));
+            Corps = new Bodypart(new Rectangle(898, 191, 107, 108));
+            Legs = new Bodypart(new Rectangle(1383, 179, 120, 116));
+
+            Parts = new Bodypart[] { Head, Arms, Corps, Legs };
         }
 
         public override void Update(GameTime time)
@@ -87,6 +98,10 @@ namespace LudumDare41.Screens
             else
                 manager.Update(time.ElapsedGameTime.Milliseconds);
 
+            foreach (var item in Parts)
+            {
+                item.Update(time.ElapsedGameTime.Milliseconds);
+            }
         }
 
         public override void Draw()
@@ -152,6 +167,11 @@ namespace LudumDare41.Screens
 
             if (showFactory)
                 factory.Draw(spriteBatch);
+
+            foreach (var item in Parts)
+            {
+                item.Draw(spriteBatch);
+            }
 
             spriteBatch.End();
         }
