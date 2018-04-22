@@ -61,6 +61,12 @@ namespace LudumDare41.Utility
             set => _position = value;
         }
 
+        public float MaxValue
+        {
+            get => _maxValue;
+            set => _maxValue = value;
+        }
+
         #endregion
 
         #region Public Methods
