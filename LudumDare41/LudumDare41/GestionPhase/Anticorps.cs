@@ -13,7 +13,7 @@ namespace LudumDare41.GestionPhase
         Texture2D secondTexture;
         public BodyPart ActualPart;
         public bool Dragged;
-        AntiType type;
+        public AntiType type;
 
         public bool End;
 
