@@ -20,7 +20,7 @@ namespace LudumDare41.ShooterPhase
 
     public abstract class Weapon : Sprite
     {
-        protected float _timeBetweenFire, _bulletSpeed, _rotation, _timeElaspedSinceLastShot, _timeSinceBeginReload, _timeToReload, _damage, _fireSpeedModifier = 1f;
+        protected float _timeBetweenFire, _bulletSpeed, _rotation, _timeElaspedSinceLastShot, _timeSinceBeginReload, _timeToReload, _damage, _fireSpeedModifier = 1f, _reloadSpeedModifier = 1f;
         protected int _numberBulletInLoader, _totalNumberBulletInLoader, _totalBullet;
         protected bool _playerHold;
         protected WeaponState _weaponState;
@@ -59,6 +59,12 @@ namespace LudumDare41.ShooterPhase
         {
             get => _fireSpeedModifier;
             set => _fireSpeedModifier = value;
+        }
+
+        public float ReloadSpeedModifier
+        {
+            get => _reloadSpeedModifier;
+            set => _reloadSpeedModifier = value;
         }
 
         public float TimeBetweenFire
@@ -154,7 +160,7 @@ namespace LudumDare41.ShooterPhase
 
                     break;
                 case WeaponState.Reload:
-                    _timeSinceBeginReload -= time.ElapsedGameTime.Milliseconds * speedFactor;
+                    _timeSinceBeginReload -= time.ElapsedGameTime.Milliseconds * speedFactor * _reloadSpeedModifier;
                     _reloadPb.Position = new Vector2(Position.X - 25, Position.Y - 50);
                     if (_timeSinceBeginReload < 0)
                     {

@@ -168,10 +168,10 @@ namespace LudumDare41.Screens
             spriteBatch.DrawString(Assets.BigFont, "Shoot Speed : " + _instancePlayer.ShootSpeed, new Vector2(1220, 420), Color.White);
             spriteBatch.DrawString(Assets.BigFont, "Max Life : " + _instancePlayer.MaxLife, new Vector2(1220, 520), Color.White);
 
-            spriteBatch.DrawString(Assets.Font, "Head " + Head.effect, new Vector2(10, 30), Color.White);
-            spriteBatch.DrawString(Assets.Font, "Arms" + Arms.effect, new Vector2(100, 30), Color.White);
-            spriteBatch.DrawString(Assets.Font, "Corps" + Corps.effect, new Vector2(200, 30), Color.White);
-            spriteBatch.DrawString(Assets.Font, "Legs" + Legs.effect, new Vector2(300, 30), Color.White);
+            spriteBatch.DrawString(Assets.Font, "Head +" + Head.effect + "%", new Vector2(10, 30), Color.White);
+            spriteBatch.DrawString(Assets.Font, "Arms +" + Arms.effect + "%", new Vector2(100, 30), Color.White);
+            spriteBatch.DrawString(Assets.Font, "Corps +" + Corps.effect + "%", new Vector2(200, 30), Color.White);
+            spriteBatch.DrawString(Assets.Font, "Legs +" + Legs.effect + "%", new Vector2(300, 30), Color.White);
 
             ShooterScreen shooterScreen = (ShooterScreen)Main.CurrentsScreens[0];
             spriteBatch.DrawString(Assets.BigFont, "Time elapsed in other mode : " + (_timeElapsedSinceOnScreen / 1000 * shooterScreen.TimeScale).ToString("0.0") + " (in seconds)", new Vector2(1170, 30), Color.White);

@@ -178,7 +178,8 @@ namespace LudumDare41.ShooterPhase
                     _currentWeapon.WeaponState = WeaponState.Reload;
                 if (_currentWeapon.CanDestroy)
                     _currentWeapon = null;
-                _currentWeapon.FireSpeedModifier = _shootSpeed;
+                _currentWeapon.FireSpeedModifier = _shootSpeed / 2;
+                _currentWeapon.ReloadSpeedModifier = _shootSpeed;
                 _currentWeapon?.Update(time);
             }
 
