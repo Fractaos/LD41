@@ -35,6 +35,7 @@ namespace LudumDare41.Screens
 
         public override void Create()
         {
+            Main.Instance.IsMouseVisible = false;
             _gameOver = false;
             _camera = new Camera();
             _weapons = new List<Weapon>();
@@ -171,6 +172,10 @@ namespace LudumDare41.Screens
                     {
                         _player.CanGrabWeapon(weapon);
                         break;
+                    }
+                    else
+                    {
+                        _player.CantGrabWeapon();
                     }
                 }
 

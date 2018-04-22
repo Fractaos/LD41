@@ -121,8 +121,13 @@ namespace LudumDare41.ShooterPhase
                     }
 
                     _timeElaspedSinceLastShot = 0;
+
                     _totalBullet--;
-                    _numberBulletInLoader--;
+                    if (side is Player)
+                    {
+                        _numberBulletInLoader--;
+                    }
+
                     if (_totalBullet <= 0)
                     {
                         _weaponState = WeaponState.Empty;

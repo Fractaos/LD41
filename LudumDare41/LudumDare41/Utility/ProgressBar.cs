@@ -18,7 +18,7 @@ namespace LudumDare41.Utility
         Color _color;
         Texture2D _barTexture, _barBackgroundTexture;
         Vector2 _position;
-        SpriteFont _font = Assets.Font;
+        SpriteFont _font = Assets.BigFont;
 
         #endregion
 

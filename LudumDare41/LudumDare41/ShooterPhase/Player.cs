@@ -121,6 +121,12 @@ namespace LudumDare41.ShooterPhase
             _grabbableWeapon = grabbableWeapon;
         }
 
+        public void CantGrabWeapon()
+        {
+            _canGrabWeapon = false;
+            _grabbableWeapon = null;
+        }
+
         public void Update(GameTime time)
         {
             //Récupération du temps écoulé (en ms)
@@ -192,7 +198,10 @@ namespace LudumDare41.ShooterPhase
 
                 _currentWeapon.Update(time);
                 if (_currentWeapon.CanDestroy)
+                {
                     _currentWeapon = null;
+                }
+
 
             }
 
@@ -224,10 +233,16 @@ namespace LudumDare41.ShooterPhase
             //Affichage de la barre de vie
             _lifeBar.Draw(spriteBatch, _currentCamera.ScreenToWorld(_lifeBar.Position));
 
+            if (_canGrabWeapon)
+            {
+                string text = "Press E to grab weapon";
+                spriteBatch.DrawString(Assets.BigFont, text, new Vector2(Position.X - Assets.Font.MeasureString(text).X / 2, Position.Y + 100), Color.Gold);
+            }
+
             //Affichage des munitions actuelles de l'armes (si arme équipée)
             if (_currentWeapon != null)
-                spriteBatch.DrawString(Assets.Font,
-                    _currentWeapon.NumberBulletInLoader + "/" + _currentWeapon.TotalBullet, _currentCamera.ScreenToWorld(new Vector2(130, 25)),
+                spriteBatch.DrawString(Assets.BigFont,
+                    _currentWeapon.NumberBulletInLoader + "/" + _currentWeapon.TotalBullet, _currentCamera.ScreenToWorld(new Vector2(130, 20)),
                     Color.White);
 
             //Affichage du joueur
@@ -243,5 +258,7 @@ namespace LudumDare41.ShooterPhase
         }
 
         #endregion
+
+
     }
 }

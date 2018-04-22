@@ -35,16 +35,16 @@ namespace LudumDare41.ShooterPhase
             switch (rnd)
             {
                 case 0:
-                    _weaponHolded = new Gun(Position, 30, WeaponState.Holded, _currentCamera);
+                    _weaponHolded = new Gun(Position, 150, WeaponState.Holded, _currentCamera);
                     break;
                 case 1:
-                    _weaponHolded = new SubMachine(Position, 30, WeaponState.Holded, _currentCamera);
+                    _weaponHolded = new SubMachine(Position, 150, WeaponState.Holded, _currentCamera);
                     break;
                 case 2:
-                    _weaponHolded = new Sniper(Position, 30, WeaponState.Holded, _currentCamera);
+                    _weaponHolded = new Sniper(Position, 150, WeaponState.Holded, _currentCamera);
                     break;
                 default:
-                    _weaponHolded = new Gun(Position, 30, WeaponState.Holded, _currentCamera);
+                    _weaponHolded = new Gun(Position, 150, WeaponState.Holded, _currentCamera);
                     break;
             }
 
