@@ -19,6 +19,7 @@ namespace LudumDare41.Screens
         private bool _isActive;
 
         Anticorps isDragged;
+        ProgressBar playerLife;
 
         //FACTORY
         bool showFactory;
@@ -69,11 +70,12 @@ namespace LudumDare41.Screens
             Assets.MusicGestion.Volume = 0.5f;
             Assets.MusicGestion.IsLooped = true;
             Assets.MusicGestion.Play();
-            //isDragged = false;
             showFactory = false;
             factory = new AntiFactory(this);
             if (Main.CurrentsScreens[0] is ShooterScreen currentScreen)
                 _instancePlayer = currentScreen.Player;
+
+            playerLife = new ProgressBar(new Vector2(1228, 547), 303, 50, Color.Red, _instancePlayer.MaxLife, true);
 
             anticorps = new List<Anticorps>();
 
@@ -87,7 +89,7 @@ namespace LudumDare41.Screens
 
             Parts = new List<BodyPart> { Head, Arms, Corps, Legs, None };
 
-            manager.AddParticle(new UiButton(new Vector2(50, 50), () => { showFactory = !showFactory; }, Assets.FactoryButton));
+            manager.AddParticle(new UiButton(new Vector2(50, 150), () => { showFactory = !showFactory; }, Assets.FactoryButton));
 
             #endregion 
         }
@@ -177,12 +179,14 @@ namespace LudumDare41.Screens
                 }
             }
 
+            playerLife.Update(time, _instancePlayer.Life);
+            playerLife.MaxValue = _instancePlayer.MaxLife;
+
+
         }
 
         public override void Draw()
         {
-
-
             spriteBatch.Begin();
             spriteBatch.Draw(Assets.BackgroundGestion, Vector2.Zero, Color.White);
             manager.Draw(spriteBatch);
@@ -202,7 +206,6 @@ namespace LudumDare41.Screens
             spriteBatch.DrawString(Assets.BigFont, "Accuracy : " + _instancePlayer.Accuracy, new Vector2(1220, 220), Color.White);
             spriteBatch.DrawString(Assets.BigFont, "Vision Range : " + _instancePlayer.VisionRange, new Vector2(1220, 320), Color.White);
             spriteBatch.DrawString(Assets.BigFont, "Shoot Speed : " + _instancePlayer.ShootSpeed, new Vector2(1220, 420), Color.White);
-            spriteBatch.DrawString(Assets.BigFont, "Max Life : " + _instancePlayer.MaxLife, new Vector2(1220, 520), Color.White);
 
             spriteBatch.DrawString(Assets.Font, "Head +" + Head.effect + "%", new Vector2(10, 30), Color.White);
             spriteBatch.DrawString(Assets.Font, "Arms +" + Arms.effect + "%", new Vector2(100, 30), Color.White);
@@ -215,7 +218,7 @@ namespace LudumDare41.Screens
             #endregion
             if (showFactory)
                 factory.Draw(spriteBatch);
-
+            playerLife.Draw(spriteBatch);
             spriteBatch.End();
 
         }

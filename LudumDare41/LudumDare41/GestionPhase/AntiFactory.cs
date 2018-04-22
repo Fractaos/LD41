@@ -25,7 +25,7 @@ namespace LudumDare41.GestionPhase
             manager = new UiManager();
             _instance = instance;
             position = new Vector2(200, 200);
-            texture = Utils.CreateTexture(1000, 600, Color.Gray);
+            texture = Utils.CreateTexture(1000, 400, Color.Gray);
             manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 100), () => { BuyAnticorps(AntiType.Normal); }, Assets.AddAnti));
             manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 200), () => { BuyAnticorps(AntiType.Neighbour); }, Assets.AddAnti));
             manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 300), () => { BuyAnticorps(AntiType.Leader); }, Assets.AddAnti));
