@@ -12,7 +12,7 @@ namespace LudumDare41.ShooterPhase
             _numberBulletInLoader = _totalBullet >= _totalNumberBulletInLoader ? _totalNumberBulletInLoader : _totalBullet;
             _timeToReload = 3000f;
             _timeSinceBeginReload = _timeToReload;
-            _bulletSpeed = 50;
+            _bulletSpeed = 25f;
             _timeBetweenFire = 2000f;
             _damage = 30;
             _timeElaspedSinceLastShot = _timeBetweenFire;

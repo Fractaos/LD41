@@ -172,9 +172,15 @@ namespace LudumDare41.Screens
             Main.Instance.Exit();
         }
 
+
         private void Replay()
         {
             Main.CurrentsScreens.ForEach(screen => screen.Create());
+        }
+
+        public List<Enemy> Enemies
+        {
+            get => _enemies;
         }
 
         public Player Player
@@ -273,6 +279,7 @@ namespace LudumDare41.Screens
         {
             if (!_gameOver)
             {
+
                 foreach (var weapon in _weapons)
                 {
                     if (_player.Hitbox.Intersects(weapon.Hitbox))
@@ -280,10 +287,8 @@ namespace LudumDare41.Screens
                         _player.CanGrabWeapon(weapon);
                         break;
                     }
-                    else
-                    {
-                        _player.CantGrabWeapon();
-                    }
+
+                    _player.CantGrabWeapon();
                 }
 
                 if (_isActive && _timeElapsedSinceOnScreen <= Utils.TIME_ON_SCREEN)
