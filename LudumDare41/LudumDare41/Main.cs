@@ -42,7 +42,7 @@ namespace LudumDare41
             Graphics.ApplyChanges();
             Instance.IsMouseVisible = true;
 
-            CurrentsScreens.Add(new ShooterScreen());
+            //CurrentsScreens.Add(new ShooterScreen());
             CurrentsScreens.Add(new GestionScreen());
 
             SetScreen(CurrentsScreens[1]);

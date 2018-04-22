@@ -97,11 +97,12 @@ namespace LudumDare41.Screens
                 }
             }
             #endregion
+
             #region Update NBR body parts
-            Head.AntiNbr = anticorps.FindAll(anti => anti.ActualPart == Head).Count;
-            Arms.AntiNbr = anticorps.FindAll(anti => anti.ActualPart == Arms).Count;
-            Corps.AntiNbr = anticorps.FindAll(anti => anti.ActualPart == Corps).Count;
-            Legs.AntiNbr = anticorps.FindAll(anti => anti.ActualPart == Legs).Count;
+            //Head.list = anticorps.FindAll(anti => anti.ActualPart == Head);
+            //Arms.list = anticorps.FindAll(anti => anti.ActualPart == Arms);
+            //Corps.list = anticorps.FindAll(anti => anti.ActualPart == Corps);
+            //Legs.list = anticorps.FindAll(anti => anti.ActualPart == Legs);
             #endregion  
 
         }
@@ -129,7 +130,11 @@ namespace LudumDare41.Screens
             spriteBatch.DrawString(Assets.Font, "Corps" + Corps.AntiNbr, new Vector2(200, 10), Color.White);
             spriteBatch.DrawString(Assets.Font, "Legs" + Legs.AntiNbr, new Vector2(300, 10), Color.White);
 
-            spriteBatch.DrawString(Assets.Font, "IsDragged" + anticorps.Find(anti => anti.Hitbox.Contains(Input.MousePos)), new Vector2(450, 10), Color.White);
+            //spriteBatch.DrawString(Assets.Font, "lel" + anticorps.Find(anti => anti.Hitbox.Contains(Input.MousePos)), new Vector2(450, 10), Color.White);
+            if(anticorps.Count>0 && anticorps[0] != null)
+                spriteBatch.DrawString(Assets.Font, "Fragged" + anticorps[0].Dragged, new Vector2(500, 10), Color.White);
+
+            spriteBatch.DrawString(Assets.Font, "lel" + anticorps.Find(anti => anti.Hitbox.Contains(Input.MousePos)), new Vector2(450, 10), Color.White);
 
             #endregion
             if (showFactory)
