@@ -1,8 +1,6 @@
-﻿using System;
-using LudumDare41.Graphics;
+﻿using LudumDare41.Graphics;
 using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace LudumDare41.ShooterPhase
 {
@@ -15,6 +13,7 @@ namespace LudumDare41.ShooterPhase
             _timeToReload = 2000f;
             _bulletSpeed = 40f;
             _timeBetweenFire = 250f;
+            _damage = 7.5f;
             _timeElaspedSinceLastShot = _timeBetweenFire;
             _shotSound = Assets.SubMachineShot;
             _reloadPb = new ProgressBar(new Vector2(Position.X - 25, Position.Y - 50), 50, 10, Color.White, _timeToReload, false);
