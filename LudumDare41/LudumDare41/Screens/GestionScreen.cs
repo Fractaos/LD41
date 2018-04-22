@@ -1,10 +1,10 @@
 ﻿using LudumDare41.GestionPhase;
 using LudumDare41.Graphics;
+using LudumDare41.ShooterPhase;
 using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using LudumDare41.ShooterPhase;
 
 namespace LudumDare41.Screens
 {
@@ -124,9 +124,8 @@ namespace LudumDare41.Screens
             _instancePlayer.Accuracy = 1f + (Head.effect / 100);
             _instancePlayer.VisionRange = 200 + (int)Head.effect;
             _instancePlayer.ShootSpeed = 1f + (Arms.effect / 100);
-            _instancePlayer.MoveSpeed = 0.6f + ((Legs.effect/2) / 100);
+            _instancePlayer.MoveSpeed = 0.6f + ((Legs.effect / 2) / 100);
             _instancePlayer.MaxLife = 50 + (int)Corps.effect;
-            #endregion
             #endregion
 
             if (_isActive)

@@ -34,16 +34,16 @@ namespace LudumDare41.ShooterPhase
             switch (rnd)
             {
                 case 0:
-                    _weaponHolded = new Gun(Position, 30, WeaponState.Holded, _currentCamera);
+                    _weaponHolded = new Gun(Position, 3, WeaponState.Holded, _currentCamera);
                     break;
                 case 1:
-                    _weaponHolded = new SubMachine(Position, 30, WeaponState.Holded, _currentCamera);
+                    _weaponHolded = new SubMachine(Position, 3, WeaponState.Holded, _currentCamera);
                     break;
                 case 2:
-                    _weaponHolded = new Sniper(Position, 30, WeaponState.Holded, _currentCamera);
+                    _weaponHolded = new Sniper(Position, 3, WeaponState.Holded, _currentCamera);
                     break;
                 default:
-                    _weaponHolded = new Gun(Position, 30, WeaponState.Holded, _currentCamera);
+                    _weaponHolded = new Gun(Position, 3, WeaponState.Holded, _currentCamera);
                     break;
             }
 
@@ -67,6 +67,7 @@ namespace LudumDare41.ShooterPhase
             {
                 _life = 0;
                 _alive = false;
+                Assets.EnemyDead.Play();
             }
         }
 

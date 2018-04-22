@@ -14,7 +14,7 @@ namespace LudumDare41.Graphics
         public static Texture2D backgroundGestion;
         //SON
         //SHOOTERPHASE
-        public static SoundEffectInstance GunShot, SubMachineShot, SniperShot, EnemyHitted, PlayerHitted, MusicGestion, MusicShooter;
+        public static SoundEffectInstance GunShot, SubMachineShot, SniperShot, EnemyHitted, EnemyDead, PlayerHitted, MusicGestion, MusicShooter;
         //GESTIONPHASE
         public static SoundEffect Drag, Drop;
 
@@ -47,6 +47,8 @@ namespace LudumDare41.Graphics
 
             PlayerHitted = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/player_hitted").CreateInstance();
             EnemyHitted = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/enemy_hitted").CreateInstance();
+
+            EnemyDead = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/enemy_dead").CreateInstance();
 
             MusicShooter = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/music_shooter").CreateInstance();
 

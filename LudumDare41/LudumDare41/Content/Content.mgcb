@@ -128,12 +128,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Assets/Sounds/ShooterPhase/music_shooter.wav
+
 #begin Assets/Sounds/GestionPhase/anti_drag.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Assets/Sounds/GestionPhase/anti_drag.wav
-
 
 #begin Assets/Sounds/GestionPhase/anti_drop.wav
 /importer:WavImporter
@@ -146,4 +146,10 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Assets/Sounds/GestionPhase/music_gestion.wav
+
+#begin Assets/Sounds/ShooterPhase/enemy_dead.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Sounds/ShooterPhase/enemy_dead.wav
 

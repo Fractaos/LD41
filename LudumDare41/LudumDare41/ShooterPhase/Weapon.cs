@@ -20,7 +20,7 @@ namespace LudumDare41.ShooterPhase
 
     public abstract class Weapon : Sprite
     {
-        protected float _timeBetweenFire, _bulletSpeed, _rotation, _timeElaspedSinceLastShot, _timeSinceBeginReload, _timeToReload, _damage;
+        protected float _timeBetweenFire, _bulletSpeed, _rotation, _timeElaspedSinceLastShot, _timeSinceBeginReload, _timeToReload, _damage, _fireSpeedModifier = 1f;
         protected int _numberBulletInLoader, _totalNumberBulletInLoader, _totalBullet;
         protected bool _playerHold;
         protected WeaponState _weaponState;
@@ -53,6 +53,12 @@ namespace LudumDare41.ShooterPhase
         {
             get => _canDestroy;
             set => _canDestroy = value;
+        }
+
+        public float FireSpeedModifier
+        {
+            get => _fireSpeedModifier;
+            set => _fireSpeedModifier = value;
         }
 
         public float TimeBetweenFire
@@ -104,6 +110,7 @@ namespace LudumDare41.ShooterPhase
                             _shotSound.Pitch = 1f;
                         else
                             _shotSound.Pitch = speedFactor - 1;
+                        _shotSound.Stop();
                         _shotSound.Play();
                     }
 
@@ -170,7 +177,7 @@ namespace LudumDare41.ShooterPhase
             _rotation = (float)Math.Atan2(direction.Y, direction.X);
 
 
-            _timeElaspedSinceLastShot += time.ElapsedGameTime.Milliseconds * speedFactor;
+            _timeElaspedSinceLastShot += time.ElapsedGameTime.Milliseconds * speedFactor * _fireSpeedModifier;
             foreach (var bullet in _bulletsFired)
             {
                 bullet.Update(time);
