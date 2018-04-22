@@ -11,10 +11,7 @@ namespace LudumDare41.Screens
     public class ShooterScreen : Screen
     {
 
-        public Player GetPlayer
-        {
-            get { return _player; }
-        }
+
 
         private float _timeScale = 1f;
         private bool _isActive;
@@ -24,7 +21,7 @@ namespace LudumDare41.Screens
         private Player _player;
         private List<Weapon> _weapons;
         private List<Enemy> _enemies;
-        private List<Loot> _loot;
+        private List<Loot> _loots;
         private Camera _camera;
 
 
@@ -33,10 +30,8 @@ namespace LudumDare41.Screens
             _camera = new Camera();
             _weapons = new List<Weapon>();
             _enemies = new List<Enemy>();
-            _loot = new List<Loot>
-            {
-                new Loot(new Vector2(50, 50), LootType.Sucre)
-            };
+            _loots = new List<Loot>();
+
             Gun gun = new Gun(new Vector2(100, 100), 150, WeaponState.OnFloor, _camera);
             SubMachine subMachine = new SubMachine(new Vector2(650, 700), 150, WeaponState.OnFloor, _camera);
             Sniper sniper = new Sniper(new Vector2(400, 300), 150, WeaponState.OnFloor, _camera);
@@ -45,6 +40,7 @@ namespace LudumDare41.Screens
             _weapons.Add(sniper);
             _player = new Player(Utils.CreateTexture(50, 50, Color.Blue),
                 new Vector2(Utils.WIDTH / 2 - 25, Utils.HEIGHT / 2 - 25), _camera);
+            _loots.Add(new Loot(new Vector2(50, 50), LootType.Sucre));
 
             for (int i = 0; i < 1; i++)
             {
@@ -65,6 +61,10 @@ namespace LudumDare41.Screens
         {
             get => _timeScale;
             set => _timeScale = value;
+        }
+        public Player GetPlayer
+        {
+            get { return _player; }
         }
 
         public Camera Camera
@@ -120,6 +120,11 @@ namespace LudumDare41.Screens
             return false;
         }
 
+        public void CreateLootAtPosition(Vector2 position, LootType type)
+        {
+            _loots.Add(new Loot(position, type));
+        }
+
         public override void Update(GameTime time)
         {
             foreach (var weapon in _weapons)
@@ -149,8 +154,8 @@ namespace LudumDare41.Screens
             _weapons.RemoveAll(weapon => weapon.PlayerHold);
             _enemies.ForEach(enemy => enemy.Update(time));
             _enemies.RemoveAll(enemy => !enemy.Alive);
-            _loot.ForEach(loot => loot.Update());
-            _loot.RemoveAll(loot => !loot.toRemove);
+            _loots.ForEach(loot => loot.Update());
+            _loots.RemoveAll(loot => loot.ToRemove);
 
             _player.Update(time);
 
@@ -165,7 +170,7 @@ namespace LudumDare41.Screens
                     weapon.Draw(spriteBatch);
                 }
                 _enemies.ForEach(enemy => enemy.Draw(spriteBatch));
-                _loot.ForEach(loot => loot.Draw(spriteBatch));
+                _loots.ForEach(loot => loot.Draw(spriteBatch));
                 _player.Draw(spriteBatch);
             }
             spriteBatch.End();

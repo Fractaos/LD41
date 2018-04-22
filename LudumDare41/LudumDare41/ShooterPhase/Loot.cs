@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 using LudumDare41.Graphics;
-using Microsoft.Xna.Framework;
 using LudumDare41.Screens;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace LudumDare41.ShooterPhase
 {
@@ -15,13 +9,13 @@ namespace LudumDare41.ShooterPhase
 
     public class Loot : Sprite
     {
-        public bool toRemove;
+        private bool _toRemove;
         private Player _instancePlayer;
         private GestionScreen _instanceGestion;
         public LootType _type;
         public Loot(Vector2 position, LootType type) : base(Assets.PixelB, position)
         {
-            toRemove = false;
+            _toRemove = false;
             if (Main.CurrentsScreens[0] is ShooterScreen currentScreen)
                 _instancePlayer = currentScreen.GetPlayer;
             if (Main.CurrentsScreens[1] is GestionScreen secondCurrentScreen)
@@ -39,7 +33,12 @@ namespace LudumDare41.ShooterPhase
                     _texture = Assets.VitC;
                     break;
             }
-            UpdateHitbox(Position);
+        }
+
+        public bool ToRemove
+        {
+            get => _toRemove;
+            set => _toRemove = value;
         }
 
         public void Update()
@@ -58,8 +57,10 @@ namespace LudumDare41.ShooterPhase
                         _instanceGestion.VitC += 30;
                         break;
                 }
-                toRemove = true;
+                _toRemove = true;
             }
+
+            UpdateHitbox(Position);
         }
     }
 }
