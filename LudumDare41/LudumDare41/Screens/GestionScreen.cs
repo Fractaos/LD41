@@ -85,7 +85,7 @@ namespace LudumDare41.Screens
 
             if (isDragged != null)
             {
-                if (Input.Left(true))
+                if (!Input.Left(false))
                 {
                     BodyPart buffer = Parts.Find(part => part.Bounds.Contains(Input.MousePos));
                     if (buffer != null)
@@ -126,7 +126,6 @@ namespace LudumDare41.Screens
             _instancePlayer.ShootSpeed = 1f + (Arms.effect / 100);
             _instancePlayer.MoveSpeed = 0.6f + ((Legs.effect / 2) / 100);
             _instancePlayer.MaxLife = 50 + (int)Corps.effect;
-            #endregion
             #endregion
 
             if (_isActive)
@@ -175,7 +174,7 @@ namespace LudumDare41.Screens
             spriteBatch.DrawString(Assets.Font, "Legs" + Legs.effect, new Vector2(300, 30), Color.White);
 
             ShooterScreen shooterScreen = (ShooterScreen)Main.CurrentsScreens[0];
-            spriteBatch.DrawString(Assets.Font, "Time elapsed in other mode : " + (_timeElapsedSinceOnScreen / 1000 * shooterScreen.TimeScale).ToString("0.0") + " (in seconds)", new Vector2(1200, 30), Color.White);
+            spriteBatch.DrawString(Assets.BigFont, "Time elapsed in other mode : " + (_timeElapsedSinceOnScreen / 1000 * shooterScreen.TimeScale).ToString("0.0") + " (in seconds)", new Vector2(1170, 30), Color.White);
 
             #endregion
             if (showFactory)
