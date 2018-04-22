@@ -46,7 +46,7 @@ namespace LudumDare41.Screens
             Legs = new BodyPart(new Rectangle(300, 670, 267, 169), "Legs");
             None = new BodyPart(new Rectangle(597, 134, 347, 705), "None");
 
-            Parts = new List<BodyPart> { Head, Arms, Corps, Legs };
+            Parts = new List<BodyPart> { Head, Arms, Corps, Legs, None };
 
             manager.AddParticle(new UiButton(new Vector2(50, 50), 100, 50, () => { AddAntiCorps(Head); }, Color.White));
 
