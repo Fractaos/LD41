@@ -9,9 +9,9 @@ namespace LudumDare41.Graphics
         #region Variable
 
         //SPRITE
-        public static Texture2D PixelW, PixelB, CrossAim, Gun, SubMachine, Sniper, Bullet;
+        public static Texture2D PixelW, PixelB, CrossAim, Gun, SubMachine, Sniper, Bullet, Enemy, Player;
 
-        public static Texture2D backgroundGestion, factoryButton, GameOver, ReplayButton, QuitButton;
+        public static Texture2D backgroundGestion, factoryButton, GameOver, ReplayButton, QuitButton, Arene;
         //SON
         //SHOOTERPHASE
         public static SoundEffectInstance GunShot, SubMachineShot, SniperShot, EnemyHitted, EnemyDead, PlayerHitted, MusicGestion, MusicShooter;
@@ -38,6 +38,9 @@ namespace LudumDare41.Graphics
             Sniper = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/sniper");
             Bullet = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/bullet");
 
+            Enemy = Utils.CreateTexture(50, 50, Color.Red);
+            Player = Utils.CreateTexture(50, 50, Color.Blue);
+
             factoryButton = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/buttonFactory");
             backgroundGestion = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/corps");
 
@@ -49,6 +52,8 @@ namespace LudumDare41.Graphics
             GameOver = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/gameover");
             ReplayButton = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/button_playagain");
             QuitButton = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/button_quit");
+
+            Arene = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/arene");
             //SON
             GunShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/gun_shoot").CreateInstance();
             SubMachineShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/submachine_shoot").CreateInstance();

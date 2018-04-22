@@ -19,5 +19,10 @@ namespace LudumDare41.ShooterPhase
             _shotSound = Assets.SniperShot;
             _reloadPb = new ProgressBar(new Vector2(Position.X - 25, Position.Y - 50), 50, 10, Color.White, _timeToReload, false);
         }
+
+        public Sniper(Vector2 position, WeaponState weaponState, Camera currentCamera) : this(position, 150, weaponState, currentCamera)
+        {
+
+        }
     }
 }

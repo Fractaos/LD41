@@ -129,34 +129,44 @@ namespace LudumDare41.ShooterPhase
 
             float movement = _moveSpeed * elapsedGameTimeMillis;
             float speedFactor = 1f;
-            if (Main.CurrentsScreens[0] is ShooterScreen currentScreen)
-            {
-                speedFactor = currentScreen.TimeScale;
-            }
+            ShooterScreen currentScreen = (ShooterScreen)Main.CurrentsScreens[0];
+            speedFactor = currentScreen.TimeScale;
 
             movement *= speedFactor;
             if (Input.KeyPressed(Keys.Z, false) || Input.KeyPressed(Keys.Up, false))
             {
                 Position.Y -= movement;
-                cameraPosition.Y -= movement;
+                if (currentScreen.AreneBounds.Top >= Hitbox.Top)
+                    Position.Y = currentScreen.AreneBounds.Top + Texture.Height / 2;
+                else
+                    cameraPosition.Y -= movement;
             }
 
             if (Input.KeyPressed(Keys.S, false) || Input.KeyPressed(Keys.Down, false))
             {
                 Position.Y += movement;
-                cameraPosition.Y += movement;
+                if (currentScreen.AreneBounds.Bottom <= Hitbox.Bottom)
+                    Position.Y = currentScreen.AreneBounds.Bottom - Texture.Height / 2;
+                else
+                    cameraPosition.Y += movement;
             }
 
             if (Input.KeyPressed(Keys.Q, false) || Input.KeyPressed(Keys.Left, false))
             {
                 Position.X -= movement;
-                cameraPosition.X -= movement;
+                if (currentScreen.AreneBounds.Left >= Hitbox.Left)
+                    Position.X = currentScreen.AreneBounds.Left + Texture.Width / 2;
+                else
+                    cameraPosition.X -= movement;
             }
 
             if (Input.KeyPressed(Keys.D, false) || Input.KeyPressed(Keys.Right, false))
             {
                 Position.X += movement;
-                cameraPosition.X += movement;
+                if (currentScreen.AreneBounds.Right <= Hitbox.Right)
+                    Position.X = currentScreen.AreneBounds.Right - Texture.Width / 2;
+                else
+                    cameraPosition.X += movement;
             }
 
             _currentCamera.Position = cameraPosition;
