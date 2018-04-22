@@ -126,7 +126,7 @@ namespace LudumDare41.Screens
                 }
             }
 
-            if (Input.KeyPressed(Keys.Space, true))
+            if (Input.KeyPressed(Keys.Tab, true))
             {
                 TimeScale = 0.5f;
                 _isActive = false;

@@ -113,7 +113,7 @@ namespace LudumDare41.Screens
             Legs.AntiNbr = anticorps.FindAll(anti => anti.ActualPart == Legs).Count;
             #endregion
 
-            if (Input.KeyPressed(Keys.Space, true))
+            if (Input.KeyPressed(Keys.Tab, true))
             {
                 ShooterScreen tempScreen = (ShooterScreen)Main.CurrentsScreens[0];
                 tempScreen.TimeScale = 1f;
