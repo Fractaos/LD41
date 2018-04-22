@@ -20,6 +20,7 @@
 storage.ide
 *.ide
 sqlite3/
+.vs/
 
 # Build results
 [Dd]ebug/
