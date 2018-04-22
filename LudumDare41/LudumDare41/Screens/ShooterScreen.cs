@@ -11,27 +11,38 @@ namespace LudumDare41.Screens
     public class ShooterScreen : Screen
     {
 
-        public Player GetPlayer
-        {
-            get { return _player; }
-        }
+
 
         private float _timeScale = 1f;
         private bool _isActive;
 
         private float _timeElapsedSinceOnScreen;
 
+        private UiManager _uiManager;
+
+        private delegate void ReplayDelegate();
+
+        private delegate void QuitDelegate();
+
         private Player _player;
         private List<Weapon> _weapons;
         private List<Enemy> _enemies;
         private Camera _camera;
 
+        private bool _gameOver;
+
 
         public override void Create()
         {
+            _gameOver = false;
             _camera = new Camera();
             _weapons = new List<Weapon>();
             _enemies = new List<Enemy>();
+            _uiManager = new UiManager();
+            ReplayDelegate replay = Replay;
+            QuitDelegate quit = Quit;
+            _uiManager.AddParticle(new UiButton(_camera.ScreenToWorld(new Vector2(Utils.WIDTH / 2 - 250, .7f * Utils.HEIGHT)), Replay, Assets.ReplayButton));
+            _uiManager.AddParticle(new UiButton(_camera.ScreenToWorld(new Vector2(Utils.WIDTH / 2 + 50, .7f * Utils.HEIGHT)), Quit, Assets.QuitButton));
             Gun gun = new Gun(new Vector2(100, 100), 150, WeaponState.OnFloor, _camera);
             SubMachine subMachine = new SubMachine(new Vector2(650, 700), 150, WeaponState.OnFloor, _camera);
             Sniper sniper = new Sniper(new Vector2(400, 300), 150, WeaponState.OnFloor, _camera);
@@ -56,6 +67,21 @@ namespace LudumDare41.Screens
 
         }
 
+        private void Quit()
+        {
+            Main.Instance.Exit();
+        }
+
+        private void Replay()
+        {
+            Main.CurrentsScreens.ForEach(screen => screen.Create());
+        }
+
+        public Player Player
+        {
+            get { return _player; }
+        }
+
         public float TimeScale
         {
             get => _timeScale;
@@ -72,6 +98,8 @@ namespace LudumDare41.Screens
             get => _isActive;
             set => _isActive = value;
         }
+
+
 
         public bool ProcessBulletCollision(Bullet bullet)
         {
@@ -117,35 +145,46 @@ namespace LudumDare41.Screens
 
         public override void Update(GameTime time)
         {
-            foreach (var weapon in _weapons)
+            if (!_gameOver)
             {
-                if (_player.Hitbox.Intersects(weapon.Hitbox))
+                foreach (var weapon in _weapons)
                 {
-                    _player.CanGrabWeapon(weapon);
-                    break;
+                    if (_player.Hitbox.Intersects(weapon.Hitbox))
+                    {
+                        _player.CanGrabWeapon(weapon);
+                        break;
+                    }
                 }
+
+                if (_isActive && _timeElapsedSinceOnScreen <= Utils.TIME_ON_SCREEN)
+                    _timeElapsedSinceOnScreen += time.ElapsedGameTime.Milliseconds;
+                if (_timeElapsedSinceOnScreen > Utils.TIME_ON_SCREEN)
+                {
+                    if (Input.KeyPressed(Keys.Tab, true))
+                    {
+                        TimeScale = 0.1f;
+                        _isActive = false;
+                        Assets.MusicShooter.Volume = 0;
+                        _timeElapsedSinceOnScreen = 0;
+                        Main.SetScreenWithoutReCreating(Main.CurrentsScreens[1]);
+                    }
+                }
+
+
+
+                _weapons.RemoveAll(weapon => weapon.PlayerHold);
+                _enemies.ForEach(enemy => enemy.Update(time));
+                _enemies.RemoveAll(enemy => !enemy.Alive);
+
+                _player.Update(time);
+            }
+            else
+            {
+                _uiManager.Update(time.ElapsedGameTime.Milliseconds);
             }
 
-            if (_isActive && _timeElapsedSinceOnScreen <= Utils.TIME_ON_SCREEN)
-                _timeElapsedSinceOnScreen += time.ElapsedGameTime.Milliseconds;
-            if (_timeElapsedSinceOnScreen > Utils.TIME_ON_SCREEN)
-            {
-                if (Input.KeyPressed(Keys.Tab, true))
-                {
-                    TimeScale = 0.1f;
-                    _isActive = false;
-                    Assets.MusicShooter.Volume = 0;
-                    _timeElapsedSinceOnScreen = 0;
-                    Main.SetScreenWithoutReCreating(Main.CurrentsScreens[1]);
-                }
-            }
-
-
-            _weapons.RemoveAll(weapon => weapon.PlayerHold);
-            _enemies.ForEach(enemy => enemy.Update(time));
-            _enemies.RemoveAll(enemy => !enemy.Alive);
-
-            _player.Update(time);
+            if (!_player.Alive)
+                _gameOver = true;
 
         }
 
@@ -159,6 +198,14 @@ namespace LudumDare41.Screens
                 }
                 _enemies.ForEach(enemy => enemy.Draw(spriteBatch));
                 _player.Draw(spriteBatch);
+                if (_gameOver)
+                {
+                    spriteBatch.Draw(Assets.GameOver, _camera.ScreenToWorld(Vector2.Zero), Color.White);
+                    _uiManager.Draw(spriteBatch, _camera);
+                    Main.Instance.IsMouseVisible = true;
+
+                }
+
             }
             spriteBatch.End();
         }
