@@ -133,7 +133,7 @@ namespace LudumDare41.ShooterPhase
         {
 
             float speedFactor = 1;
-            if (Main.CurrentScreen is ShooterScreen currentScreen)
+            if (Main.CurrentsScreens[0] is ShooterScreen currentScreen)
             {
                 speedFactor = currentScreen.TimeScale;
             }

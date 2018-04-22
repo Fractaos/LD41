@@ -118,18 +118,16 @@ namespace LudumDare41.Screens
             Legs.list = anticorps.FindAll(anti => anti.ActualPart == Legs);
             #endregion
 
-            if (_isActive && _timeElapsedSinceOnScreen <= Utils.TIME_ON_SCREEN)
+            if (_isActive)
                 _timeElapsedSinceOnScreen += time.ElapsedGameTime.Milliseconds;
             if (_timeElapsedSinceOnScreen > Utils.TIME_ON_SCREEN)
             {
                 if (Input.KeyPressed(Keys.Tab, true))
                 {
-                    ShooterScreen tempScreen = (ShooterScreen)Main.CurrentsScreens[0];
-                    tempScreen.TimeScale = 1f;
                     _isActive = false;
                     Assets.MusicGestion.Volume = 0;
                     _timeElapsedSinceOnScreen = 0;
-                    Main.SetScreenWithoutReCreating(tempScreen);
+                    Main.SetScreenWithoutReCreating(Main.CurrentsScreens[0]);
                 }
             }
 
@@ -137,6 +135,8 @@ namespace LudumDare41.Screens
 
         public override void Draw()
         {
+
+
             spriteBatch.Begin();
             spriteBatch.Draw(Assets.backgroundGestion, Vector2.Zero, Color.White);
             manager.Draw(spriteBatch);
@@ -168,12 +168,15 @@ namespace LudumDare41.Screens
                 spriteBatch.DrawString(Assets.Font, "Fragged" + anticorps[0].Dragged, new Vector2(500, 10), Color.White);
 
             spriteBatch.DrawString(Assets.Font, "lel" + anticorps.Find(anti => anti.Hitbox.Contains(Input.MousePos)), new Vector2(450, 10), Color.White);
+            ShooterScreen shooterScreen = (ShooterScreen)Main.CurrentsScreens[0];
+            spriteBatch.DrawString(Assets.Font, "Time elapsed in other mode : " + (_timeElapsedSinceOnScreen / 1000 * shooterScreen.TimeScale).ToString("0.0") + " (in seconds)", new Vector2(1200, 30), Color.White);
 
             #endregion
             if (showFactory)
                 factory.Draw(spriteBatch);
 
             spriteBatch.End();
+
         }
 
         public override void Resume()

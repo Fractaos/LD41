@@ -13,7 +13,7 @@ namespace LudumDare41
 
         public const int WIDTH = 1600, HEIGHT = 900, NUMBER_TYPE_WEAPON = 3;
         public static Random RANDOM = new Random();
-        public const float TIME_ON_SCREEN = 500f;
+        public const float TIME_ON_SCREEN = 250f;
 
         public static SoundEffectInstance PlayerHitted, EnemyHitted;
 

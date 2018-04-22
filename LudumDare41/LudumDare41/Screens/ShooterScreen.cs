@@ -146,7 +146,7 @@ namespace LudumDare41.Screens
 
         public override void Draw()
         {
-            spriteBatch.Begin(sortMode: SpriteSortMode.Immediate, transformMatrix: _camera.GetTransformationMatrix);
+            spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, transformMatrix: _camera.GetTransformationMatrix);
             {
                 foreach (var weapon in _weapons)
                 {
@@ -160,7 +160,7 @@ namespace LudumDare41.Screens
 
         public override void Resume()
         {
-
+            TimeScale = 1f;
             _isActive = true;
             Assets.MusicShooter.Volume = 0.5f;
             Main.Instance.IsMouseVisible = false;
