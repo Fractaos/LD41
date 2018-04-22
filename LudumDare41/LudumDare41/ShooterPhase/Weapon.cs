@@ -26,7 +26,7 @@ namespace LudumDare41.ShooterPhase
         protected WeaponState _weaponState;
         protected bool _canDestroy;
         protected List<Bullet> _bulletsFired;
-        protected SoundEffect _shotSound;
+        protected SoundEffectInstance _shotSound;
 
         protected Camera _currentCamera;
 
@@ -98,12 +98,15 @@ namespace LudumDare41.ShooterPhase
                     Vector2 direction = target - Position;
                     direction.Normalize();
                     _bulletsFired.Add(new Bullet(Assets.Bullet, Position, _bulletSpeed, direction, side, this));
-                    SoundEffectInstance shotSoundInstance = _shotSound.CreateInstance();
-                    if (speedFactor > 1)
-                        shotSoundInstance.Pitch = 1f;
-                    else
-                        shotSoundInstance.Pitch = speedFactor - 1;
-                    shotSoundInstance.Play();
+                    if (Main.CurrentScreen is ShooterScreen)
+                    {
+                        if (speedFactor > 1)
+                            _shotSound.Pitch = 1f;
+                        else
+                            _shotSound.Pitch = speedFactor - 1;
+                        _shotSound.Play();
+                    }
+
                     _timeElaspedSinceLastShot = 0;
                     _totalBullet--;
                     _numberBulletInLoader--;
@@ -130,7 +133,7 @@ namespace LudumDare41.ShooterPhase
         {
 
             float speedFactor = 1;
-            if (Main.CurrentScreen is ShooterScreen currentScreen)
+            if (Main.CurrentsScreens[0] is ShooterScreen currentScreen)
             {
                 speedFactor = currentScreen.TimeScale;
             }

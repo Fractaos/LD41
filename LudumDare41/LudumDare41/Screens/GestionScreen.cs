@@ -12,6 +12,8 @@ namespace LudumDare41.Screens
         UiManager manager = new UiManager();
         List<Anticorps> anticorps;
 
+        private float _timeElapsedSinceOnScreen;
+
         private bool _isActive;
 
         Anticorps isDragged;
@@ -26,6 +28,8 @@ namespace LudumDare41.Screens
 
         public override void Create()
         {
+            Assets.MusicGestion.Volume = 0.5f;
+            Assets.MusicGestion.IsLooped = true;
             Assets.MusicGestion.Play();
             //isDragged = false;
             showFactory = false;
@@ -112,20 +116,27 @@ namespace LudumDare41.Screens
             Arms.list = anticorps.FindAll(anti => anti.ActualPart == Arms);
             Corps.list = anticorps.FindAll(anti => anti.ActualPart == Corps);
             Legs.list = anticorps.FindAll(anti => anti.ActualPart == Legs);
-            #endregion  
+            #endregion
 
-            if (Input.KeyPressed(Keys.Tab, true))
+            if (_isActive)
+                _timeElapsedSinceOnScreen += time.ElapsedGameTime.Milliseconds;
+            if (_timeElapsedSinceOnScreen > Utils.TIME_ON_SCREEN)
             {
-                ShooterScreen tempScreen = (ShooterScreen)Main.CurrentsScreens[0];
-                tempScreen.TimeScale = 1f;
-                _isActive = false;
-                Main.SetScreenWithoutReCreating(tempScreen);
+                if (Input.KeyPressed(Keys.Tab, true))
+                {
+                    _isActive = false;
+                    Assets.MusicGestion.Volume = 0;
+                    _timeElapsedSinceOnScreen = 0;
+                    Main.SetScreenWithoutReCreating(Main.CurrentsScreens[0]);
+                }
             }
 
         }
 
         public override void Draw()
         {
+
+
             spriteBatch.Begin();
             spriteBatch.Draw(Assets.backgroundGestion, Vector2.Zero, Color.White);
             manager.Draw(spriteBatch);
@@ -153,21 +164,26 @@ namespace LudumDare41.Screens
             spriteBatch.DrawString(Assets.Font, "Legs" + Legs.effect, new Vector2(300, 30), Color.White);
 
             //spriteBatch.DrawString(Assets.Font, "lel" + anticorps.Find(anti => anti.Hitbox.Contains(Input.MousePos)), new Vector2(450, 10), Color.White);
-            if (anticorps.Count>0 && anticorps[0] != null)
+            if (anticorps.Count > 0 && anticorps[0] != null)
                 spriteBatch.DrawString(Assets.Font, "Fragged" + anticorps[0].Dragged, new Vector2(500, 10), Color.White);
 
             spriteBatch.DrawString(Assets.Font, "lel" + anticorps.Find(anti => anti.Hitbox.Contains(Input.MousePos)), new Vector2(450, 10), Color.White);
+            ShooterScreen shooterScreen = (ShooterScreen)Main.CurrentsScreens[0];
+            spriteBatch.DrawString(Assets.Font, "Time elapsed in other mode : " + (_timeElapsedSinceOnScreen / 1000 * shooterScreen.TimeScale).ToString("0.0") + " (in seconds)", new Vector2(1200, 30), Color.White);
 
             #endregion
             if (showFactory)
                 factory.Draw(spriteBatch);
 
             spriteBatch.End();
+
         }
 
         public override void Resume()
         {
             _isActive = true;
+
+            Assets.MusicGestion.Volume = 0.5f;
             Main.Instance.IsMouseVisible = true;
         }
 

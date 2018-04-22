@@ -2,7 +2,6 @@
 using LudumDare41.ShooterPhase;
 using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -15,12 +14,12 @@ namespace LudumDare41.Screens
         private float _timeScale = 1f;
         private bool _isActive;
 
+        private float _timeElapsedSinceOnScreen;
+
         private Player _player;
         private List<Weapon> _weapons;
         private List<Enemy> _enemies;
         private Camera _camera;
-
-        private SoundEffect _music = Assets.MusicShooter;
 
 
         public override void Create()
@@ -43,15 +42,9 @@ namespace LudumDare41.Screens
                     new Vector2(Utils.RANDOM.Next(100, Utils.WIDTH - 200), Utils.RANDOM.Next(100, Utils.HEIGHT - 200)), _player, _camera));
             }
 
-
-            SoundEffectInstance musicInstance = _music.CreateInstance();
-            musicInstance.Volume = 0.5f;
-            if (_timeScale > 1)
-                musicInstance.Pitch = 1f;
-            else
-                musicInstance.Pitch = _timeScale - 1;
-            musicInstance.IsLooped = true;
-            musicInstance.Play();
+            Assets.MusicShooter.Volume = 0.5f;
+            Assets.MusicShooter.IsLooped = true;
+            Assets.MusicShooter.Play();
 
 
 
@@ -81,13 +74,14 @@ namespace LudumDare41.Screens
             {
                 bullet.ToDestroy = true;
                 _player.TakeDamage(bullet.FromWeapon.Damage);
-                if (Utils.PlayerHitted != null)
+                if (_isActive && Utils.PlayerHitted != null)
                 {
-                    SoundEffectInstance playerHittedInstance = Utils.PlayerHitted.CreateInstance();
                     if (_timeScale > 1)
-                        playerHittedInstance.Pitch = 1f;
+                        Utils.PlayerHitted.Pitch = 1f;
                     else
-                        playerHittedInstance.Pitch = _timeScale - 1;
+                        Utils.PlayerHitted.Pitch = _timeScale - 1;
+
+                    Utils.PlayerHitted.Play();
                 }
 
                 return true;
@@ -99,13 +93,14 @@ namespace LudumDare41.Screens
                 {
                     bullet.ToDestroy = true;
                     enemy.TakeDamage(bullet.FromWeapon.Damage * thePlayer.Accuracy);
-                    if (Utils.EnemyHitted != null)
+                    if (_isActive && Utils.EnemyHitted != null)
                     {
-                        SoundEffectInstance enemyHittedInstance = Utils.EnemyHitted.CreateInstance();
                         if (_timeScale > 1)
-                            enemyHittedInstance.Pitch = 1f;
+                            Utils.EnemyHitted.Pitch = 1f;
                         else
-                            enemyHittedInstance.Pitch = _timeScale - 1;
+                            Utils.EnemyHitted.Pitch = _timeScale - 1;
+
+                        Utils.EnemyHitted.Play();
                     }
                     return true;
                 }
@@ -126,11 +121,18 @@ namespace LudumDare41.Screens
                 }
             }
 
-            if (Input.KeyPressed(Keys.Tab, true))
+            if (_isActive && _timeElapsedSinceOnScreen <= Utils.TIME_ON_SCREEN)
+                _timeElapsedSinceOnScreen += time.ElapsedGameTime.Milliseconds;
+            if (_timeElapsedSinceOnScreen > Utils.TIME_ON_SCREEN)
             {
-                TimeScale = 0.5f;
-                _isActive = false;
-                Main.SetScreenWithoutReCreating(Main.CurrentsScreens[1]);
+                if (Input.KeyPressed(Keys.Tab, true))
+                {
+                    TimeScale = 0.1f;
+                    _isActive = false;
+                    Assets.MusicShooter.Volume = 0;
+                    _timeElapsedSinceOnScreen = 0;
+                    Main.SetScreenWithoutReCreating(Main.CurrentsScreens[1]);
+                }
             }
 
 
@@ -144,7 +146,7 @@ namespace LudumDare41.Screens
 
         public override void Draw()
         {
-            spriteBatch.Begin(sortMode: SpriteSortMode.Immediate, transformMatrix: _camera.GetTransformationMatrix);
+            spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, transformMatrix: _camera.GetTransformationMatrix);
             {
                 foreach (var weapon in _weapons)
                 {
@@ -158,8 +160,9 @@ namespace LudumDare41.Screens
 
         public override void Resume()
         {
-
+            TimeScale = 1f;
             _isActive = true;
+            Assets.MusicShooter.Volume = 0.5f;
             Main.Instance.IsMouseVisible = false;
         }
     }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using LudumDare41.Graphics;
+﻿using LudumDare41.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace LudumDare41
 {
@@ -14,8 +13,9 @@ namespace LudumDare41
 
         public const int WIDTH = 1600, HEIGHT = 900, NUMBER_TYPE_WEAPON = 3;
         public static Random RANDOM = new Random();
+        public const float TIME_ON_SCREEN = 250f;
 
-        public static SoundEffect PlayerHitted, EnemyHitted;
+        public static SoundEffectInstance PlayerHitted, EnemyHitted;
 
         public static void Load()
         {

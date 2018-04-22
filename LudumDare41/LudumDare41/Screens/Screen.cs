@@ -16,6 +16,11 @@ namespace LudumDare41.Screens
             spriteBatch = new SpriteBatch(Main.Device);
         }
 
+        public SpriteBatch SpriteBatch
+        {
+            get => spriteBatch;
+        }
+
         public abstract void Create();
 
         public abstract void Update(GameTime time);
