@@ -79,6 +79,12 @@ namespace LudumDare41.ShooterPhase
                 if (Main.CurrentsScreens[0] is ShooterScreen currentScreen)
                 {
                     currentScreen.CreateLootAtPosition(Position, _affiliatedLoot);
+                    if (_weaponHolded != null)
+                    {
+                        _weaponHolded.WeaponState = WeaponState.OnFloor;
+                        _weaponHolded.Position.X += 100;
+                        currentScreen.CreateWeapon(_weaponHolded);
+                    }
                 }
                 Assets.EnemyDead.Play();
             }

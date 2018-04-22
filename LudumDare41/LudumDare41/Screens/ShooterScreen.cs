@@ -156,6 +156,11 @@ namespace LudumDare41.Screens
             _loots.Add(new Loot(position, type));
         }
 
+        public void CreateWeapon(Weapon weapon)
+        {
+            _weapons.Add(weapon);
+        }
+
         public override void Update(GameTime time)
         {
             if (!_gameOver)
