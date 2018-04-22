@@ -128,12 +128,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Assets/Sounds/ShooterPhase/music_shooter.wav
+
 #begin Assets/Sounds/GestionPhase/anti_drag.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Assets/Sounds/GestionPhase/anti_drag.wav
-
 
 #begin Assets/Sounds/GestionPhase/anti_drop.wav
 /importer:WavImporter
@@ -146,4 +146,24 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Assets/Sounds/GestionPhase/music_gestion.wav
+
+#begin Assets/Graphics/GestionPhase/buttonFactory.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Graphics/GestionPhase/buttonFactory.png
+
+#begin Assets/Fonts/font.bmp
+/importer:TextureImporter
+/processor:FontTextureProcessor
+/processorParam:FirstCharacter= 
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:Assets/Fonts/font.bmp
 
