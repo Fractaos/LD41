@@ -108,6 +108,10 @@ namespace LudumDare41.ShooterPhase
             {
                 _life = 0;
             }
+            else if (_life >= _maxLife)
+            {
+                _life = _maxLife;
+            }
         }
 
 
@@ -115,6 +119,12 @@ namespace LudumDare41.ShooterPhase
         {
             _canGrabWeapon = true;
             _grabbableWeapon = grabbableWeapon;
+        }
+
+        public void CantGrabWeapon()
+        {
+            _canGrabWeapon = false;
+            _grabbableWeapon = null;
         }
 
         public void Update(GameTime time)
@@ -162,7 +172,7 @@ namespace LudumDare41.ShooterPhase
             _currentCamera.Position = cameraPosition;
 
             //Ramasser une arme
-            if (_canGrabWeapon && Input.KeyPressed(Keys.E, true))
+            if (_canGrabWeapon && Input.KeyPressed(Keys.Space, true))
             {
                 _currentWeapon = _grabbableWeapon;
                 _currentWeapon.PlayerHold = true;
@@ -176,6 +186,8 @@ namespace LudumDare41.ShooterPhase
             if (_currentWeapon != null)
             {
                 _currentWeapon.Position = Position;
+                _currentWeapon.FireSpeedModifier = _shootSpeed / 2;
+                _currentWeapon.ReloadSpeedModifier = _shootSpeed;
                 if (Input.Left(false))
                 {
                     _currentWeapon.Fire(_currentCamera.ScreenToWorld(Input.MousePos), this, speedFactor);
@@ -183,11 +195,14 @@ namespace LudumDare41.ShooterPhase
 
                 if (Input.KeyPressed(Keys.R, true))
                     _currentWeapon.WeaponState = WeaponState.Reload;
+
+                _currentWeapon.Update(time);
                 if (_currentWeapon.CanDestroy)
+                {
                     _currentWeapon = null;
-                _currentWeapon.FireSpeedModifier = _shootSpeed / 2;
-                _currentWeapon.ReloadSpeedModifier = _shootSpeed;
-                _currentWeapon?.Update(time);
+                }
+
+
             }
 
 
@@ -218,10 +233,16 @@ namespace LudumDare41.ShooterPhase
             //Affichage de la barre de vie
             _lifeBar.Draw(spriteBatch, _currentCamera.ScreenToWorld(_lifeBar.Position));
 
+            if (_canGrabWeapon)
+            {
+                string text = "Press E to grab weapon";
+                spriteBatch.DrawString(Assets.BigFont, text, new Vector2(Position.X - Assets.Font.MeasureString(text).X / 2, Position.Y + 100), Color.Gold);
+            }
+
             //Affichage des munitions actuelles de l'armes (si arme équipée)
             if (_currentWeapon != null)
-                spriteBatch.DrawString(Assets.Font,
-                    _currentWeapon.NumberBulletInLoader + "/" + _currentWeapon.TotalBullet, _currentCamera.ScreenToWorld(new Vector2(130, 25)),
+                spriteBatch.DrawString(Assets.BigFont,
+                    _currentWeapon.NumberBulletInLoader + "/" + _currentWeapon.TotalBullet, _currentCamera.ScreenToWorld(new Vector2(130, 20)),
                     Color.White);
 
             //Affichage du joueur
@@ -237,5 +258,7 @@ namespace LudumDare41.ShooterPhase
         }
 
         #endregion
+
+
     }
 }

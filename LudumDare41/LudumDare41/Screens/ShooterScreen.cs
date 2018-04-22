@@ -35,6 +35,7 @@ namespace LudumDare41.Screens
 
         public override void Create()
         {
+            Main.Instance.IsMouseVisible = false;
             _gameOver = false;
             _camera = new Camera();
             _weapons = new List<Weapon>();
@@ -156,6 +157,11 @@ namespace LudumDare41.Screens
             _loots.Add(new Loot(position, type));
         }
 
+        public void CreateWeapon(Weapon weapon)
+        {
+            _weapons.Add(weapon);
+        }
+
         public override void Update(GameTime time)
         {
             if (!_gameOver)
@@ -167,6 +173,10 @@ namespace LudumDare41.Screens
                         _player.CanGrabWeapon(weapon);
                         break;
                     }
+                    else
+                    {
+                        _player.CantGrabWeapon();
+                    }
                 }
 
                 if (_isActive && _timeElapsedSinceOnScreen <= Utils.TIME_ON_SCREEN)
@@ -175,7 +185,7 @@ namespace LudumDare41.Screens
                 {
                     if (Input.KeyPressed(Keys.Tab, true))
                     {
-                        TimeScale = 0.1f;
+                        TimeScale = 0.05f;
                         _isActive = false;
                         Assets.MusicShooter.Volume = 0;
                         _timeElapsedSinceOnScreen = 0;
@@ -184,6 +194,7 @@ namespace LudumDare41.Screens
                 }
 
 
+                _weapons.ForEach(weapon => weapon.Update(time));
                 _weapons.RemoveAll(weapon => weapon.PlayerHold);
                 _enemies.ForEach(enemy => enemy.Update(time));
                 _enemies.RemoveAll(enemy => !enemy.Alive);

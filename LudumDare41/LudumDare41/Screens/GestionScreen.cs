@@ -10,7 +10,7 @@ namespace LudumDare41.Screens
 {
     public class GestionScreen : Screen
     {
-        UiManager manager = new UiManager();
+        UiManager manager;
         List<Anticorps> anticorps;
 
         private float _timeElapsedSinceOnScreen;
@@ -67,6 +67,7 @@ namespace LudumDare41.Screens
             Assets.MusicGestion.Volume = 0.5f;
             Assets.MusicGestion.IsLooped = true;
             Assets.MusicGestion.Play();
+            manager = new UiManager();
             //isDragged = false;
             showFactory = false;
             factory = new AntiFactory(this);
@@ -99,12 +100,16 @@ namespace LudumDare41.Screens
         public override void Update(GameTime time)
         {
             #region Factory
+
+
             if (showFactory)
                 factory.Update(time);
             manager.Update(time.ElapsedGameTime.Milliseconds);
 
             #endregion
+
             #region Gestion Anticorps/BodyParts
+
             foreach (var item in Parts)
             {
                 item.Update(time);
@@ -114,52 +119,65 @@ namespace LudumDare41.Screens
             {
                 item.Update(time);
             }
+
             #endregion
+
             #region DragnDrop
 
-            if (isDragged != null)
+            if (_isActive)
             {
-                if (!Input.Left(false))
-                {
-                    BodyPart buffer = Parts.Find(part => part.Bounds.Contains(Input.MousePos));
-                    if (buffer != null)
-                    {
-                        isDragged.ChangePart(buffer);
-                        Assets.Drop.Play();
-                    }
-
-                    isDragged.Dragged = false;
-                    isDragged = null;
-                }
-            }
-            else if (isDragged == null)
-            {
-                foreach (var item in anticorps)
-                {
-                    if (Input.Left(true) && Input.MouseOn(item.Hitbox))
-                    {
-                        isDragged = item;
-                    }
-                }
                 if (isDragged != null)
                 {
-                    isDragged.Dragged = true;
-                    Assets.Drag.Play();
+                    if (!Input.Left(false))
+                    {
+                        BodyPart buffer = Parts.Find(part => part.Bounds.Contains(Input.MousePos));
+                        if (buffer != null)
+                        {
+                            isDragged.ChangePart(buffer);
+                            Assets.Drop.Play();
+                        }
+
+                        isDragged.Dragged = false;
+                        isDragged = null;
+                    }
+                }
+                else if (isDragged == null)
+                {
+                    foreach (var item in anticorps)
+                    {
+                        if (Input.Left(true) && Input.MouseOn(item.Hitbox))
+                        {
+                            isDragged = item;
+                        }
+                    }
+
+                    if (isDragged != null)
+                    {
+                        isDragged.Dragged = true;
+                        Assets.Drag.Play();
+                    }
                 }
             }
+
             #endregion
+
             #region Update NBR body parts
+
             Head.list = anticorps.FindAll(anti => anti.ActualPart == Head);
             Arms.list = anticorps.FindAll(anti => anti.ActualPart == Arms);
             Corps.list = anticorps.FindAll(anti => anti.ActualPart == Corps);
             Legs.list = anticorps.FindAll(anti => anti.ActualPart == Legs);
+
             #endregion
+
             #region Update BodyPart on Player Stats
+
             _instancePlayer.Accuracy = 1f + (Head.effect / 100);
             _instancePlayer.VisionRange = 200 + (int)Head.effect;
             _instancePlayer.ShootSpeed = 1f + (Arms.effect / 100);
             _instancePlayer.MoveSpeed = 0.6f + ((Legs.effect / 2) / 100);
             _instancePlayer.MaxLife = 50 + (int)Corps.effect;
+
             #endregion
 
             if (_isActive)

@@ -35,16 +35,16 @@ namespace LudumDare41.ShooterPhase
             switch (rnd)
             {
                 case 0:
-                    _weaponHolded = new Gun(Position, 30, WeaponState.Holded, _currentCamera);
+                    _weaponHolded = new Gun(Position, 150, WeaponState.Holded, _currentCamera);
                     break;
                 case 1:
-                    _weaponHolded = new SubMachine(Position, 30, WeaponState.Holded, _currentCamera);
+                    _weaponHolded = new SubMachine(Position, 150, WeaponState.Holded, _currentCamera);
                     break;
                 case 2:
-                    _weaponHolded = new Sniper(Position, 30, WeaponState.Holded, _currentCamera);
+                    _weaponHolded = new Sniper(Position, 150, WeaponState.Holded, _currentCamera);
                     break;
                 default:
-                    _weaponHolded = new Gun(Position, 30, WeaponState.Holded, _currentCamera);
+                    _weaponHolded = new Gun(Position, 150, WeaponState.Holded, _currentCamera);
                     break;
             }
 
@@ -79,6 +79,12 @@ namespace LudumDare41.ShooterPhase
                 if (Main.CurrentsScreens[0] is ShooterScreen currentScreen)
                 {
                     currentScreen.CreateLootAtPosition(Position, _affiliatedLoot);
+                    if (_weaponHolded != null)
+                    {
+                        _weaponHolded.WeaponState = WeaponState.OnFloor;
+                        _weaponHolded.Position.X += 100;
+                        currentScreen.CreateWeapon(_weaponHolded);
+                    }
                 }
                 Assets.EnemyDead.Play();
             }
@@ -97,7 +103,6 @@ namespace LudumDare41.ShooterPhase
             direction.Normalize();
 
             _rotation = (float)Math.Atan2(direction.Y, direction.X);
-
             _weaponHolded?.Fire(_thePlayer.Position, this, speedFactor);
             if (_weaponHolded != null && _weaponHolded.CanDestroy)
                 _weaponHolded = null;
