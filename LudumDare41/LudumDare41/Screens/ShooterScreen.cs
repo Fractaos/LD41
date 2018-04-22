@@ -22,7 +22,7 @@ namespace LudumDare41.Screens
             _weapons = new List<Weapon>();
             _enemies = new List<Enemy>();
             Gun gun = new Gun(new Vector2(100, 100), 150, WeaponState.OnFloor);
-            SubMachine subMachine = new SubMachine(new Vector2(650, 700), 150, WeaponState.OnFloor);
+            SubMachine subMachine = new SubMachine(new Vector2(650, 700), 15, WeaponState.OnFloor);
             Sniper sniper = new Sniper(new Vector2(400, 300), 150, WeaponState.OnFloor);
             _weapons.Add(gun);
             _weapons.Add(subMachine);
@@ -35,6 +35,32 @@ namespace LudumDare41.Screens
             }
 
 
+        }
+        public bool ProcessBulletCollision(Bullet bullet)
+        {
+            if (bullet.Hitbox.Intersects(_player.Hitbox) && !(bullet.Side is Player))
+            {
+                bullet.ToDestroy = true;
+                _player.TakeDamage();
+                if (Utils.PlayerHitted != null)
+                    Utils.PlayerHitted.Play();
+                return true;
+            }
+
+            foreach (var enemy in _enemies)
+            {
+                if (bullet.Hitbox.Intersects(enemy.Hitbox) && !(bullet.Side is Enemy))
+                {
+                    bullet.ToDestroy = true;
+                    enemy.TakeDamage();
+                    if (Utils.EnemyHitted != null)
+                        Utils.EnemyHitted.Play();
+                    return true;
+                }
+            }
+            
+
+            return false;
         }
 
         public override void Update(GameTime time)
@@ -50,6 +76,7 @@ namespace LudumDare41.Screens
 
             _weapons.RemoveAll(weapon => weapon.PlayerHold);
             _enemies.ForEach(enemy => enemy.Update(time));
+            _enemies.RemoveAll(enemy => !enemy.Alive);
 
             _player.Update(time);
             

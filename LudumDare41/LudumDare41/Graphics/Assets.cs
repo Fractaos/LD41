@@ -14,7 +14,7 @@ namespace LudumDare41.Graphics
 
         public static Texture2D backgroundGestion;
         //SON
-        public static SoundEffect GunShot, SubMachineShot, SniperShot;
+        public static SoundEffect GunShot, SubMachineShot, SniperShot, EnemyHitted, PlayerHitted;
 
         //FONT
         public static SpriteFont Font;
@@ -39,9 +39,14 @@ namespace LudumDare41.Graphics
             SubMachineShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/submachine_shoot");
             SniperShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/sniper_shoot");
 
+            PlayerHitted = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/player_hitted");
+            EnemyHitted = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/enemy_hitted");
+
 
             //FONT
             Font = Main.Content.Load<SpriteFont>("Assets/Fonts/littlefont");
+
+            Utils.Load();
 
         }
 

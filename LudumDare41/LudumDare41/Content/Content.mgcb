@@ -33,6 +33,18 @@
 /processorParam:TextureFormat=Color
 /build:Assets/Graphics/ShooterPhase/viseur.png
 
+#begin Assets/Graphics/GestionPhase/corps.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Graphics/GestionPhase/corps.png
+
 #begin Assets/Graphics/ShooterPhase/gun.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -99,15 +111,15 @@
 /processorParam:Quality=Best
 /build:Assets/Sounds/ShooterPhase/submachine_shoot.wav
 
-#begin Assets/Graphics/GestionPhase/corps.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Assets/Graphics/GestionPhase/corps.png
+#begin Assets/Sounds/ShooterPhase/enemy_hitted.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Sounds/ShooterPhase/enemy_hitted.wav
+
+#begin Assets/Sounds/ShooterPhase/player_hitted.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Sounds/ShooterPhase/player_hitted.wav
 
