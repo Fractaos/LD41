@@ -9,10 +9,7 @@ using System.Collections.Generic;
 namespace LudumDare41.Screens
 {
     public class ShooterScreen : Screen
-    {
-
-
-
+    {
         private float _timeScale = 1f;
         private bool _isActive;
 
@@ -32,9 +29,15 @@ namespace LudumDare41.Screens
 
         private bool _gameOver;
 
+        //ARENE
+        Rectangle AreneBounds;
+        Texture2D AreneTexture;
+
 
         public override void Create()
         {
+            AreneTexture = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/arene");
+            AreneBounds = new Rectangle(38, 38, 1520, 820);
             _gameOver = false;
             _camera = new Camera();
             _weapons = new List<Weapon>();
@@ -206,6 +209,7 @@ namespace LudumDare41.Screens
         {
             spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, transformMatrix: _camera.GetTransformationMatrix);
             {
+                spriteBatch.Draw(AreneTexture, Vector2.Zero, Color.White);
                 foreach (var weapon in _weapons)
                 {
                     weapon.Draw(spriteBatch);
