@@ -14,8 +14,8 @@ namespace LudumDare41
 
         Main _main;
 
-        [DllImport("user32.dll")]
-        static extern void ClipCursor(ref Rectangle rect);
+        //[DllImport("user32.dll")]
+        //static extern void ClipCursor(ref Rectangle rect);
 
         public Game1()
         {
@@ -46,13 +46,13 @@ namespace LudumDare41
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if (IsActive)
-            {
-                Rectangle rec = Window.ClientBounds;
-                rec.Width += rec.X;
-                rec.Height += rec.Y;
-                ClipCursor(ref rec);
-            }
+            //if (IsActive)
+            //{
+            //    Rectangle rec = Window.ClientBounds;
+            //    rec.Width += rec.X;
+            //    rec.Height += rec.Y;
+            //    ClipCursor(ref rec);
+            //}
 
             _main.Update(gameTime);
             // TODO: Add your update logic here
