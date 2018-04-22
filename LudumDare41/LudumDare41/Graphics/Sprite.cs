@@ -5,17 +5,36 @@ namespace LudumDare41.Graphics
 {
     public class Sprite : Entity
     {
-        public Texture2D Texture;
+        protected Texture2D _texture;
+        protected Rectangle _hitbox;
+        protected Texture2D _hitboxTexture;
 
-        public Rectangle Hitbox
-        {
-            get { return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height); }
-        }
+        
 
         public Sprite(Texture2D texture, Vector2 position) : base(position)
         {
-            this.Texture = texture;
-            base.Position = position;
+            _texture = texture;
+            _hitbox = new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+            _hitboxTexture = Utils.CreateContouringTexture(Hitbox.Width, Hitbox.Height, Color.Green);
+        }
+
+        public Texture2D Texture
+        {
+            get => _texture;
+            set => _texture = value;
+        }
+
+        public Rectangle Hitbox
+        {
+            get => _hitbox;
+            set => _hitbox = value;
+        }
+
+        protected void UpdateHitbox(Vector2 position)
+        {
+            _hitbox.X = (int) position.X;
+            _hitbox.Y = (int) position.Y;
+
         }
 
         public virtual void Update(float time)
@@ -27,10 +46,7 @@ namespace LudumDare41.Graphics
         {
             batch.Draw(Texture, Position, Color.White);
 
-            ////DECOMMENTER SI BESOIN DE DESSINER LES HITBOX
-            //Texture2D tex = Assets.CreateTexture(hitbox.Width, hitbox.Height, new Color(255, 0, 0, 50));
-            //if (tex != null)
-            //    batch.Draw(tex, hitbox, Color.White);
+            batch.Draw(_hitboxTexture, _hitbox, Color.White);
         }
 
     }

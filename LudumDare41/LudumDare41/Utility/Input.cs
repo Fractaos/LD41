@@ -23,6 +23,16 @@ namespace LudumDare41.Utility
             MousePos = new Vector2(_currentM.X, _currentM.Y);
         }
 
+        public static MouseState MouseState
+        {
+            get => _currentM;
+        }
+
+        public static MouseState OldMouseState
+        {
+            get => _oldM;
+        }
+
         public static bool KeyPressed(Keys k, bool u)
         {
             return u ? (_oldK[k] == KeyState.Up && _currentK[k] == KeyState.Down) : (_currentK[k] == KeyState.Down);

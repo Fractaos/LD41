@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LudumDare41.Utility
 {
-    class ProgressBar
+    public class ProgressBar
     {
 
         #region Fields
@@ -37,17 +37,27 @@ namespace LudumDare41.Utility
         /// <param name="withLabel">Si la valeur est affichée au dessus de la progress bar sous ce format : valeur courante / valeur maximale</param>
         public ProgressBar(Vector2 position, float width, float height, Color color, float maxValue, bool withLabel)
         {
-            this._position = position;
-            this._width = width;
-            this._height = height;
-            this._color = color;
-            this._maxValue = maxValue;
-            this._withLabel = withLabel;
+            _position = position;
+            _width = width;
+            _height = height;
+            _color = color;
+            _maxValue = maxValue;
+            _withLabel = withLabel;
             _currentValue = maxValue;
-            _percentUp = (_currentValue / this._maxValue) * width;
+            _percentUp = (_currentValue / _maxValue) * width;
             _barBackgroundTexture = Utils.CreateTexture((int)(width + 4), (int)(height + 4), color * 0.5f);
             _barTexture = Utils.CreateTexture((int)_percentUp, (int)height, color);
 
+        }
+
+        #endregion
+
+        #region Properties
+
+        public Vector2 Position
+        {
+            get => _position;
+            set => _position = value;
         }
 
         #endregion
@@ -80,12 +90,21 @@ namespace LudumDare41.Utility
             }
         }
 
+        public void Reset()
+        {
+            _currentValue = _maxValue;
+        }
+
         public void Update(float time)
         {
             _percentUp = (_currentValue / _maxValue) * _width;
             if (_percentUp > 0)
             {
                 _barTexture = Utils.CreateTexture((int)_percentUp, (int)_height, _color);
+            }
+            else
+            {
+                _barTexture = Utils.CreateTexture(1, (int)_height, _color);
             }
         }
 

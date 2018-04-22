@@ -1,17 +1,33 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Runtime.InteropServices;
+using LudumDare41.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace LudumDare41
 {
-    class Utils
+    public class Utils
     {
+
         //Constantes
 
-        public const int WIDTH = 1600, HEIGHT = 900;
+        public const int WIDTH = 1600, HEIGHT = 900, NUMBER_TYPE_WEAPON = 3;
+        public static Random RANDOM = new Random();
+
+        public static SoundEffect PlayerHitted, EnemyHitted;
+
+        public static void Load()
+        {
+            PlayerHitted = Assets.PlayerHitted;
+            EnemyHitted = Assets.EnemyHitted;
+        }
 
         //DESSIN DE HITBOX
         public static Texture2D CreateTexture(int w, int h, Color col)
         {
+            if (w == 0)
+                w = 1;
             var texture = new Texture2D(Main.Device, w, h);
             var cols = new Color[w * h];
             for (var i = 0; i < cols.Length; i++)
