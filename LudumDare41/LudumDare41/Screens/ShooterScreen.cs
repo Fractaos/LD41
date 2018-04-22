@@ -184,15 +184,11 @@ namespace LudumDare41.Screens
                 }
 
 
-            _weapons.RemoveAll(weapon => weapon.PlayerHold);
-            _enemies.ForEach(enemy => enemy.Update(time));
-            _enemies.RemoveAll(enemy => !enemy.Alive);
-            _loots.ForEach(loot => loot.Update());
-            _loots.RemoveAll(loot => loot.ToRemove);
-
                 _weapons.RemoveAll(weapon => weapon.PlayerHold);
                 _enemies.ForEach(enemy => enemy.Update(time));
-                _enemies.RemoveAll(enemy => !enemy.Alive);
+                _enemies.RemoveAll(enemy => !enemy.Alive);
+                _loots.ForEach(loot => loot.Update());
+                _loots.RemoveAll(loot => loot.ToRemove);
 
                 _player.Update(time);
             }
