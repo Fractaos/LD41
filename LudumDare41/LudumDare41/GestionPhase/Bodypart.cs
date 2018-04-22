@@ -11,7 +11,7 @@ namespace LudumDare41.GestionPhase
         public string name;
         public int AntiNbr;
         public List<Anticorps> list;
-        public float effect, effectBuffer;
+        public float effect, effectBuffer, neighbuffer;
         public Rectangle Bounds;
         int buffer;
 
@@ -32,9 +32,9 @@ namespace LudumDare41.GestionPhase
         public void Update(GameTime time)
         {
             AntiNbr = list.Count;
+            effectBuffer = 0;
             foreach (var anti in list)
             {
-                effectBuffer = 0;
                 switch (anti.type)
                 {
                     case AntiType.Normal:
@@ -43,16 +43,17 @@ namespace LudumDare41.GestionPhase
                     case AntiType.Neighbour:
                         effectBuffer += 5;
                         if (buffer - 1 >= 0 && _instance.Parts[buffer - 1].name != "None")
-                            _instance.Parts[buffer - 1].effectBuffer += 5;
+                            _instance.Parts[buffer - 1].neighbuffer += 5;
                         if(buffer + 1 <= 4 && _instance.Parts[buffer + 1].name != "None")
-                            _instance.Parts[buffer +1].effectBuffer += 5;
+                            _instance.Parts[buffer +1].neighbuffer += 5;
                         break;
                     case AntiType.Leader:
                         effectBuffer += (list.FindAll(k => k.type != AntiType.Leader).Count * 2);
                         break;
                 }
-                effect = effectBuffer;
             }
+            effect = effectBuffer + neighbuffer;
+            neighbuffer = 0;
         }
 
 
