@@ -9,10 +9,10 @@ using System.Collections.Generic;
 namespace LudumDare41.Screens
 {
     public class ShooterScreen : Screen
-    {
-
-
-
+    {
+
+
+
         private float _timeScale = 1f;
         private bool _isActive;
 
@@ -27,6 +27,7 @@ namespace LudumDare41.Screens
         private Player _player;
         private List<Weapon> _weapons;
         private List<Enemy> _enemies;
+        private List<Loot> _loots;
         private Camera _camera;
 
         private bool _gameOver;
@@ -43,6 +44,8 @@ namespace LudumDare41.Screens
             QuitDelegate quit = Quit;
             _uiManager.AddParticle(new UiButton(_camera.ScreenToWorld(new Vector2(Utils.WIDTH / 2 - 250, .7f * Utils.HEIGHT)), Replay, Assets.ReplayButton));
             _uiManager.AddParticle(new UiButton(_camera.ScreenToWorld(new Vector2(Utils.WIDTH / 2 + 50, .7f * Utils.HEIGHT)), Quit, Assets.QuitButton));
+            _loots = new List<Loot>();
+
             Gun gun = new Gun(new Vector2(100, 100), 150, WeaponState.OnFloor, _camera);
             SubMachine subMachine = new SubMachine(new Vector2(650, 700), 150, WeaponState.OnFloor, _camera);
             Sniper sniper = new Sniper(new Vector2(400, 300), 150, WeaponState.OnFloor, _camera);
@@ -51,6 +54,7 @@ namespace LudumDare41.Screens
             _weapons.Add(sniper);
             _player = new Player(Utils.CreateTexture(50, 50, Color.Blue),
                 new Vector2(Utils.WIDTH / 2 - 25, Utils.HEIGHT / 2 - 25), _camera);
+            _loots.Add(new Loot(new Vector2(50, 50), LootType.Sucre));
 
             for (int i = 0; i < 1; i++)
             {
@@ -87,6 +91,10 @@ namespace LudumDare41.Screens
             get => _timeScale;
             set => _timeScale = value;
         }
+        public Player GetPlayer
+        {
+            get { return _player; }
+        }
 
         public Camera Camera
         {
@@ -97,10 +105,10 @@ namespace LudumDare41.Screens
         {
             get => _isActive;
             set => _isActive = value;
-        }
-
-
-
+        }
+
+
+
         public bool ProcessBulletCollision(Bullet bullet)
         {
             if (bullet.Hitbox.Intersects(_player.Hitbox) && bullet.Side is Enemy theEnemy)
@@ -143,6 +151,11 @@ namespace LudumDare41.Screens
             return false;
         }
 
+        public void CreateLootAtPosition(Vector2 position, LootType type)
+        {
+            _loots.Add(new Loot(position, type));
+        }
+
         public override void Update(GameTime time)
         {
             if (!_gameOver)
@@ -171,6 +184,11 @@ namespace LudumDare41.Screens
                 }
 
 
+            _weapons.RemoveAll(weapon => weapon.PlayerHold);
+            _enemies.ForEach(enemy => enemy.Update(time));
+            _enemies.RemoveAll(enemy => !enemy.Alive);
+            _loots.ForEach(loot => loot.Update());
+            _loots.RemoveAll(loot => loot.ToRemove);
 
                 _weapons.RemoveAll(weapon => weapon.PlayerHold);
                 _enemies.ForEach(enemy => enemy.Update(time));
@@ -197,6 +215,7 @@ namespace LudumDare41.Screens
                     weapon.Draw(spriteBatch);
                 }
                 _enemies.ForEach(enemy => enemy.Draw(spriteBatch));
+                _loots.ForEach(loot => loot.Draw(spriteBatch));
                 _player.Draw(spriteBatch);
                 if (_gameOver)
                 {

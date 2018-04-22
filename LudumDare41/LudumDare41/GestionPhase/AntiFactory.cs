@@ -16,10 +16,11 @@ namespace LudumDare41.GestionPhase
         public Texture2D texture;
 
         public int sucre, vitC, gras;
+        public int maxSucre, maxGras, maxVitC;
 
         public AntiFactory(GestionScreen instance)
         {
-            sucre = vitC = gras = 10000;
+            sucre = vitC = gras = maxSucre = maxGras = maxVitC = 100;
             manager = new UiManager();
             _instance = instance;
             position = new Vector2(200, 200);
@@ -30,9 +31,9 @@ namespace LudumDare41.GestionPhase
 
 
             listProgress = new ProgressBar[3];
-            sucreBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 100), 200, 50, Color.Red, 10000, true);
-            grasBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 200), 200, 50, Color.Yellow, 10000, true);
-            vitCBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 300), 200, 50, Color.Green, 10000, true);
+            sucreBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 100), 200, 50, Color.Red, maxSucre, true);
+            grasBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 200), 200, 50, Color.Yellow, maxGras, true);
+            vitCBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 300), 200, 50, Color.Green, maxVitC, true);
 
             listProgress[0] = sucreBar;
             listProgress[1] = grasBar;

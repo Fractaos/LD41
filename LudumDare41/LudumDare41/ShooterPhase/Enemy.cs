@@ -21,6 +21,7 @@ namespace LudumDare41.ShooterPhase
         private Player _thePlayer;
         private bool _alive = true;
         private int _life;
+        private LootType _affiliatedLoot;
 
 
         private Camera _currentCamera;
@@ -47,6 +48,9 @@ namespace LudumDare41.ShooterPhase
                     break;
             }
 
+            Array values = Enum.GetValues(typeof(LootType));
+            _affiliatedLoot = (LootType)values.GetValue(Utils.RANDOM.Next(values.Length));
+
             _hitbox = new Rectangle(_hitbox.X - Texture.Width / 2, _hitbox.Y - Texture.Height / 2, _hitbox.Width, _hitbox.Height);
         }
 
@@ -60,6 +64,11 @@ namespace LudumDare41.ShooterPhase
             get => _alive;
         }
 
+        public LootType AffiliatedLoot
+        {
+            get => _affiliatedLoot;
+        }
+
         public void TakeDamage(float amount)
         {
             _life -= (int)amount;
@@ -67,6 +76,10 @@ namespace LudumDare41.ShooterPhase
             {
                 _life = 0;
                 _alive = false;
+                if (Main.CurrentsScreens[0] is ShooterScreen currentScreen)
+                {
+                    currentScreen.CreateLootAtPosition(Position, _affiliatedLoot);
+                }
                 Assets.EnemyDead.Play();
             }
         }

@@ -22,11 +22,45 @@ namespace LudumDare41.Screens
 
         //FACTORY
         bool showFactory;
-        AntiFactory factory;
+        public AntiFactory factory;
 
         //BODYPARTS
         public List<BodyPart> Parts;
         public BodyPart Head, Arms, Corps, Legs, None;
+
+        //PROPERTIES
+        public int Sucre
+        {
+            get => factory.sucre;
+            set
+            {
+                factory.sucre = value;
+                if (factory.sucre > factory.maxSucre)
+                    factory.sucre = factory.maxSucre;
+            }
+        }
+
+        public int Gras
+        {
+            get => factory.gras;
+            set
+            {
+                factory.gras = value;
+                if (factory.gras > factory.maxGras)
+                    factory.gras = factory.maxGras;
+            }
+        }
+
+        public int VitC
+        {
+            get => factory.vitC;
+            set
+            {
+                factory.vitC = value;
+                if (factory.vitC > factory.maxVitC)
+                    factory.vitC = factory.maxVitC;
+            }
+        }
 
         public override void Create()
         {
