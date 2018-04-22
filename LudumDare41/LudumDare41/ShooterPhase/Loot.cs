@@ -57,6 +57,8 @@ namespace LudumDare41.ShooterPhase
                         _instanceGestion.VitC += 30;
                         break;
                 }
+
+                _instancePlayer.Life += 10;
                 _toRemove = true;
             }
 

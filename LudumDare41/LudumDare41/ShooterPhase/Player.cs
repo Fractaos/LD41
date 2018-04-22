@@ -108,6 +108,10 @@ namespace LudumDare41.ShooterPhase
             {
                 _life = 0;
             }
+            else if (_life >= _maxLife)
+            {
+                _life = _maxLife;
+            }
         }
 
 
@@ -176,6 +180,8 @@ namespace LudumDare41.ShooterPhase
             if (_currentWeapon != null)
             {
                 _currentWeapon.Position = Position;
+                _currentWeapon.FireSpeedModifier = _shootSpeed / 2;
+                _currentWeapon.ReloadSpeedModifier = _shootSpeed;
                 if (Input.Left(false))
                 {
                     _currentWeapon.Fire(_currentCamera.ScreenToWorld(Input.MousePos), this, speedFactor);
@@ -183,11 +189,11 @@ namespace LudumDare41.ShooterPhase
 
                 if (Input.KeyPressed(Keys.R, true))
                     _currentWeapon.WeaponState = WeaponState.Reload;
+
+                _currentWeapon.Update(time);
                 if (_currentWeapon.CanDestroy)
                     _currentWeapon = null;
-                _currentWeapon.FireSpeedModifier = _shootSpeed / 2;
-                _currentWeapon.ReloadSpeedModifier = _shootSpeed;
-                _currentWeapon?.Update(time);
+
             }
 
 

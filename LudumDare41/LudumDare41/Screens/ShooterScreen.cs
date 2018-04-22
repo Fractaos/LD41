@@ -180,7 +180,7 @@ namespace LudumDare41.Screens
                 {
                     if (Input.KeyPressed(Keys.Tab, true))
                     {
-                        TimeScale = 0.1f;
+                        TimeScale = 0.05f;
                         _isActive = false;
                         Assets.MusicShooter.Volume = 0;
                         _timeElapsedSinceOnScreen = 0;
@@ -189,6 +189,7 @@ namespace LudumDare41.Screens
                 }
 
 
+                _weapons.ForEach(weapon => weapon.Update(time));
                 _weapons.RemoveAll(weapon => weapon.PlayerHold);
                 _enemies.ForEach(enemy => enemy.Update(time));
                 _enemies.RemoveAll(enemy => !enemy.Alive);

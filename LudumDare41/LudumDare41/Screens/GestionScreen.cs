@@ -10,7 +10,7 @@ namespace LudumDare41.Screens
 {
     public class GestionScreen : Screen
     {
-        UiManager manager = new UiManager();
+        UiManager manager;
         List<Anticorps> anticorps;
 
         private float _timeElapsedSinceOnScreen;
@@ -67,6 +67,7 @@ namespace LudumDare41.Screens
             Assets.MusicGestion.Volume = 0.5f;
             Assets.MusicGestion.IsLooped = true;
             Assets.MusicGestion.Play();
+            manager = new UiManager();
             //isDragged = false;
             showFactory = false;
             factory = new AntiFactory(this);
