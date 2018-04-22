@@ -15,8 +15,6 @@ namespace LudumDare41.GestionPhase
         public string name;
         public int AntiNbr;
         public Rectangle Bounds;
-        float OnBoundsTimer;
-        bool ShowInfo;
 
         Texture2D textBound;
 
@@ -24,7 +22,6 @@ namespace LudumDare41.GestionPhase
         public BodyPart(Rectangle bounds, string name)
         {
             this.name = name;
-            ShowInfo = false;
             Bounds = bounds;
             textBound = Utils.CreateTexture(Bounds.Width, Bounds.Height, Color.Yellow);
 

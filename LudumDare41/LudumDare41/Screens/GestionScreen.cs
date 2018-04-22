@@ -28,7 +28,7 @@ namespace LudumDare41.Screens
 
         //BODYPARTS
         public static List<BodyPart> Parts;
-        BodyPart Head, Arms, Corps, Legs, None;
+        public BodyPart Head, Arms, Corps, Legs, None;
 
         public override void Create()
         {
@@ -48,7 +48,7 @@ namespace LudumDare41.Screens
 
             Parts = new List<BodyPart> { Head, Arms, Corps, Legs, None };
 
-            manager.AddParticle(new UiButton(new Vector2(50, 50), 100, 50, () => { AddAntiCorps(Head); }, Color.White));
+            manager.AddParticle(new UiButton(new Vector2(50, 50), 100, 50, () => { showFactory = !showFactory; }, Color.White));
 
             #endregion 
         }
@@ -56,13 +56,10 @@ namespace LudumDare41.Screens
         public override void Update(GameTime time)
         {
             #region Factory
-            if (Input.KeyPressed(Keys.A, true))
-                showFactory = !showFactory;
-
             if (showFactory)
                 factory.Update(time.ElapsedGameTime.Milliseconds);
-            else
-                manager.Update(time.ElapsedGameTime.Milliseconds);
+            manager.Update(time.ElapsedGameTime.Milliseconds);
+
             #endregion
             #region Gestion Anticorps/BodyParts
             foreach (var item in Parts)
@@ -121,9 +118,6 @@ namespace LudumDare41.Screens
             spriteBatch.Draw(Assets.backgroundGestion, Vector2.Zero, Color.White);
             manager.Draw(spriteBatch);
 
-            if (showFactory)
-                factory.Draw(spriteBatch);
-
             #region Draw Anticorps/BodyParts
             foreach (var item in anticorps)
             {
@@ -140,15 +134,20 @@ namespace LudumDare41.Screens
             spriteBatch.DrawString(Assets.Font, "Arms" + Arms.AntiNbr, new Vector2(100, 10), Color.White);
             spriteBatch.DrawString(Assets.Font, "Corps" + Corps.AntiNbr, new Vector2(200, 10), Color.White);
             spriteBatch.DrawString(Assets.Font, "Legs" + Legs.AntiNbr, new Vector2(300, 10), Color.White);
+
+            spriteBatch.DrawString(Assets.Font, "IsDragged" + anticorps.Find(anti => anti.Hitbox.Contains(Input.MousePos)), new Vector2(450, 10), Color.White);
+
             #endregion
+            if (showFactory)
+                factory.Draw(spriteBatch);
 
             spriteBatch.End();
         }
 
-        public void AddAntiCorps(BodyPart part)
+        public void AddAntiCorps(AntiType type, BodyPart part)
         {
-            Anticorps buffer = new Anticorps(new Vector2(Main.Rand.Next(None.Bounds.X, None.Bounds.X + None.Bounds.Width), Main.Rand.Next(None.Bounds.Y, None.Bounds.Y + None.Bounds.Height)), None);
-            TimerManager.Timers.Add(new Timer(200, () => { buffer.Position += new Vector2(Main.Rand.Next(0, 3) - 1, Main.Rand.Next(0, 3) - 1); Console.WriteLine("lol"); }));
+            Anticorps buffer = new Anticorps(new Vector2(Main.Rand.Next(None.Bounds.X, None.Bounds.X + None.Bounds.Width), Main.Rand.Next(None.Bounds.Y, None.Bounds.Y + None.Bounds.Height)), type, None);
+            TimerManager.Timers.Add(new Timer(200, () => { buffer.Position += new Vector2(Main.Rand.Next(0, 3) - 1, Main.Rand.Next(0, 3) - 1);}));
             anticorps.Add(buffer);
         }
     }
