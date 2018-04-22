@@ -26,9 +26,9 @@ namespace LudumDare41.GestionPhase
             _instance = instance;
             position = new Vector2(200, 200);
             texture = Utils.CreateTexture(1000, 600, Color.Gray);
-            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 100), 50, 50, () => { BuyAnticorps(AntiType.Normal); }, Color.Red));
-            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 200), 50, 50, () => { BuyAnticorps(AntiType.Neighbour); }, Color.Yellow));
-            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 300), 50, 50, () => { BuyAnticorps(AntiType.Leader); }, Color.Green));
+            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 100), () => { BuyAnticorps(AntiType.Normal); }, Assets.AddAnti));
+            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 200), () => { BuyAnticorps(AntiType.Neighbour); }, Assets.AddAnti));
+            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 300), () => { BuyAnticorps(AntiType.Leader); }, Assets.AddAnti));
 
 
             listProgress = new ProgressBar[3];

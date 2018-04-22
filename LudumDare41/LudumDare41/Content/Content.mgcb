@@ -184,6 +184,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Assets/Graphics/ShooterPhase/vitC.png
+
 #begin Assets/Graphics/ShooterPhase/gameover.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -207,6 +208,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Assets/Graphics/ShooterPhase/gras.png
+
 #begin Assets/Graphics/ShooterPhase/button_playagain.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -231,7 +233,6 @@
 /processorParam:TextureFormat=Color
 /build:Assets/Graphics/ShooterPhase/sucre.png
 
-
 #begin Assets/Graphics/ShooterPhase/button_quit.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -243,4 +244,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Assets/Graphics/ShooterPhase/button_quit.png
+
+#begin Assets/Graphics/GestionPhase/addAnti.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Graphics/GestionPhase/addAnti.png
 
