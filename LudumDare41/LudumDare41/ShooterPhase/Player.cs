@@ -17,7 +17,7 @@ namespace LudumDare41.ShooterPhase
         private float _moveSpeed = .6f, _accuracy = 1f, _shootSpeed = 1f;
         private float _rotation;
 
-        private int _life;
+        private int _life, _visionRange = 200;
 
         private ProgressBar _lifeBar;
 
@@ -47,11 +47,31 @@ namespace LudumDare41.ShooterPhase
         public int Life
         {
             get => _life;
+            set => _life = value;
         }
 
         public float Accuracy
         {
             get => _accuracy;
+            set => _accuracy = value;
+        }
+
+        public float MoveSpeed
+        {
+            get => _moveSpeed;
+            set => _moveSpeed = value;
+        }
+
+        public float ShootSpeed
+        {
+            get => _shootSpeed;
+            set => _shootSpeed = value;
+        }
+
+        public int VisionRange
+        {
+            get => _visionRange;
+            set => _visionRange = value;
         }
 
         #endregion
