@@ -4,6 +4,7 @@ using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using LudumDare41.ShooterPhase;
 
 namespace LudumDare41.Screens
 {
@@ -11,7 +12,7 @@ namespace LudumDare41.Screens
     {
         UiManager manager = new UiManager();
         List<Anticorps> anticorps;
-
+        public Player _instancePlayer;
         private bool _isActive;
 
         Anticorps isDragged;
@@ -30,6 +31,8 @@ namespace LudumDare41.Screens
             //isDragged = false;
             showFactory = false;
             factory = new AntiFactory(this);
+            if (Main.CurrentsScreens[0] is ShooterScreen currentScreen)
+                _instancePlayer = currentScreen.GetPlayer;
 
             anticorps = new List<Anticorps>();
 
@@ -106,13 +109,19 @@ namespace LudumDare41.Screens
                 }
             }
             #endregion
-
             #region Update NBR body parts
             Head.list = anticorps.FindAll(anti => anti.ActualPart == Head);
             Arms.list = anticorps.FindAll(anti => anti.ActualPart == Arms);
             Corps.list = anticorps.FindAll(anti => anti.ActualPart == Corps);
             Legs.list = anticorps.FindAll(anti => anti.ActualPart == Legs);
-            #endregion  
+            #endregion
+            #region Update BodyPart on Player Stats
+            _instancePlayer.Accuracy = 1f + (Head.effect / 100);
+            _instancePlayer.VisionRange = 200 + (int)Head.effect;
+            _instancePlayer.ShootSpeed = 1f + (Arms.effect / 100);
+            _instancePlayer.MoveSpeed = 0.6f + ((Legs.effect/2) / 100);
+            _instancePlayer.MaxLife = 50 + (int)Corps.effect;
+            #endregion
 
             if (Input.KeyPressed(Keys.Tab, true))
             {

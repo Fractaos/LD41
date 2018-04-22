@@ -12,6 +12,11 @@ namespace LudumDare41.Screens
     public class ShooterScreen : Screen
     {
 
+        public Player GetPlayer
+        {
+            get { return _player; }
+        }
+
         private float _timeScale = 1f;
         private bool _isActive;
 

@@ -13,7 +13,7 @@ namespace LudumDare41.ShooterPhase
 
         #region Fields
 
-        private const int MAX_LIFE = 100;
+        private int _maxLife = 50;
 
         private float _moveSpeed = .6f, _accuracy = 1f, _shootSpeed = 1f;
         private float _rotation;
@@ -37,8 +37,8 @@ namespace LudumDare41.ShooterPhase
         {
             _currentCamera = currentCamera;
             _crossAim = new CrossAim(Assets.CrossAim, new Vector2((float)Utils.WIDTH / 2, (float)Utils.HEIGHT / 2), this);
-            _life = MAX_LIFE;
-            _lifeBar = new ProgressBar(new Vector2(10, 20), 100, 15, Color.Green, MAX_LIFE, true);
+            _life = _maxLife;
+            _lifeBar = new ProgressBar(new Vector2(10, 20), 100, 15, Color.Green, _maxLife, true);
             _hitbox = new Rectangle(_hitbox.X - Texture.Width / 2, _hitbox.Y - Texture.Height / 2, _hitbox.Width, _hitbox.Height);
         }
 
@@ -47,6 +47,17 @@ namespace LudumDare41.ShooterPhase
 
 
         #region Properties
+
+        public int MaxLife
+        {
+            get => _maxLife;
+            set
+            {
+                _maxLife = value;
+                if (_life > _maxLife)
+                    Life = _maxLife;
+            }
+        }
 
         public int Life
         {
@@ -179,6 +190,7 @@ namespace LudumDare41.ShooterPhase
 
             //Update barre de vie
             _lifeBar.Update(time, _life);
+            _lifeBar.MaxValue = MaxLife;
 
             //UpdateHitbox(Position);
             UpdateHitbox(new Vector2(Position.X - (float)Texture.Width / 2, Position.Y - (float)Texture.Height / 2));
