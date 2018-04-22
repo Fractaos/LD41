@@ -48,6 +48,11 @@ namespace LudumDare41.ShooterPhase
 
         #region Properties
 
+        public bool Alive
+        {
+            get { return _life > 0; }
+        }
+
         public int MaxLife
         {
             get => _maxLife;
@@ -58,6 +63,8 @@ namespace LudumDare41.ShooterPhase
                     Life = _maxLife;
             }
         }
+
+
 
         public int Life
         {

@@ -158,6 +158,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Assets/Graphics/GestionPhase/buttonFactory.png
+
 #begin Assets/Sounds/ShooterPhase/enemy_dead.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -172,4 +173,39 @@
 /processorParam:TextureFormat=Color
 /build:Assets/Fonts/font.bmp
 
+#begin Assets/Graphics/ShooterPhase/gameover.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Graphics/ShooterPhase/gameover.png
+
+#begin Assets/Graphics/ShooterPhase/button_playagain.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Graphics/ShooterPhase/button_playagain.png
+
+#begin Assets/Graphics/ShooterPhase/button_quit.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Graphics/ShooterPhase/button_quit.png
 

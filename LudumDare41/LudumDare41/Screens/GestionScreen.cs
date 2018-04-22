@@ -37,7 +37,7 @@ namespace LudumDare41.Screens
             showFactory = false;
             factory = new AntiFactory(this);
             if (Main.CurrentsScreens[0] is ShooterScreen currentScreen)
-                _instancePlayer = currentScreen.GetPlayer;
+                _instancePlayer = currentScreen.Player;
 
             anticorps = new List<Anticorps>();
 

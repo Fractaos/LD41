@@ -11,7 +11,7 @@ namespace LudumDare41.Graphics
         //SPRITE
         public static Texture2D PixelW, PixelB, CrossAim, Gun, SubMachine, Sniper, Bullet;
 
-        public static Texture2D backgroundGestion, factoryButton;
+        public static Texture2D backgroundGestion, factoryButton, GameOver, ReplayButton, QuitButton;
         //SON
         //SHOOTERPHASE
         public static SoundEffectInstance GunShot, SubMachineShot, SniperShot, EnemyHitted, EnemyDead, PlayerHitted, MusicGestion, MusicShooter;
@@ -38,6 +38,10 @@ namespace LudumDare41.Graphics
 
             factoryButton = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/buttonFactory");
             backgroundGestion = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/corps");
+
+            GameOver = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/gameover");
+            ReplayButton = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/button_playagain");
+            QuitButton = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/button_quit");
             //SON
             GunShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/gun_shoot").CreateInstance();
             SubMachineShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/submachine_shoot").CreateInstance();
