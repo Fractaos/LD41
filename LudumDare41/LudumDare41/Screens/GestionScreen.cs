@@ -56,12 +56,12 @@ namespace LudumDare41.Screens
             #region Gestion Anticorps/BodyParts
             foreach (var item in Parts)
             {
-                item.Update(time.ElapsedGameTime.Milliseconds);
+                item.Update(time);
             }
 
             foreach (var item in anticorps)
             {
-                item.Update(time.ElapsedGameTime.Milliseconds);
+                item.Update(time);
             }
             #endregion
             #region DragnDrop
