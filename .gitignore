@@ -16,6 +16,12 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+#GITKRAKEN
+storage.ide
+*.ide
+sqlite3/
+.vs/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -96,6 +102,9 @@ ipch/
 *.vsp
 *.vspx
 *.sap
+storage.ide
+*.ide
+sqlite3/
 
 # TFS 2012 Local Workspace
 $tf/
