@@ -80,7 +80,7 @@ namespace LudumDare41.ShooterPhase
             set => _playerHold = value;
         }
 
-        public virtual void Fire(Vector2 target)
+        public virtual void Fire(Vector2 target, Sprite side)
         {
             if (_weaponState == WeaponState.Holded)
             {
@@ -88,7 +88,7 @@ namespace LudumDare41.ShooterPhase
                 {
                     Vector2 direction = target - Position;
                     direction.Normalize();
-                    _bulletsFired.Add(new Bullet(Assets.Bullet, Position, _bulletSpeed, direction));
+                    _bulletsFired.Add(new Bullet(Assets.Bullet, Position, _bulletSpeed, direction, side));
                     _shotSound.Play();
                     _timeElaspedSinceLastShot = 0;
                     _totalBullet--;
@@ -109,6 +109,8 @@ namespace LudumDare41.ShooterPhase
                 }
             }
         }
+
+
 
         public virtual void Update(GameTime time)
         {
@@ -151,6 +153,8 @@ namespace LudumDare41.ShooterPhase
                 bullet.Update(time);
             }
 
+            UpdateHitbox(Position);
+
             _bulletsFired.RemoveAll(bullet => bullet.ToDestroy);
         }
 
@@ -177,6 +181,8 @@ namespace LudumDare41.ShooterPhase
             {
                 bullet.Draw(spriteBatch);
             }
+
+            //spriteBatch.Draw(_hitboxTexture, _hitbox, Color.White);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 target)
@@ -205,6 +211,8 @@ namespace LudumDare41.ShooterPhase
             {
                 bullet.Draw(spriteBatch);
             }
+
+            //spriteBatch.Draw(_hitboxTexture, _hitbox, Color.White);
         }
     }
 }
