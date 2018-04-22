@@ -45,7 +45,7 @@ namespace LudumDare41
             //CurrentsScreens.Add(new ShooterScreen());
             CurrentsScreens.Add(new GestionScreen());
 
-            SetScreen(CurrentsScreens[1]);
+            SetScreen(CurrentsScreens[0]);
 
         }
 

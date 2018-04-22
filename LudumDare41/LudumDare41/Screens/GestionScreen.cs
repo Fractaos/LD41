@@ -18,7 +18,7 @@ namespace LudumDare41.Screens
         AntiFactory factory;
 
         //BODYPARTS
-        public static List<BodyPart> Parts;
+        public List<BodyPart> Parts;
         public BodyPart Head, Arms, Corps, Legs, None;
 
         public override void Create()
@@ -32,11 +32,11 @@ namespace LudumDare41.Screens
 
             #region Ajout des parties du corps
 
-            Head = new BodyPart(new Rectangle(300, 135, 267, 169), "Head");
-            Arms = new BodyPart(new Rectangle(300, 312, 267, 169), "Arms");
-            Corps = new BodyPart(new Rectangle(300, 490, 267, 169), "Corps");
-            Legs = new BodyPart(new Rectangle(300, 670, 267, 169), "Legs");
-            None = new BodyPart(new Rectangle(597, 134, 347, 705), "None");
+            Head = new BodyPart(new Rectangle(300, 135, 267, 169), "Head", this, 0);
+            Arms = new BodyPart(new Rectangle(300, 312, 267, 169), "Arms", this, 1);
+            Corps = new BodyPart(new Rectangle(300, 490, 267, 169), "Corps", this, 2);
+            Legs = new BodyPart(new Rectangle(300, 670, 267, 169), "Legs", this, 3);
+            None = new BodyPart(new Rectangle(597, 134, 347, 705), "None", this, 4);
 
             Parts = new List<BodyPart> { Head, Arms, Corps, Legs, None };
 
@@ -99,10 +99,10 @@ namespace LudumDare41.Screens
             #endregion
 
             #region Update NBR body parts
-            //Head.list = anticorps.FindAll(anti => anti.ActualPart == Head);
-            //Arms.list = anticorps.FindAll(anti => anti.ActualPart == Arms);
-            //Corps.list = anticorps.FindAll(anti => anti.ActualPart == Corps);
-            //Legs.list = anticorps.FindAll(anti => anti.ActualPart == Legs);
+            Head.list = anticorps.FindAll(anti => anti.ActualPart == Head);
+            Arms.list = anticorps.FindAll(anti => anti.ActualPart == Arms);
+            Corps.list = anticorps.FindAll(anti => anti.ActualPart == Corps);
+            Legs.list = anticorps.FindAll(anti => anti.ActualPart == Legs);
             #endregion  
 
         }
@@ -130,8 +130,13 @@ namespace LudumDare41.Screens
             spriteBatch.DrawString(Assets.Font, "Corps" + Corps.AntiNbr, new Vector2(200, 10), Color.White);
             spriteBatch.DrawString(Assets.Font, "Legs" + Legs.AntiNbr, new Vector2(300, 10), Color.White);
 
+            spriteBatch.DrawString(Assets.Font, "Head " + Head.effect, new Vector2(10, 30), Color.White);
+            spriteBatch.DrawString(Assets.Font, "Arms" + Arms.effect, new Vector2(100, 30), Color.White);
+            spriteBatch.DrawString(Assets.Font, "Corps" + Corps.effect, new Vector2(200, 30), Color.White);
+            spriteBatch.DrawString(Assets.Font, "Legs" + Legs.effect, new Vector2(300, 30), Color.White);
+
             //spriteBatch.DrawString(Assets.Font, "lel" + anticorps.Find(anti => anti.Hitbox.Contains(Input.MousePos)), new Vector2(450, 10), Color.White);
-            if(anticorps.Count>0 && anticorps[0] != null)
+            if (anticorps.Count>0 && anticorps[0] != null)
                 spriteBatch.DrawString(Assets.Font, "Fragged" + anticorps[0].Dragged, new Vector2(500, 10), Color.White);
 
             spriteBatch.DrawString(Assets.Font, "lel" + anticorps.Find(anti => anti.Hitbox.Contains(Input.MousePos)), new Vector2(450, 10), Color.White);
