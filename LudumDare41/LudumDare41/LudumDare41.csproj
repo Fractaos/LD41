@@ -64,6 +64,7 @@
     <Compile Include="ShooterPhase\CrossAim.cs" />
     <Compile Include="ShooterPhase\Enemy.cs" />
     <Compile Include="ShooterPhase\Gun.cs" />
+    <Compile Include="ShooterPhase\Loot.cs" />
     <Compile Include="ShooterPhase\Sniper.cs" />
     <Compile Include="ShooterPhase\SubMachine.cs" />
     <Compile Include="ShooterPhase\Player.cs" />

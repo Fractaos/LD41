@@ -15,6 +15,8 @@ namespace LudumDare41.Graphics
         //SON
         //SHOOTERPHASE
         public static SoundEffectInstance GunShot, SubMachineShot, SniperShot, EnemyHitted, EnemyDead, PlayerHitted, MusicGestion, MusicShooter;
+        public static Texture2D Sucre, Gras, VitC;
+
         //GESTIONPHASE
         public static SoundEffect Drag, Drop;
 
@@ -38,6 +40,11 @@ namespace LudumDare41.Graphics
 
             factoryButton = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/buttonFactory");
             backgroundGestion = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/corps");
+
+            Sucre = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/sucre");
+            Gras = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/gras");
+            VitC = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/vitC");
+
             //SON
             GunShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/gun_shoot").CreateInstance();
             SubMachineShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/submachine_shoot").CreateInstance();

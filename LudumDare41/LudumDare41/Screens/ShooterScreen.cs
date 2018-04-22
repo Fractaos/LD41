@@ -24,6 +24,7 @@ namespace LudumDare41.Screens
         private Player _player;
         private List<Weapon> _weapons;
         private List<Enemy> _enemies;
+        private List<Loot> _loot;
         private Camera _camera;
 
 
@@ -32,6 +33,10 @@ namespace LudumDare41.Screens
             _camera = new Camera();
             _weapons = new List<Weapon>();
             _enemies = new List<Enemy>();
+            _loot = new List<Loot>
+            {
+                new Loot(new Vector2(50, 50), LootType.Sucre)
+            };
             Gun gun = new Gun(new Vector2(100, 100), 150, WeaponState.OnFloor, _camera);
             SubMachine subMachine = new SubMachine(new Vector2(650, 700), 150, WeaponState.OnFloor, _camera);
             Sniper sniper = new Sniper(new Vector2(400, 300), 150, WeaponState.OnFloor, _camera);
@@ -144,6 +149,8 @@ namespace LudumDare41.Screens
             _weapons.RemoveAll(weapon => weapon.PlayerHold);
             _enemies.ForEach(enemy => enemy.Update(time));
             _enemies.RemoveAll(enemy => !enemy.Alive);
+            _loot.ForEach(loot => loot.Update());
+            _loot.RemoveAll(loot => !loot.toRemove);
 
             _player.Update(time);
 
@@ -158,6 +165,7 @@ namespace LudumDare41.Screens
                     weapon.Draw(spriteBatch);
                 }
                 _enemies.ForEach(enemy => enemy.Draw(spriteBatch));
+                _loot.ForEach(loot => loot.Draw(spriteBatch));
                 _player.Draw(spriteBatch);
             }
             spriteBatch.End();
