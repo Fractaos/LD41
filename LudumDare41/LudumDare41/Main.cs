@@ -55,7 +55,10 @@ namespace LudumDare41
             TimerManager.Update(time.ElapsedGameTime.Milliseconds);
             Input.Update();
 
-            CurrentScreen?.Update(time);
+            foreach (var currentsScreen in CurrentsScreens)
+            {
+                currentsScreen.Update(time);
+            }
         }
 
         public void Draw()

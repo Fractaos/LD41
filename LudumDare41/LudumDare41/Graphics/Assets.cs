@@ -14,9 +14,10 @@ namespace LudumDare41.Graphics
         public static Texture2D backgroundGestion;
         //SON
         //SHOOTERPHASE
-        public static SoundEffect GunShot, SubMachineShot, SniperShot, EnemyHitted, PlayerHitted, MusicShooter;
+        public static SoundEffectInstance GunShot, SubMachineShot, SniperShot, EnemyHitted, PlayerHitted, MusicGestion, MusicShooter;
         //GESTIONPHASE
-        public static SoundEffect Drag, Drop, MusicGestion;
+        public static SoundEffect Drag, Drop;
+
 
         //FONT
         public static SpriteFont Font;
@@ -37,17 +38,17 @@ namespace LudumDare41.Graphics
 
             backgroundGestion = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/corps");
             //SON
-            GunShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/gun_shoot");
-            SubMachineShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/submachine_shoot");
-            SniperShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/sniper_shoot");
+            GunShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/gun_shoot").CreateInstance();
+            SubMachineShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/submachine_shoot").CreateInstance();
+            SniperShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/sniper_shoot").CreateInstance();
             Drag = Main.Content.Load<SoundEffect>("Assets/Sounds/GestionPhase/anti_drag");
             Drop = Main.Content.Load<SoundEffect>("Assets/Sounds/GestionPhase/anti_drop");
-            MusicGestion = Main.Content.Load<SoundEffect>("Assets/Sounds/GestionPhase/music_gestion");
+            MusicGestion = Main.Content.Load<SoundEffect>("Assets/Sounds/GestionPhase/music_gestion").CreateInstance();
 
-            PlayerHitted = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/player_hitted");
-            EnemyHitted = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/enemy_hitted");
+            PlayerHitted = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/player_hitted").CreateInstance();
+            EnemyHitted = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/enemy_hitted").CreateInstance();
 
-            MusicShooter = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/music_shooter");
+            MusicShooter = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/music_shooter").CreateInstance();
 
 
             //FONT
