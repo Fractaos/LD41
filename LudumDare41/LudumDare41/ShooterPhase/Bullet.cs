@@ -46,7 +46,7 @@ namespace LudumDare41.ShooterPhase
             }
             Position.X += _direction.X * _speed * speedFactor;
             Position.Y += _direction.Y * _speed * speedFactor;
-            ShooterScreen tempScreen = (ShooterScreen)Main.CurrentScreen;
+            ShooterScreen tempScreen = (ShooterScreen)Main.CurrentsScreens[0];
             tempScreen.ProcessBulletCollision(this);
             //if (Position.X > Utils.WIDTH || Position.X < 0 || Position.Y > Utils.HEIGHT || Position.Y < 0)
             //{

@@ -1,8 +1,10 @@
 ﻿using LudumDare41.Graphics;
 using LudumDare41.ShooterPhase;
+using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
 namespace LudumDare41.Screens
@@ -11,6 +13,7 @@ namespace LudumDare41.Screens
     {
 
         private float _timeScale = 1f;
+        private bool _isActive;
 
         private Player _player;
         private List<Weapon> _weapons;
@@ -22,8 +25,6 @@ namespace LudumDare41.Screens
 
         public override void Create()
         {
-
-            Main.Instance.IsMouseVisible = false;
             _camera = new Camera();
             _weapons = new List<Weapon>();
             _enemies = new List<Enemy>();
@@ -66,6 +67,12 @@ namespace LudumDare41.Screens
         public Camera Camera
         {
             get => _camera;
+        }
+
+        public bool IsActive
+        {
+            get => _isActive;
+            set => _isActive = value;
         }
 
         public bool ProcessBulletCollision(Bullet bullet)
@@ -119,6 +126,13 @@ namespace LudumDare41.Screens
                 }
             }
 
+            if (Input.KeyPressed(Keys.Space, true))
+            {
+                TimeScale = 0.5f;
+                _isActive = false;
+                Main.SetScreenWithoutReCreating(Main.CurrentsScreens[1]);
+            }
+
 
             _weapons.RemoveAll(weapon => weapon.PlayerHold);
             _enemies.ForEach(enemy => enemy.Update(time));
@@ -140,6 +154,13 @@ namespace LudumDare41.Screens
                 _player.Draw(spriteBatch);
             }
             spriteBatch.End();
+        }
+
+        public override void Resume()
+        {
+
+            _isActive = true;
+            Main.Instance.IsMouseVisible = false;
         }
     }
 }

@@ -2,6 +2,7 @@
 using LudumDare41.Graphics;
 using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
 namespace LudumDare41.Screens
@@ -10,6 +11,8 @@ namespace LudumDare41.Screens
     {
         UiManager manager = new UiManager();
         List<Anticorps> anticorps;
+
+        private bool _isActive;
 
         Anticorps isDragged;
 
@@ -43,6 +46,12 @@ namespace LudumDare41.Screens
             manager.AddParticle(new UiButton(new Vector2(50, 50), 100, 50, () => { showFactory = !showFactory; }, Color.White));
 
             #endregion 
+        }
+
+        public bool IsActive
+        {
+            get => _isActive;
+            set => _isActive = value;
         }
 
         public override void Update(GameTime time)
@@ -102,7 +111,15 @@ namespace LudumDare41.Screens
             Arms.AntiNbr = anticorps.FindAll(anti => anti.ActualPart == Arms).Count;
             Corps.AntiNbr = anticorps.FindAll(anti => anti.ActualPart == Corps).Count;
             Legs.AntiNbr = anticorps.FindAll(anti => anti.ActualPart == Legs).Count;
-            #endregion  
+            #endregion
+
+            if (Input.KeyPressed(Keys.Space, true))
+            {
+                ShooterScreen tempScreen = (ShooterScreen)Main.CurrentsScreens[0];
+                tempScreen.TimeScale = 1f;
+                _isActive = false;
+                Main.SetScreenWithoutReCreating(tempScreen);
+            }
 
         }
 
@@ -136,6 +153,12 @@ namespace LudumDare41.Screens
                 factory.Draw(spriteBatch);
 
             spriteBatch.End();
+        }
+
+        public override void Resume()
+        {
+            _isActive = true;
+            Main.Instance.IsMouseVisible = true;
         }
 
         public void AddAntiCorps(AntiType type, BodyPart part)

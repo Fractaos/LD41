@@ -22,6 +22,8 @@ namespace LudumDare41.Screens
 
         public abstract void Draw();
 
+        public abstract void Resume();
+
         public void Dispose()
         {
             spriteBatch.Dispose();

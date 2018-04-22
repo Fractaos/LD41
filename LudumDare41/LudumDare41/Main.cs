@@ -45,7 +45,8 @@ namespace LudumDare41
             CurrentsScreens.Add(new ShooterScreen());
             CurrentsScreens.Add(new GestionScreen());
 
-            SetScreen(CurrentsScreens[1]);
+            CurrentsScreens.ForEach(screen => screen.Create());
+            SetScreenWithoutReCreating(CurrentsScreens[0]);
 
         }
 
@@ -68,6 +69,12 @@ namespace LudumDare41
         {
             CurrentScreen = screen;
             CurrentScreen.Create();
+        }
+
+        public static void SetScreenWithoutReCreating(Screen screen)
+        {
+            CurrentScreen = screen;
+            CurrentScreen.Resume();
         }
     }
 }
