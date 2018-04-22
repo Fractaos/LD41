@@ -101,11 +101,14 @@ namespace LudumDare41.GestionPhase
             batch.DrawString(Assets.Font, "Gras", new Vector2(grasBar.Position.X, grasBar.Position.Y + 30), Color.Black);
             batch.DrawString(Assets.Font, "Vitamine C", new Vector2(vitCBar.Position.X, vitCBar.Position.Y + 30), Color.White);
 
-            batch.DrawString(Assets.Font, "- Cellule basique, ajoutant 10% d'avantage la ou vous la posez", new Vector2(position.X + 400, position.Y + 125), Color.White);
+            batch.DrawString(Assets.Font, "- Cellule basique, ajoutant 10% d'avantage la ou vous la posez. Coute 20 Sucre", new Vector2(position.X + 400, position.Y + 125), Color.White);
+            batch.DrawString(Assets.Font, "- Coute 20 Sucre", new Vector2(position.X + 400, position.Y + 145), Color.Red);
             batch.DrawString(Assets.Font, "- Cellule bonne voisine, ajoutant 5% la ou vous la posez,", new Vector2(position.X + 400, position.Y + 225), Color.White);
-            batch.DrawString(Assets.Font, " et 5% aux parties du corps adjacentes", new Vector2(position.X + 400, position.Y + 245), Color.White);
-            batch.DrawString(Assets.Font, "- Cellule Leader, n'apporte aucun avantage seul, mais ajoute 2% ", new Vector2(position.X + 400, position.Y + 325), Color.White);
-            batch.DrawString(Assets.Font, "pour chaque cellule dans la partie du corps ou elle se trouve", new Vector2(position.X + 400, position.Y + 345), Color.White);
+            batch.DrawString(Assets.Font, " et 5% aux parties du corps adjacentes .", new Vector2(position.X + 400, position.Y + 245), Color.White);
+            batch.DrawString(Assets.Font, " - Coute 10 gras et 20 sucre", new Vector2(position.X + 400, position.Y + 265), Color.Red);
+            batch.DrawString(Assets.Font, "- Cellule Leader, n'apporte aucun avantage seul, mais ajoute 2%.", new Vector2(position.X + 400, position.Y + 325), Color.White);
+            batch.DrawString(Assets.Font, "pour chaque cellule dans la partie du corps ou elle se trouve.", new Vector2(position.X + 400, position.Y + 345), Color.White);
+            batch.DrawString(Assets.Font, "- Coute 10 Vitamine C, 20 Gras et 30 Sucre", new Vector2(position.X + 400, position.Y + 365), Color.Red);
 
         }
     }
