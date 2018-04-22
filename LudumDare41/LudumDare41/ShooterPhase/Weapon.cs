@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Markup;
-using LudumDare41.Graphics;
+﻿using LudumDare41.Graphics;
 using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 
 namespace LudumDare41.ShooterPhase
 {
@@ -20,7 +19,7 @@ namespace LudumDare41.ShooterPhase
 
     public abstract class Weapon : Sprite
     {
-        protected float _timeBetweenFire, _bulletSpeed, _rotation, _timeElaspedSinceLastShot, _timeSinceBeginReload, _timeToReload;
+        protected float _timeBetweenFire, _bulletSpeed, _rotation, _timeElaspedSinceLastShot, _timeSinceBeginReload, _timeToReload, _damage;
         protected int _numberBulletInLoader, _totalNumberBulletInLoader, _totalBullet;
         protected bool _playerHold;
         protected WeaponState _weaponState;
@@ -29,7 +28,7 @@ namespace LudumDare41.ShooterPhase
         protected SoundEffect _shotSound;
 
         protected ProgressBar _reloadPb;
-        
+
 
 
         protected Weapon(Texture2D texture, Vector2 position, int bulletInWeapon, WeaponState weaponState) : base(texture, position)
@@ -37,7 +36,7 @@ namespace LudumDare41.ShooterPhase
             _bulletsFired = new List<Bullet>();
             _totalBullet = bulletInWeapon;
             _weaponState = weaponState;
-            
+
         }
 
         public WeaponState WeaponState
@@ -80,6 +79,11 @@ namespace LudumDare41.ShooterPhase
             set => _playerHold = value;
         }
 
+        public float Damage
+        {
+            get => _damage;
+        }
+
         public virtual void Fire(Vector2 target, Sprite side)
         {
             if (_weaponState == WeaponState.Holded)
@@ -88,7 +92,7 @@ namespace LudumDare41.ShooterPhase
                 {
                     Vector2 direction = target - Position;
                     direction.Normalize();
-                    _bulletsFired.Add(new Bullet(Assets.Bullet, Position, _bulletSpeed, direction, side));
+                    _bulletsFired.Add(new Bullet(Assets.Bullet, Position, _bulletSpeed, direction, side, this));
                     _shotSound.Play();
                     _timeElaspedSinceLastShot = 0;
                     _totalBullet--;
@@ -120,7 +124,7 @@ namespace LudumDare41.ShooterPhase
 
                     break;
                 case WeaponState.Holded:
-                    
+
                     break;
                 case WeaponState.Reload:
                     _timeSinceBeginReload += time.ElapsedGameTime.Milliseconds;
@@ -166,7 +170,7 @@ namespace LudumDare41.ShooterPhase
                     spriteBatch.Draw(Texture, Position, Color.White);
                     break;
                 case WeaponState.Holded:
-                    
+
                     break;
                 case WeaponState.Reload:
                     _reloadPb.Draw(spriteBatch);
@@ -193,7 +197,7 @@ namespace LudumDare41.ShooterPhase
                     spriteBatch.Draw(Texture, Position, Color.White);
                     break;
                 case WeaponState.Holded:
-                    
+
                     break;
                 case WeaponState.Reload:
                     _reloadPb.Draw(spriteBatch);

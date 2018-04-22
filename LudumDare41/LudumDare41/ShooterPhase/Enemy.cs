@@ -1,7 +1,7 @@
-﻿using System;
-using LudumDare41.Graphics;
+﻿using LudumDare41.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace LudumDare41.ShooterPhase
 {
@@ -55,9 +55,9 @@ namespace LudumDare41.ShooterPhase
             get => _alive;
         }
 
-        public void TakeDamage()
+        public void TakeDamage(float amount)
         {
-            _life -= 5;
+            _life -= (int)amount;
             if (_life <= 0)
             {
                 _life = 0;

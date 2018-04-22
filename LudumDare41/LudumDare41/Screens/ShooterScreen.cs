@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using LudumDare41.Graphics;
-using LudumDare41.ShooterPhase;
-using LudumDare41.Utility;
+﻿using LudumDare41.ShooterPhase;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace LudumDare41.Screens
 {
@@ -27,21 +23,21 @@ namespace LudumDare41.Screens
             _weapons.Add(gun);
             _weapons.Add(subMachine);
             _weapons.Add(sniper);
-            _player = new Player(Utils.CreateTexture(50, 50, Color.Blue), new Vector2(Utils.WIDTH/2-25, Utils.HEIGHT/2-25));
+            _player = new Player(Utils.CreateTexture(50, 50, Color.Blue), new Vector2(Utils.WIDTH / 2 - 25, Utils.HEIGHT / 2 - 25));
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 1; i++)
             {
-                _enemies.Add(new Enemy(Utils.CreateTexture(50, 50, Color.Red), new Vector2(Utils.RANDOM.Next(100, Utils.WIDTH - 200), Utils.RANDOM.Next(100, Utils.HEIGHT-200)), _player));
+                _enemies.Add(new Enemy(Utils.CreateTexture(50, 50, Color.Red), new Vector2(Utils.RANDOM.Next(100, Utils.WIDTH - 200), Utils.RANDOM.Next(100, Utils.HEIGHT - 200)), _player));
             }
 
 
         }
         public bool ProcessBulletCollision(Bullet bullet)
         {
-            if (bullet.Hitbox.Intersects(_player.Hitbox) && !(bullet.Side is Player))
+            if (bullet.Hitbox.Intersects(_player.Hitbox) && bullet.Side is Enemy theEnemy)
             {
                 bullet.ToDestroy = true;
-                _player.TakeDamage();
+                _player.TakeDamage(bullet.FromWeapon.Damage);
                 if (Utils.PlayerHitted != null)
                     Utils.PlayerHitted.Play();
                 return true;
@@ -49,16 +45,16 @@ namespace LudumDare41.Screens
 
             foreach (var enemy in _enemies)
             {
-                if (bullet.Hitbox.Intersects(enemy.Hitbox) && !(bullet.Side is Enemy))
+                if (bullet.Hitbox.Intersects(enemy.Hitbox) && bullet.Side is Player thePlayer)
                 {
                     bullet.ToDestroy = true;
-                    enemy.TakeDamage();
+                    enemy.TakeDamage(bullet.FromWeapon.Damage * thePlayer.Accuracy);
                     if (Utils.EnemyHitted != null)
                         Utils.EnemyHitted.Play();
                     return true;
                 }
             }
-            
+
 
             return false;
         }
@@ -79,7 +75,7 @@ namespace LudumDare41.Screens
             _enemies.RemoveAll(enemy => !enemy.Alive);
 
             _player.Update(time);
-            
+
         }
 
         public override void Draw()

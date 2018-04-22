@@ -1,9 +1,9 @@
-﻿using System;
-using LudumDare41.Graphics;
+﻿using LudumDare41.Graphics;
 using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace LudumDare41.ShooterPhase
 {
@@ -14,7 +14,7 @@ namespace LudumDare41.ShooterPhase
 
         private const int MAX_LIFE = 100;
 
-        private float _moveSpeed = .6f, _aimSpeed = 1, _shootSpeed = 1;
+        private float _moveSpeed = .6f, _accuracy = 1f, _shootSpeed = 1f;
         private float _rotation;
 
         private int _life;
@@ -32,10 +32,10 @@ namespace LudumDare41.ShooterPhase
 
         public Player(Texture2D texture, Vector2 position) : base(texture, position)
         {
-            _crossAim = new CrossAim(Assets.CrossAim, new Vector2((float)Utils.WIDTH/2, (float)Utils.HEIGHT/2), this);
+            _crossAim = new CrossAim(Assets.CrossAim, new Vector2((float)Utils.WIDTH / 2, (float)Utils.HEIGHT / 2), this);
             _life = MAX_LIFE;
-            _lifeBar = new ProgressBar(new Vector2( 10, 20), 100, 15, Color.Green, MAX_LIFE, true);
-            _hitbox = new Rectangle(_hitbox.X - Texture.Width/2, _hitbox.Y - Texture.Height/2, _hitbox.Width, _hitbox.Height);
+            _lifeBar = new ProgressBar(new Vector2(10, 20), 100, 15, Color.Green, MAX_LIFE, true);
+            _hitbox = new Rectangle(_hitbox.X - Texture.Width / 2, _hitbox.Y - Texture.Height / 2, _hitbox.Width, _hitbox.Height);
         }
 
         #endregion
@@ -49,14 +49,19 @@ namespace LudumDare41.ShooterPhase
             get => _life;
         }
 
+        public float Accuracy
+        {
+            get => _accuracy;
+        }
+
         #endregion
 
         #region Public Methods
 
-        public void TakeDamage()
+        public void TakeDamage(float amount)
         {
-            _life -= 5;
-            _lifeBar.DecreaseBar(5);
+            _life -= (int)amount;
+            _lifeBar.DecreaseBar((int)amount);
             if (_life <= 0)
             {
                 _life = 0;
@@ -116,14 +121,14 @@ namespace LudumDare41.ShooterPhase
             //Calcul de l'angle de rotation (visant le curseur de la souris)
             Vector2 direction = Input.MousePos - Position;
             direction.Normalize();
-            _rotation = (float) Math.Atan2(direction.Y, direction.X);
+            _rotation = (float)Math.Atan2(direction.Y, direction.X);
 
 
             //Update barre de vie
             _lifeBar.Update(elapsedGameTimeMillis);
-            
+
             //UpdateHitbox(Position);
-            UpdateHitbox(new Vector2(Position.X-(float)Texture.Width/2, Position.Y-(float)Texture.Height/2));
+            UpdateHitbox(new Vector2(Position.X - (float)Texture.Width / 2, Position.Y - (float)Texture.Height / 2));
 
             //Update du viseur
             _crossAim.Update(time);
@@ -147,7 +152,7 @@ namespace LudumDare41.ShooterPhase
 
             //Affichage du joueur
             spriteBatch.Draw(Texture, Position, null, Color.White, _rotation,
-                new Vector2((float) Texture.Width / 2, (float) Texture.Height / 2), 1f,
+                new Vector2((float)Texture.Width / 2, (float)Texture.Height / 2), 1f,
                 SpriteEffects.None, 1f);
 
             //Affichage de l'arme tenue
