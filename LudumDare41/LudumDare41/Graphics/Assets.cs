@@ -14,10 +14,9 @@ namespace LudumDare41.Graphics
         public static Texture2D backgroundGestion;
         //SON
         //SHOOTERPHASE
-        public static SoundEffect GunShot, SubMachineShot, SniperShot, EnemyHitted, PlayerHitted;
+        public static SoundEffect GunShot, SubMachineShot, SniperShot, EnemyHitted, PlayerHitted, MusicShooter;
         //GESTIONPHASE
         public static SoundEffect Drag, Drop, MusicGestion;
-        public static SoundEffect GunShot, SubMachineShot, SniperShot, EnemyHitted, PlayerHitted, MusicShooter;
 
         //FONT
         public static SpriteFont Font;

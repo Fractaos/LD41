@@ -13,6 +13,7 @@ namespace LudumDare41.Utility
         float _width, _height, _percentUp, _maxValue, _currentValue;
         bool _withLabel = false;
 
+
         // Graphics fields
         Color _color;
         Texture2D _barTexture, _barBackgroundTexture;
@@ -95,7 +96,7 @@ namespace LudumDare41.Utility
             _currentValue = _maxValue;
         }
 
-        public void Update(ref int value)
+        public void Update(GameTime time, int value)
         {
             _currentValue = value;
             _percentUp = (_currentValue / _maxValue) * _width;

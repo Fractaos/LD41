@@ -34,7 +34,7 @@ namespace LudumDare41.Screens
             _player = new Player(Utils.CreateTexture(50, 50, Color.Blue),
                 new Vector2(Utils.WIDTH / 2 - 25, Utils.HEIGHT / 2 - 25), _camera);
 
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 1; i++)
             {
                 _enemies.Add(new Enemy(Utils.CreateTexture(50, 50, Color.Red),
                     new Vector2(Utils.RANDOM.Next(100, Utils.WIDTH - 200), Utils.RANDOM.Next(100, Utils.HEIGHT - 200)), _player, _camera));

@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 using LudumDare41.Graphics;
-using Microsoft.Xna.Framework;
 using LudumDare41.Utility;
-using LudumDare41.Screens;
-using LudumDare41.GestionPhase;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace LudumDare41.GestionPhase
@@ -26,7 +19,7 @@ namespace LudumDare41.GestionPhase
 
         public Anticorps(Vector2 position, AntiType type, BodyPart part = null) : base(Assets.PixelB, position)
         {
-            switch(type)
+            switch (type)
             {
                 case AntiType.Normal:
                     Texture = Utils.CreateTexture(40, 40, Color.Red);
@@ -45,14 +38,14 @@ namespace LudumDare41.GestionPhase
             ActualPart = part;
         }
 
-        public void Update(float time)
+        public void Update(GameTime time)
         {
             UpdateHitbox(Position);
             if (ActualPart != null)
                 Position = Vector2.Clamp(Position, new Vector2(ActualPart.Bounds.X, ActualPart.Bounds.Y),
                     new Vector2(ActualPart.Bounds.X + ActualPart.Bounds.Width - 40, ActualPart.Bounds.Y + ActualPart.Bounds.Height - 40));
 
-            if(Dragged)
+            if (Dragged)
             {
                 Position = Input.MousePos;
             }

@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-
-using LudumDare41.GestionPhase;
-using LudumDare41.Utility;
-using LudumDare41.GestionPhase;
-
-using Microsoft.Xna.Framework.Graphics;
+﻿using LudumDare41.GestionPhase;
 using LudumDare41.Graphics;
-using Microsoft.Xna.Framework.Input;
+using LudumDare41.Utility;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace LudumDare41.Screens
 {
@@ -58,7 +49,7 @@ namespace LudumDare41.Screens
         {
             #region Factory
             if (showFactory)
-                factory.Update(time.ElapsedGameTime.Milliseconds);
+                factory.Update(time);
             manager.Update(time.ElapsedGameTime.Milliseconds);
 
             #endregion
@@ -150,7 +141,7 @@ namespace LudumDare41.Screens
         public void AddAntiCorps(AntiType type, BodyPart part)
         {
             Anticorps buffer = new Anticorps(new Vector2(Main.Rand.Next(None.Bounds.X, None.Bounds.X + None.Bounds.Width), Main.Rand.Next(None.Bounds.Y, None.Bounds.Y + None.Bounds.Height)), type, None);
-            TimerManager.Timers.Add(new Timer(200, () => { buffer.Position += new Vector2(Main.Rand.Next(0, 3) - 1, Main.Rand.Next(0, 3) - 1);}));
+            TimerManager.Timers.Add(new Timer(200, () => { buffer.Position += new Vector2(Main.Rand.Next(0, 3) - 1, Main.Rand.Next(0, 3) - 1); }));
             anticorps.Add(buffer);
         }
     }

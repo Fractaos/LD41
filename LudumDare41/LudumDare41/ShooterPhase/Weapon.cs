@@ -139,7 +139,7 @@ namespace LudumDare41.ShooterPhase
                         _reloadPb.Reset();
                         _weaponState = WeaponState.Holded;
                     }
-                    //_reloadPb.Update(ref _timeSinceBeginReload);
+                    _reloadPb.Update(time, (int)_timeSinceBeginReload);
                     break;
                 case WeaponState.Empty:
                     _canDestroy = true;

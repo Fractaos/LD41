@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
+using LudumDare41.Screens;
 using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using LudumDare41.Screens;
 
 namespace LudumDare41.GestionPhase
 {
@@ -55,7 +50,7 @@ namespace LudumDare41.GestionPhase
                         ok = true;
                         sucre -= 20;
                     }
-                        break;
+                    break;
                 case AntiType.Neighbour:
                     if (sucre >= 20 && gras >= 10)
                     {
@@ -82,13 +77,13 @@ namespace LudumDare41.GestionPhase
         }
 
 
-        public void Update(float time)
+        public void Update(GameTime time)
         {
-            manager.Update(time);
+            manager.Update(time.ElapsedGameTime.Milliseconds);
 
-            listProgress[0].Update(ref sucre);
-            listProgress[1].Update(ref gras);
-            listProgress[2].Update(ref vitC);
+            listProgress[0].Update(time, sucre);
+            listProgress[1].Update(time, gras);
+            listProgress[2].Update(time, vitC);
         }
 
 
