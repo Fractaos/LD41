@@ -32,6 +32,7 @@ namespace LudumDare41.GestionPhase
 
         public void Update(float time)
         {
+            UpdateHitbox(Position);
             if (ActualPart != null)
                 Position = Vector2.Clamp(Position, new Vector2(ActualPart.Bounds.X, ActualPart.Bounds.Y),
                     new Vector2(ActualPart.Bounds.X + ActualPart.Bounds.Width - 40, ActualPart.Bounds.Y + ActualPart.Bounds.Height - 40));
