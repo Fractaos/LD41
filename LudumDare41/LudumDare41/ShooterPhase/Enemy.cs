@@ -99,11 +99,16 @@ namespace LudumDare41.ShooterPhase
                 speedFactor = currentScreen.TimeScale;
             }
 
+            float distanceWithPlayer;
             Vector2 direction = _thePlayer.Position - Position;
+            distanceWithPlayer = (float)Math.Sqrt(Math.Pow(direction.X, 2) + Math.Pow(direction.Y, 2));
             direction.Normalize();
 
             _rotation = (float)Math.Atan2(direction.Y, direction.X);
-            _weaponHolded?.Fire(_thePlayer.Position, this, speedFactor);
+            _weaponHolded.FireSpeedModifier = 0.5f;
+
+            if (distanceWithPlayer <= 500)
+                _weaponHolded?.Fire(_thePlayer.Position, this, speedFactor);
             if (_weaponHolded != null && _weaponHolded.CanDestroy)
                 _weaponHolded = null;
             _weaponHolded?.Update(time);

@@ -9,10 +9,7 @@ using System.Collections.Generic;
 namespace LudumDare41.Screens
 {
     public class ShooterScreen : Screen
-    {
-
-
-
+    {
         private float _timeScale = 1f;
         private bool _isActive;
 
@@ -32,10 +29,14 @@ namespace LudumDare41.Screens
 
         private bool _gameOver;
 
+        //ARENE
+        Rectangle _areneBounds;
+
 
         public override void Create()
         {
             Main.Instance.IsMouseVisible = false;
+            _areneBounds = new Rectangle(92, 92, Assets.Arene.Width - 92 * 2, Assets.Arene.Height - 92 * 2);
             _gameOver = false;
             _camera = new Camera();
             _weapons = new List<Weapon>();
@@ -45,22 +46,116 @@ namespace LudumDare41.Screens
             QuitDelegate quit = Quit;
             _uiManager.AddParticle(new UiButton(_camera.ScreenToWorld(new Vector2(Utils.WIDTH / 2 - 250, .7f * Utils.HEIGHT)), Replay, Assets.ReplayButton));
             _uiManager.AddParticle(new UiButton(_camera.ScreenToWorld(new Vector2(Utils.WIDTH / 2 + 50, .7f * Utils.HEIGHT)), Quit, Assets.QuitButton));
-            _loots = new List<Loot>();
-
-            Gun gun = new Gun(new Vector2(100, 100), 150, WeaponState.OnFloor, _camera);
-            SubMachine subMachine = new SubMachine(new Vector2(650, 700), 150, WeaponState.OnFloor, _camera);
-            Sniper sniper = new Sniper(new Vector2(400, 300), 150, WeaponState.OnFloor, _camera);
-            _weapons.Add(gun);
-            _weapons.Add(subMachine);
-            _weapons.Add(sniper);
-            _player = new Player(Utils.CreateTexture(50, 50, Color.Blue),
-                new Vector2(Utils.WIDTH / 2 - 25, Utils.HEIGHT / 2 - 25), _camera);
-            _loots.Add(new Loot(new Vector2(50, 50), LootType.Sucre));
+            _loots = new List<Loot>();
 
-            for (int i = 0; i < 1; i++)
+
+            _player = new Player(Assets.Player,
+                new Vector2(Utils.WIDTH / 2 - 25, Utils.HEIGHT / 2 - 25), _camera);
+
+            var nbLoot = Utils.RANDOM.Next(5, 16);
+
+            for (var i = 0; i < nbLoot; i++)
             {
-                _enemies.Add(new Enemy(Utils.CreateTexture(50, 50, Color.Red),
-                    new Vector2(Utils.RANDOM.Next(100, Utils.WIDTH - 200), Utils.RANDOM.Next(100, Utils.HEIGHT - 200)), _player, _camera));
+                Loot potentialLoot;
+                bool intersectWithEntity;
+
+
+                do
+                {
+                    intersectWithEntity = false;
+                    var lootX = Utils.RANDOM.Next(_areneBounds.Left, _areneBounds.Right - 150);
+                    var lootY = Utils.RANDOM.Next(_areneBounds.Top, _areneBounds.Bottom - 150);
+
+                    potentialLoot = new Loot(new Vector2(lootX, lootY));
+
+                    foreach (var enemy in _enemies)
+                    {
+                        if (potentialLoot.Hitbox.Intersects(enemy.Hitbox))
+                        {
+                            intersectWithEntity = true;
+                            break;
+                        }
+                    }
+                    if (potentialLoot.Hitbox.Intersects(Player.Hitbox))
+                        intersectWithEntity = true;
+
+                } while (intersectWithEntity);
+
+                _loots.Add(potentialLoot);
+            }
+
+            var nbWeapon = Utils.RANDOM.Next(10, 31);
+
+            for (var i = 0; i < nbWeapon; i++)
+            {
+                Weapon potentialWeapon;
+                bool intersectWithEntity;
+
+
+                do
+                {
+                    intersectWithEntity = false;
+                    var weaponX = Utils.RANDOM.Next(_areneBounds.Left, _areneBounds.Right - 150);
+                    var weaponY = Utils.RANDOM.Next(_areneBounds.Top, _areneBounds.Bottom - 150);
+                    var rnd = Utils.RANDOM.Next(3);
+                    switch (rnd)
+                    {
+                        case 0:
+                            potentialWeapon = new Gun(new Vector2(weaponX, weaponY), WeaponState.OnFloor, _camera);
+                            break;
+                        case 1:
+                            potentialWeapon = new SubMachine(new Vector2(weaponX, weaponY), WeaponState.OnFloor, _camera);
+                            break;
+                        case 2:
+                            potentialWeapon = new Sniper(new Vector2(weaponX, weaponY), WeaponState.OnFloor, _camera);
+                            break;
+                        default:
+                            potentialWeapon = new Gun(new Vector2(weaponX, weaponY), WeaponState.OnFloor, _camera);
+                            break;
+                    }
+
+                    foreach (var enemy in _enemies)
+                    {
+                        if (potentialWeapon.Hitbox.Intersects(enemy.Hitbox))
+                        {
+                            intersectWithEntity = true;
+                            break;
+                        }
+                    }
+                    if (potentialWeapon.Hitbox.Intersects(Player.Hitbox))
+                        intersectWithEntity = true;
+
+                } while (intersectWithEntity);
+
+                _weapons.Add(potentialWeapon);
+            }
+
+            for (var i = 0; i < 15; i++)
+            {
+                Enemy potentialEnemy;
+                bool intersectWithEntity;
+
+                do
+                {
+                    intersectWithEntity = false;
+                    var enemyX = Utils.RANDOM.Next(_areneBounds.Left, _areneBounds.Right - 50);
+                    var enemyY = Utils.RANDOM.Next(_areneBounds.Top, _areneBounds.Bottom - 50);
+                    potentialEnemy = new Enemy(Assets.Enemy, new Vector2(enemyX, enemyY), _player, _camera);
+                    foreach (var enemy in _enemies)
+                    {
+                        if (potentialEnemy.Hitbox.Intersects(enemy.Hitbox))
+                        {
+                            intersectWithEntity = true;
+                            break;
+                        }
+                    }
+
+                    if (potentialEnemy.Hitbox.Intersects(Player.Hitbox))
+                        intersectWithEntity = true;
+                } while (intersectWithEntity);
+
+
+                _enemies.Add(potentialEnemy);
             }
 
             Assets.MusicShooter.Volume = 0.5f;
@@ -106,9 +201,21 @@ namespace LudumDare41.Screens
         {
             get => _isActive;
             set => _isActive = value;
-        }
-
-
+        }
+
+        public Rectangle AreneBounds
+        {
+            get => _areneBounds;
+        }
+
+
+
+
+
+        public bool IsInArena(Rectangle hitbox)
+        {
+            return _areneBounds.Contains(hitbox);
+        }
 
         public bool ProcessBulletCollision(Bullet bullet)
         {
@@ -217,6 +324,7 @@ namespace LudumDare41.Screens
         {
             spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, transformMatrix: _camera.GetTransformationMatrix);
             {
+                spriteBatch.Draw(Assets.Arene, Vector2.Zero, Color.White);
                 foreach (var weapon in _weapons)
                 {
                     weapon.Draw(spriteBatch);
