@@ -10,6 +10,8 @@ namespace LudumDare41.Screens
     public class ShooterScreen : Screen
     {
 
+        private float _timeScale = 1f;
+
         private Player _player;
         private List<Weapon> _weapons;
         private List<Enemy> _enemies;
@@ -40,10 +42,25 @@ namespace LudumDare41.Screens
                     new Vector2(Utils.RANDOM.Next(100, Utils.WIDTH - 200), Utils.RANDOM.Next(100, Utils.HEIGHT - 200)), _player, _camera));
             }
 
-            _music.Play(0.5f, 0.0f, 0.0f);
+
+            SoundEffectInstance musicInstance = _music.CreateInstance();
+            musicInstance.Volume = 0.5f;
+            if (_timeScale > 1)
+                musicInstance.Pitch = 1f;
+            else
+                musicInstance.Pitch = _timeScale - 1;
+            musicInstance.IsLooped = true;
+            musicInstance.Play();
 
 
 
+
+        }
+
+        public float TimeScale
+        {
+            get => _timeScale;
+            set => _timeScale = value;
         }
 
         public Camera Camera
@@ -58,7 +75,14 @@ namespace LudumDare41.Screens
                 bullet.ToDestroy = true;
                 _player.TakeDamage(bullet.FromWeapon.Damage);
                 if (Utils.PlayerHitted != null)
-                    Utils.PlayerHitted.Play();
+                {
+                    SoundEffectInstance playerHittedInstance = Utils.PlayerHitted.CreateInstance();
+                    if (_timeScale > 1)
+                        playerHittedInstance.Pitch = 1f;
+                    else
+                        playerHittedInstance.Pitch = _timeScale - 1;
+                }
+
                 return true;
             }
 
@@ -69,7 +93,13 @@ namespace LudumDare41.Screens
                     bullet.ToDestroy = true;
                     enemy.TakeDamage(bullet.FromWeapon.Damage * thePlayer.Accuracy);
                     if (Utils.EnemyHitted != null)
-                        Utils.EnemyHitted.Play();
+                    {
+                        SoundEffectInstance enemyHittedInstance = Utils.EnemyHitted.CreateInstance();
+                        if (_timeScale > 1)
+                            enemyHittedInstance.Pitch = 1f;
+                        else
+                            enemyHittedInstance.Pitch = _timeScale - 1;
+                    }
                     return true;
                 }
             }

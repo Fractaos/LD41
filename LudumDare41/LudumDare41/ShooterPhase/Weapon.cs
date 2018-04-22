@@ -1,4 +1,5 @@
 ﻿using LudumDare41.Graphics;
+using LudumDare41.Screens;
 using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -87,8 +88,9 @@ namespace LudumDare41.ShooterPhase
             get => _damage;
         }
 
-        public virtual void Fire(Vector2 target, Sprite side)
+        public virtual void Fire(Vector2 target, Sprite side, float speedFactor)
         {
+
             if (_weaponState == WeaponState.Holded)
             {
                 if (_timeElaspedSinceLastShot > _timeBetweenFire)
@@ -96,7 +98,12 @@ namespace LudumDare41.ShooterPhase
                     Vector2 direction = target - Position;
                     direction.Normalize();
                     _bulletsFired.Add(new Bullet(Assets.Bullet, Position, _bulletSpeed, direction, side, this));
-                    _shotSound.Play();
+                    SoundEffectInstance shotSoundInstance = _shotSound.CreateInstance();
+                    if (speedFactor > 1)
+                        shotSoundInstance.Pitch = 1f;
+                    else
+                        shotSoundInstance.Pitch = speedFactor - 1;
+                    shotSoundInstance.Play();
                     _timeElaspedSinceLastShot = 0;
                     _totalBullet--;
                     _numberBulletInLoader--;
@@ -121,6 +128,13 @@ namespace LudumDare41.ShooterPhase
 
         public virtual void Update(GameTime time)
         {
+
+            float speedFactor = 1;
+            if (Main.CurrentScreen is ShooterScreen currentScreen)
+            {
+                speedFactor = currentScreen.TimeScale;
+            }
+
             switch (_weaponState)
             {
                 case WeaponState.OnFloor:
@@ -130,7 +144,7 @@ namespace LudumDare41.ShooterPhase
 
                     break;
                 case WeaponState.Reload:
-                    _timeSinceBeginReload -= time.ElapsedGameTime.Milliseconds;
+                    _timeSinceBeginReload -= time.ElapsedGameTime.Milliseconds * speedFactor;
                     _reloadPb.Position = new Vector2(Position.X - 25, Position.Y - 50);
                     if (_timeSinceBeginReload < 0)
                     {
@@ -153,7 +167,7 @@ namespace LudumDare41.ShooterPhase
             _rotation = (float)Math.Atan2(direction.Y, direction.X);
 
 
-            _timeElaspedSinceLastShot += time.ElapsedGameTime.Milliseconds;
+            _timeElaspedSinceLastShot += time.ElapsedGameTime.Milliseconds * speedFactor;
             foreach (var bullet in _bulletsFired)
             {
                 bullet.Update(time);

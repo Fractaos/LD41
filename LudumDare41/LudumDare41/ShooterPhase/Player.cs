@@ -1,4 +1,5 @@
 ﻿using LudumDare41.Graphics;
+using LudumDare41.Screens;
 using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -107,7 +108,15 @@ namespace LudumDare41.ShooterPhase
             //Contrôle du personnage
             var cameraPosition = _currentCamera.Position;
 
+
             float movement = _moveSpeed * elapsedGameTimeMillis;
+            float speedFactor = 1f;
+            if (Main.CurrentScreen is ShooterScreen currentScreen)
+            {
+                speedFactor = currentScreen.TimeScale;
+            }
+
+            movement *= speedFactor;
             if (Input.KeyPressed(Keys.Z, false) || Input.KeyPressed(Keys.Up, false))
             {
                 Position.Y -= movement;
@@ -151,7 +160,7 @@ namespace LudumDare41.ShooterPhase
                 _currentWeapon.Position = Position;
                 if (Input.Left(false))
                 {
-                    _currentWeapon.Fire(_currentCamera.ScreenToWorld(Input.MousePos), this);
+                    _currentWeapon.Fire(_currentCamera.ScreenToWorld(Input.MousePos), this, speedFactor);
                 }
 
                 if (Input.KeyPressed(Keys.R, true))

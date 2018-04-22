@@ -1,4 +1,5 @@
 ﻿using LudumDare41.Graphics;
+using LudumDare41.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -71,12 +72,19 @@ namespace LudumDare41.ShooterPhase
 
         public void Update(GameTime time)
         {
+
+            float speedFactor = 1f;
+            if (Main.CurrentScreen is ShooterScreen currentScreen)
+            {
+                speedFactor = currentScreen.TimeScale;
+            }
+
             Vector2 direction = _thePlayer.Position - Position;
             direction.Normalize();
 
             _rotation = (float)Math.Atan2(direction.Y, direction.X);
 
-            _weaponHolded?.Fire(_thePlayer.Position, this);
+            _weaponHolded?.Fire(_thePlayer.Position, this, speedFactor);
             if (_weaponHolded != null && _weaponHolded.CanDestroy)
                 _weaponHolded = null;
             _weaponHolded?.Update(time);
