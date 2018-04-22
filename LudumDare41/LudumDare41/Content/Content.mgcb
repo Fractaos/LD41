@@ -123,3 +123,21 @@
 /processorParam:Quality=Best
 /build:Assets/Sounds/ShooterPhase/player_hitted.wav
 
+#begin Assets/Sounds/GestionPhase/anti_drag.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Sounds/GestionPhase/anti_drag.wav
+
+#begin Assets/Sounds/GestionPhase/anti_drop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Sounds/GestionPhase/anti_drop.wav
+
+#begin Assets/Sounds/GestionPhase/music_gestion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Sounds/GestionPhase/music_gestion.wav
+

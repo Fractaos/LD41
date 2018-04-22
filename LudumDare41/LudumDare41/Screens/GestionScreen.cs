@@ -32,6 +32,7 @@ namespace LudumDare41.Screens
 
         public override void Create()
         {
+            Assets.MusicGestion.Play();
             //isDragged = false;
             showFactory = false;
             factory = new AntiFactory(this);
@@ -82,6 +83,7 @@ namespace LudumDare41.Screens
                     if (buffer != null)
                     {
                         isDragged.ChangePart(buffer);
+                        Assets.Drop.Play();
                     }
 
                     isDragged.Dragged = false;
@@ -100,6 +102,7 @@ namespace LudumDare41.Screens
                 if (isDragged != null)
                 {
                     isDragged.Dragged = true;
+                    Assets.Drag.Play();
                 }
             }
             #endregion
