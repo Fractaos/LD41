@@ -11,7 +11,7 @@ namespace LudumDare41.Graphics
         //SPRITE
         public static Texture2D PixelW, PixelB, CrossAim, Gun, SubMachine, Sniper, Bullet;
 
-        public static Texture2D backgroundGestion;
+        public static Texture2D backgroundGestion, factoryButton;
         //SON
         //SHOOTERPHASE
         public static SoundEffectInstance GunShot, SubMachineShot, SniperShot, EnemyHitted, EnemyDead, PlayerHitted, MusicGestion, MusicShooter;
@@ -20,7 +20,7 @@ namespace LudumDare41.Graphics
 
 
         //FONT
-        public static SpriteFont Font;
+        public static SpriteFont Font, BigFont;
         #endregion
 
         #region Methode
@@ -36,6 +36,7 @@ namespace LudumDare41.Graphics
             Sniper = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/sniper");
             Bullet = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/bullet");
 
+            factoryButton = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/buttonFactory");
             backgroundGestion = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/corps");
             //SON
             GunShot = Main.Content.Load<SoundEffect>("Assets/Sounds/ShooterPhase/gun_shoot").CreateInstance();
@@ -55,6 +56,7 @@ namespace LudumDare41.Graphics
 
             //FONT
             Font = Main.Content.Load<SpriteFont>("Assets/Fonts/littlefont");
+            BigFont = Main.Content.Load<SpriteFont>("Assets/Fonts/font");
 
             Utils.Load();
 

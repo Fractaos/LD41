@@ -51,7 +51,7 @@ namespace LudumDare41.Screens
 
             Parts = new List<BodyPart> { Head, Arms, Corps, Legs, None };
 
-            manager.AddParticle(new UiButton(new Vector2(50, 50), 100, 50, () => { showFactory = !showFactory; }, Color.White));
+            manager.AddParticle(new UiButton(new Vector2(50, 50), () => { showFactory = !showFactory; }, Assets.factoryButton));
 
             #endregion 
         }
@@ -85,7 +85,7 @@ namespace LudumDare41.Screens
 
             if (isDragged != null)
             {
-                if (Input.Left(true))
+                if (!Input.Left(false))
                 {
                     BodyPart buffer = Parts.Find(part => part.Bounds.Contains(Input.MousePos));
                     if (buffer != null)
@@ -163,23 +163,18 @@ namespace LudumDare41.Screens
             }
             #endregion
             #region Draw BodyPartNbr
-            spriteBatch.DrawString(Assets.Font, "Head " + Head.AntiNbr, new Vector2(10, 10), Color.White);
-            spriteBatch.DrawString(Assets.Font, "Arms" + Arms.AntiNbr, new Vector2(100, 10), Color.White);
-            spriteBatch.DrawString(Assets.Font, "Corps" + Corps.AntiNbr, new Vector2(200, 10), Color.White);
-            spriteBatch.DrawString(Assets.Font, "Legs" + Legs.AntiNbr, new Vector2(300, 10), Color.White);
+            spriteBatch.DrawString(Assets.BigFont, "Accuracy : " + _instancePlayer.Accuracy, new Vector2(1220, 220), Color.White);
+            spriteBatch.DrawString(Assets.BigFont, "Vision Range : " + _instancePlayer.VisionRange, new Vector2(1220, 320), Color.White);
+            spriteBatch.DrawString(Assets.BigFont, "Shoot Speed : " + _instancePlayer.ShootSpeed, new Vector2(1220, 420), Color.White);
+            spriteBatch.DrawString(Assets.BigFont, "Max Life : " + _instancePlayer.MaxLife, new Vector2(1220, 520), Color.White);
 
             spriteBatch.DrawString(Assets.Font, "Head " + Head.effect, new Vector2(10, 30), Color.White);
             spriteBatch.DrawString(Assets.Font, "Arms" + Arms.effect, new Vector2(100, 30), Color.White);
             spriteBatch.DrawString(Assets.Font, "Corps" + Corps.effect, new Vector2(200, 30), Color.White);
             spriteBatch.DrawString(Assets.Font, "Legs" + Legs.effect, new Vector2(300, 30), Color.White);
 
-            //spriteBatch.DrawString(Assets.Font, "lel" + anticorps.Find(anti => anti.Hitbox.Contains(Input.MousePos)), new Vector2(450, 10), Color.White);
-            if (anticorps.Count > 0 && anticorps[0] != null)
-                spriteBatch.DrawString(Assets.Font, "Fragged" + anticorps[0].Dragged, new Vector2(500, 10), Color.White);
-
-            spriteBatch.DrawString(Assets.Font, "lel" + anticorps.Find(anti => anti.Hitbox.Contains(Input.MousePos)), new Vector2(450, 10), Color.White);
             ShooterScreen shooterScreen = (ShooterScreen)Main.CurrentsScreens[0];
-            spriteBatch.DrawString(Assets.Font, "Time elapsed in other mode : " + (_timeElapsedSinceOnScreen / 1000 * shooterScreen.TimeScale).ToString("0.0") + " (in seconds)", new Vector2(1200, 30), Color.White);
+            spriteBatch.DrawString(Assets.BigFont, "Time elapsed in other mode : " + (_timeElapsedSinceOnScreen / 1000 * shooterScreen.TimeScale).ToString("0.0") + " (in seconds)", new Vector2(1170, 30), Color.White);
 
             #endregion
             if (showFactory)
