@@ -119,6 +119,16 @@ namespace LudumDare41.Utility
             this._action = action;
             if (texture != null)
                 this._texture = texture;
+            else
+                 _texture = Utils.CreateTexture(width, height, normalColor);
+        }
+
+        public UiButton(Vector2 position, WhenPressed action, Texture2D texture) : base(position)
+        {
+            _action = action;
+            _texture = texture;
+            _bounds = new Rectangle((int)position.X, (int)position.Y, _texture.Width, _texture.Height);
+
         }
 
         public UiButton(Vector2 position, int width, int height, WhenPressed action, Color color) : base(position)
