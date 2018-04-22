@@ -24,7 +24,7 @@ namespace LudumDare41.GestionPhase
 
         public AntiFactory(GestionScreen instance)
         {
-
+            sucre = vitC = gras = 100;
             manager = new UiManager();
             _instance = instance;
             position = new Vector2(200, 200);
@@ -46,22 +46,38 @@ namespace LudumDare41.GestionPhase
 
         public void BuyAnticorps(AntiType type)
         {
+            bool ok = false;
             switch (type)
             {
                 case AntiType.Normal:
-                    sucreBar.DecreaseBar(20);
-                    break;
+                    if (sucre >= 20)
+                    {
+                        ok = true;
+                        sucre -= 20;
+                    }
+                        break;
                 case AntiType.Neighbour:
-                    sucreBar.DecreaseBar(20);
-                    grasBar.DecreaseBar(10);
+                    if (sucre >= 20 && gras >= 10)
+                    {
+                        ok = true;
+                        sucre -= 20;
+                        gras -= 10;
+                    }
+
                     break;
                 case AntiType.Leader:
-                    sucreBar.DecreaseBar(30);
-                    grasBar.DecreaseBar(20);
-                    vitCBar.DecreaseBar(10);
+                    if (sucre >= 30 && gras >= 20 && vitC >= 10)
+                    {
+                        ok = true;
+                        sucre -= 30;
+                        gras -= 20;
+                        vitC -= 10;
+                    }
                     break;
             }
-            _instance.AddAntiCorps(type, _instance.None);
+
+            if (ok)
+                _instance.AddAntiCorps(type, _instance.None);
 
         }
 
@@ -69,10 +85,10 @@ namespace LudumDare41.GestionPhase
         public void Update(float time)
         {
             manager.Update(time);
-            foreach (var item in listProgress)
-            {
-                item.Update(time);
-            }
+
+            listProgress[0].Update(ref sucre);
+            listProgress[1].Update(ref gras);
+            listProgress[2].Update(ref vitC);
         }
 
 

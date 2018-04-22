@@ -84,7 +84,6 @@ namespace LudumDare41.ShooterPhase
         public void TakeDamage(float amount)
         {
             _life -= (int)amount;
-            _lifeBar.DecreaseBar((int)amount);
             if (_life <= 0)
             {
                 _life = 0;
@@ -169,7 +168,7 @@ namespace LudumDare41.ShooterPhase
 
 
             //Update barre de vie
-            _lifeBar.Update(elapsedGameTimeMillis);
+            _lifeBar.Update(ref _life);
 
             //UpdateHitbox(Position);
             UpdateHitbox(new Vector2(Position.X - (float)Texture.Width / 2, Position.Y - (float)Texture.Height / 2));

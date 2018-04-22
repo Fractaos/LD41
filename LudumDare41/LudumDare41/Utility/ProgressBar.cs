@@ -95,8 +95,9 @@ namespace LudumDare41.Utility
             _currentValue = _maxValue;
         }
 
-        public void Update(float time)
+        public void Update(ref int value)
         {
+            _currentValue = value;
             _percentUp = (_currentValue / _maxValue) * _width;
             if (_percentUp > 0)
             {
