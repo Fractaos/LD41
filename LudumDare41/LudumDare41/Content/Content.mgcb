@@ -123,3 +123,9 @@
 /processorParam:Quality=Best
 /build:Assets/Sounds/ShooterPhase/player_hitted.wav
 
+#begin Assets/Sounds/ShooterPhase/music_shooter.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Sounds/ShooterPhase/music_shooter.wav
+

@@ -7,7 +7,8 @@ namespace LudumDare41.ShooterPhase
 {
     public class Bullet : Sprite
     {
-        private float _speed;
+        private float _speed, _lifeSpan = 0;
+        private const float LifeLength = 2000;
         private Vector2 _direction;
         private Sprite _side;
         private Weapon _fromWeapon;
@@ -42,11 +43,18 @@ namespace LudumDare41.ShooterPhase
             Position.Y += _direction.Y * _speed;
             ShooterScreen tempScreen = (ShooterScreen)Main.CurrentScreen;
             tempScreen.ProcessBulletCollision(this);
-            if (Position.X > Utils.WIDTH || Position.X < 0 || Position.Y > Utils.HEIGHT || Position.Y < 0)
+            //if (Position.X > Utils.WIDTH || Position.X < 0 || Position.Y > Utils.HEIGHT || Position.Y < 0)
+            //{
+            //    ToDestroy = true;
+            //}
+
+            if (_lifeSpan > LifeLength)
             {
+                _lifeSpan = 0;
                 ToDestroy = true;
             }
 
+            _lifeSpan += time.ElapsedGameTime.Milliseconds;
             UpdateHitbox(Position);
         }
 

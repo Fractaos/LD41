@@ -123,6 +123,21 @@ namespace LudumDare41.Utility
             }
         }
 
+        public void Draw(SpriteBatch spriteBatch, Vector2 position)
+        {
+
+            if (_withLabel)
+            {
+                var text = _currentValue + "/" + _maxValue;
+                spriteBatch.DrawString(_font, text, new Vector2(((position.X + _barBackgroundTexture.Width / 2) - (_font.MeasureString(text) / 2).X), position.Y - (_height + _font.MeasureString(text).Y) / 2), Color.White);
+            }
+            spriteBatch.Draw(_barBackgroundTexture, position, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1);
+            if (_percentUp > 0)
+            {
+                spriteBatch.Draw(_barTexture, new Vector2(position.X + 2, position.Y + 2), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1);
+            }
+        }
+
         #endregion
     }
 }

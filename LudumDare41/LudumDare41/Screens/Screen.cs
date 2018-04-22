@@ -5,7 +5,9 @@ namespace LudumDare41.Screens
 {
     public abstract class Screen
     {
-        public SpriteBatch spriteBatch;
+        protected SpriteBatch spriteBatch;
+
+
 
 
 

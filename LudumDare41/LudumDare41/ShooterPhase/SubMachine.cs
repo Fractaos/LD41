@@ -6,11 +6,12 @@ namespace LudumDare41.ShooterPhase
 {
     public class SubMachine : Weapon
     {
-        public SubMachine(Vector2 position, int bulletInWeapon, WeaponState weaponState) : base(Assets.SubMachine, position, bulletInWeapon, weaponState)
+        public SubMachine(Vector2 position, int bulletInWeapon, WeaponState weaponState, Camera currentCamera) : base(Assets.SubMachine, position, bulletInWeapon, weaponState, currentCamera)
         {
             _totalNumberBulletInLoader = 32;
             _numberBulletInLoader = _totalBullet >= _totalNumberBulletInLoader ? _totalNumberBulletInLoader : _totalBullet;
             _timeToReload = 2000f;
+            _timeSinceBeginReload = _timeToReload;
             _bulletSpeed = 40f;
             _timeBetweenFire = 250f;
             _damage = 7.5f;

@@ -19,6 +19,8 @@ namespace LudumDare41.ShooterPhase
 
         private int _life, _visionRange = 200;
 
+        private Camera _currentCamera;
+
         private ProgressBar _lifeBar;
 
         private bool _canGrabWeapon;
@@ -30,8 +32,9 @@ namespace LudumDare41.ShooterPhase
 
         #region Constructors
 
-        public Player(Texture2D texture, Vector2 position) : base(texture, position)
+        public Player(Texture2D texture, Vector2 position, Camera currentCamera) : base(texture, position)
         {
+            _currentCamera = currentCamera;
             _crossAim = new CrossAim(Assets.CrossAim, new Vector2((float)Utils.WIDTH / 2, (float)Utils.HEIGHT / 2), this);
             _life = MAX_LIFE;
             _lifeBar = new ProgressBar(new Vector2(10, 20), 100, 15, Color.Green, MAX_LIFE, true);
@@ -100,15 +103,36 @@ namespace LudumDare41.ShooterPhase
             //Récupération du temps écoulé (en ms)
             float elapsedGameTimeMillis = time.ElapsedGameTime.Milliseconds;
 
+
             //Contrôle du personnage
+            var cameraPosition = _currentCamera.Position;
+
+            float movement = _moveSpeed * elapsedGameTimeMillis;
             if (Input.KeyPressed(Keys.Z, false) || Input.KeyPressed(Keys.Up, false))
-                Position.Y -= _moveSpeed * elapsedGameTimeMillis;
+            {
+                Position.Y -= movement;
+                cameraPosition.Y -= movement;
+            }
+
             if (Input.KeyPressed(Keys.S, false) || Input.KeyPressed(Keys.Down, false))
-                Position.Y += _moveSpeed * elapsedGameTimeMillis;
+            {
+                Position.Y += movement;
+                cameraPosition.Y += movement;
+            }
+
             if (Input.KeyPressed(Keys.Q, false) || Input.KeyPressed(Keys.Left, false))
-                Position.X -= _moveSpeed * elapsedGameTimeMillis;
+            {
+                Position.X -= movement;
+                cameraPosition.X -= movement;
+            }
+
             if (Input.KeyPressed(Keys.D, false) || Input.KeyPressed(Keys.Right, false))
-                Position.X += _moveSpeed * elapsedGameTimeMillis;
+            {
+                Position.X += movement;
+                cameraPosition.X += movement;
+            }
+
+            _currentCamera.Position = cameraPosition;
 
             //Ramasser une arme
             if (_canGrabWeapon && Input.KeyPressed(Keys.E, true))
@@ -127,7 +151,7 @@ namespace LudumDare41.ShooterPhase
                 _currentWeapon.Position = Position;
                 if (Input.Left(false))
                 {
-                    _currentWeapon.Fire(Input.MousePos, this);
+                    _currentWeapon.Fire(_currentCamera.ScreenToWorld(Input.MousePos), this);
                 }
 
                 if (Input.KeyPressed(Keys.R, true))
@@ -139,7 +163,7 @@ namespace LudumDare41.ShooterPhase
 
 
             //Calcul de l'angle de rotation (visant le curseur de la souris)
-            Vector2 direction = Input.MousePos - Position;
+            Vector2 direction = _currentCamera.ScreenToWorld(Input.MousePos) - Position;
             direction.Normalize();
             _rotation = (float)Math.Atan2(direction.Y, direction.X);
 
@@ -162,12 +186,12 @@ namespace LudumDare41.ShooterPhase
             _crossAim.Draw(spriteBatch);
 
             //Affichage de la barre de vie
-            _lifeBar.Draw(spriteBatch);
+            _lifeBar.Draw(spriteBatch, _currentCamera.ScreenToWorld(_lifeBar.Position));
 
             //Affichage des munitions actuelles de l'armes (si arme équipée)
             if (_currentWeapon != null)
                 spriteBatch.DrawString(Assets.Font,
-                    _currentWeapon.NumberBulletInLoader + "/" + _currentWeapon.TotalBullet, new Vector2(130, 25),
+                    _currentWeapon.NumberBulletInLoader + "/" + _currentWeapon.TotalBullet, _currentCamera.ScreenToWorld(new Vector2(130, 25)),
                     Color.White);
 
             //Affichage du joueur

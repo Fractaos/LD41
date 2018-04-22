@@ -1,4 +1,5 @@
 ﻿using LudumDare41.Graphics;
+using LudumDare41.Screens;
 using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -49,10 +50,10 @@ namespace LudumDare41.ShooterPhase
                 Position.Y = Utils.HEIGHT - offset - Texture.Height;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public new void Draw(SpriteBatch spriteBatch)
         {
-
-            base.Draw(spriteBatch);
+            ShooterScreen tempScreen = (ShooterScreen)Main.CurrentsScreens[0];
+            spriteBatch.Draw(Texture, tempScreen.Camera.ScreenToWorld(Position), Color.White);
         }
     }
 }

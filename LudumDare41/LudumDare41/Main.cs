@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 
 
 namespace LudumDare41
@@ -17,14 +18,17 @@ namespace LudumDare41
         public static Game Instance;
         public static ContentManager Content;
         public static Random Rand;
+        public static List<Screen> CurrentsScreens;
         public static Screen CurrentScreen;
 
         public Main(GraphicsDeviceManager graphics, Game game)
         {
-            Main.Graphics = graphics;
+            Graphics = graphics;
             Device = graphics.GraphicsDevice;
             Instance = game;
             Content = game.Content;
+
+            CurrentsScreens = new List<Screen>();
             Rand = new Random();
         }
 
@@ -38,7 +42,10 @@ namespace LudumDare41
             Graphics.ApplyChanges();
             Instance.IsMouseVisible = true;
 
-            SetScreen(new ShooterScreen());
+            CurrentsScreens.Add(new ShooterScreen());
+            CurrentsScreens.Add(new GestionScreen());
+
+            SetScreen(CurrentsScreens[0]);
 
         }
 

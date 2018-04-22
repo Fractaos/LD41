@@ -21,24 +21,28 @@ namespace LudumDare41.ShooterPhase
         private bool _alive = true;
         private int _life;
 
-        public Enemy(Texture2D texture, Vector2 position, Player thePlayer) : base(texture, position)
+
+        private Camera _currentCamera;
+
+        public Enemy(Texture2D texture, Vector2 position, Player thePlayer, Camera currentCamera) : base(texture, position)
         {
+            _currentCamera = currentCamera;
             _thePlayer = thePlayer;
             _life = MAX_LIFE;
             int rnd = Utils.RANDOM.Next(Utils.NUMBER_TYPE_WEAPON);
             switch (rnd)
             {
                 case 0:
-                    _weaponHolded = new Gun(Position, 30, WeaponState.Holded);
+                    _weaponHolded = new Gun(Position, 30, WeaponState.Holded, _currentCamera);
                     break;
                 case 1:
-                    _weaponHolded = new SubMachine(Position, 30, WeaponState.Holded);
+                    _weaponHolded = new SubMachine(Position, 30, WeaponState.Holded, _currentCamera);
                     break;
                 case 2:
-                    _weaponHolded = new Sniper(Position, 30, WeaponState.Holded);
+                    _weaponHolded = new Sniper(Position, 30, WeaponState.Holded, _currentCamera);
                     break;
                 default:
-                    _weaponHolded = new Gun(Position, 30, WeaponState.Holded);
+                    _weaponHolded = new Gun(Position, 30, WeaponState.Holded, _currentCamera);
                     break;
             }
 

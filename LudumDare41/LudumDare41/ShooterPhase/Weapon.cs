@@ -27,12 +27,15 @@ namespace LudumDare41.ShooterPhase
         protected List<Bullet> _bulletsFired;
         protected SoundEffect _shotSound;
 
+        protected Camera _currentCamera;
+
         protected ProgressBar _reloadPb;
 
 
 
-        protected Weapon(Texture2D texture, Vector2 position, int bulletInWeapon, WeaponState weaponState) : base(texture, position)
+        protected Weapon(Texture2D texture, Vector2 position, int bulletInWeapon, WeaponState weaponState, Camera currentCamera) : base(texture, position)
         {
+            _currentCamera = currentCamera;
             _bulletsFired = new List<Bullet>();
             _totalBullet = bulletInWeapon;
             _weaponState = weaponState;
@@ -127,12 +130,11 @@ namespace LudumDare41.ShooterPhase
 
                     break;
                 case WeaponState.Reload:
-                    _timeSinceBeginReload += time.ElapsedGameTime.Milliseconds;
-                    _reloadPb.DecreaseBar(time.ElapsedGameTime.Milliseconds);
+                    _timeSinceBeginReload -= time.ElapsedGameTime.Milliseconds;
                     _reloadPb.Position = new Vector2(Position.X - 25, Position.Y - 50);
-                    if (_timeSinceBeginReload > _timeToReload)
+                    if (_timeSinceBeginReload < 0)
                     {
-                        _timeSinceBeginReload = 0;
+                        _timeSinceBeginReload = _timeToReload;
                         _numberBulletInLoader = _totalBullet >= _totalNumberBulletInLoader ? _totalNumberBulletInLoader : _totalBullet;
                         _reloadPb.Reset();
                         _weaponState = WeaponState.Holded;
@@ -145,7 +147,7 @@ namespace LudumDare41.ShooterPhase
 
 
             }
-            Vector2 direction = Input.MousePos - Position;
+            Vector2 direction = _currentCamera.ScreenToWorld(Input.MousePos) - Position;
             direction.Normalize();
 
             _rotation = (float)Math.Atan2(direction.Y, direction.X);

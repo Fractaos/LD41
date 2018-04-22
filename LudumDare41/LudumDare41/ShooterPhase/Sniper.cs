@@ -6,11 +6,12 @@ namespace LudumDare41.ShooterPhase
 {
     public class Sniper : Weapon
     {
-        public Sniper(Vector2 position, int bulletInWeapon, WeaponState weaponState) : base(Assets.Sniper, position, bulletInWeapon, weaponState)
+        public Sniper(Vector2 position, int bulletInWeapon, WeaponState weaponState, Camera currentCamera) : base(Assets.Sniper, position, bulletInWeapon, weaponState, currentCamera)
         {
             _totalNumberBulletInLoader = 5;
             _numberBulletInLoader = _totalBullet >= _totalNumberBulletInLoader ? _totalNumberBulletInLoader : _totalBullet;
             _timeToReload = 3000f;
+            _timeSinceBeginReload = _timeToReload;
             _bulletSpeed = 50;
             _timeBetweenFire = 2000f;
             _damage = 30;
