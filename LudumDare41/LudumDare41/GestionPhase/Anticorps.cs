@@ -36,22 +36,6 @@ namespace LudumDare41.GestionPhase
                 Position = Vector2.Clamp(Position, new Vector2(ActualPart.Bounds.X, ActualPart.Bounds.Y),
                     new Vector2(ActualPart.Bounds.X + ActualPart.Bounds.Width - 40, ActualPart.Bounds.Y + ActualPart.Bounds.Height - 40));
 
-            ////DRAGNDROP
-            //if(Input.Left(true) && Dragged)
-            //{
-            //    BodyPart buffer = GestionScreen.Parts.Find(part => part.Bounds.Contains(Input.MousePos));
-            //    if (buffer != null)
-            //    {
-            //        ChangePart(buffer);
-            //    }
-
-            //    Dragged = false;
-            //}
-            //else if(Input.Left(true) && Input.MouseOn(Hitbox) && !Dragged)
-            //{
-            //    Dragged = true;
-            //}
-
             if(Dragged)
             {
                 Position = Input.MousePos;
