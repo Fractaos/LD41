@@ -166,7 +166,7 @@ namespace LudumDare41.ShooterPhase
             _currentCamera.Position = cameraPosition;
 
             //Ramasser une arme
-            if (_canGrabWeapon && Input.KeyPressed(Keys.E, true))
+            if (_canGrabWeapon && Input.KeyPressed(Keys.Space, true))
             {
                 _currentWeapon = _grabbableWeapon;
                 _currentWeapon.PlayerHold = true;
