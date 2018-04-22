@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -9,7 +10,8 @@ namespace LudumDare41
 
         //Constantes
 
-        public const int WIDTH = 1600, HEIGHT = 900;
+        public const int WIDTH = 1600, HEIGHT = 900, NUMBER_TYPE_WEAPON = 3;
+        public static Random RANDOM = new Random();
 
         //DESSIN DE HITBOX
         public static Texture2D CreateTexture(int w, int h, Color col)
