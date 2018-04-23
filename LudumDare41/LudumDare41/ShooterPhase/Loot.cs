@@ -34,6 +34,7 @@ namespace LudumDare41.ShooterPhase
                     _texture = Assets.VitC;
                     break;
             }
+            UpdateHitbox(Position);
         }
 
         public Loot(Vector2 position) : base(Assets.PixelB, position)
