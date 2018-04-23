@@ -15,10 +15,13 @@ namespace LudumDare41.Graphics
         //SON
         //SHOOTERPHASE
         public static SoundEffectInstance GunShot, SubMachineShot, SniperShot, EnemyHitted, EnemyDead, PlayerHitted, MusicGestion, MusicShooter;
-        public static Texture2D Sucre, Gras, VitC;
 
         //GESTIONPHASE
+        public static Texture2D Sucre, Gras, VitC ,/*FACTORY*/ AddAnti;
         public static SoundEffect Drag, Drop;
+
+        //TUTOPHASE
+        public static Texture2D Plan1, Plan2, Plan3, Plan4;
 
 
         //FONT
@@ -47,6 +50,12 @@ namespace LudumDare41.Graphics
             Sucre = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/sucre");
             Gras = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/gras");
             VitC = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/vitC");
+            AddAnti = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/addAnti");
+
+            Plan1 = Main.Content.Load<Texture2D>("Assets/Graphics/TutoPhase/plan1");
+            Plan2 = Main.Content.Load<Texture2D>("Assets/Graphics/TutoPhase/plan2");
+            Plan3 = Main.Content.Load<Texture2D>("Assets/Graphics/TutoPhase/plan3");
+            Plan4 = Main.Content.Load<Texture2D>("Assets/Graphics/TutoPhase/plan4");
 
 
             GameOver = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/gameover");

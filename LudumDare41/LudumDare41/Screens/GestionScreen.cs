@@ -12,13 +12,14 @@ namespace LudumDare41.Screens
     {
         UiManager manager;
         List<Anticorps> anticorps;
-
+        List<string> phraseAnti;
         private float _timeElapsedSinceOnScreen;
 
         public Player _instancePlayer;
         private bool _isActive;
 
         Anticorps isDragged;
+        ProgressBar playerLife;
 
         //FACTORY
         bool showFactory;
@@ -64,15 +65,17 @@ namespace LudumDare41.Screens
 
         public override void Create()
         {
+            phraseAnti = new List<string> { "he", "ok", "how are you today ?", "it's ok", "time to go", "good bye" , "hey frank !", "hey mathieu", "celui qui ca est un con", "comment va ?", "la peche", "qu'est ce qu'on est serre", "haha"};
+            manager = new UiManager();
             Assets.MusicGestion.Volume = 0.5f;
             Assets.MusicGestion.IsLooped = true;
             Assets.MusicGestion.Play();
-            manager = new UiManager();
-            //isDragged = false;
             showFactory = false;
             factory = new AntiFactory(this);
             if (Main.CurrentsScreens[0] is ShooterScreen currentScreen)
                 _instancePlayer = currentScreen.Player;
+
+            playerLife = new ProgressBar(new Vector2(1228, 547), 303, 50, Color.Red, _instancePlayer.MaxLife, true);
 
             anticorps = new List<Anticorps>();
 
@@ -86,7 +89,7 @@ namespace LudumDare41.Screens
 
             Parts = new List<BodyPart> { Head, Arms, Corps, Legs, None };
 
-            manager.AddParticle(new UiButton(new Vector2(50, 50), () => { showFactory = !showFactory; }, Assets.factoryButton));
+            manager.AddParticle(new UiButton(new Vector2(50, 150), () => { showFactory = !showFactory; }, Assets.FactoryButton));
 
             #endregion 
         }
@@ -193,14 +196,16 @@ namespace LudumDare41.Screens
                 }
             }
 
+            playerLife.Update(time, _instancePlayer.Life);
+            playerLife.MaxValue = _instancePlayer.MaxLife;
+
+
         }
 
         public override void Draw()
         {
-
-
             spriteBatch.Begin();
-            spriteBatch.Draw(Assets.backgroundGestion, Vector2.Zero, Color.White);
+            spriteBatch.Draw(Assets.BackgroundGestion, Vector2.Zero, Color.White);
             manager.Draw(spriteBatch);
 
             #region Draw Anticorps/BodyParts
@@ -218,7 +223,6 @@ namespace LudumDare41.Screens
             spriteBatch.DrawString(Assets.BigFont, "Accuracy : " + _instancePlayer.Accuracy, new Vector2(1220, 220), Color.White);
             spriteBatch.DrawString(Assets.BigFont, "Vision Range : " + _instancePlayer.VisionRange, new Vector2(1220, 320), Color.White);
             spriteBatch.DrawString(Assets.BigFont, "Shoot Speed : " + _instancePlayer.ShootSpeed, new Vector2(1220, 420), Color.White);
-            spriteBatch.DrawString(Assets.BigFont, "Max Life : " + _instancePlayer.MaxLife, new Vector2(1220, 520), Color.White);
 
             spriteBatch.DrawString(Assets.Font, "Head +" + Head.effect + "%", new Vector2(10, 30), Color.White);
             spriteBatch.DrawString(Assets.Font, "Arms +" + Arms.effect + "%", new Vector2(100, 30), Color.White);
@@ -231,7 +235,7 @@ namespace LudumDare41.Screens
             #endregion
             if (showFactory)
                 factory.Draw(spriteBatch);
-
+            playerLife.Draw(spriteBatch);
             spriteBatch.End();
 
         }
@@ -247,7 +251,8 @@ namespace LudumDare41.Screens
         public void AddAntiCorps(AntiType type, BodyPart part)
         {
             Anticorps buffer = new Anticorps(new Vector2(Main.Rand.Next(None.Bounds.X, None.Bounds.X + None.Bounds.Width), Main.Rand.Next(None.Bounds.Y, None.Bounds.Y + None.Bounds.Height)), type, None);
-            TimerManager.Timers.Add(new Timer(200, () => { buffer.Position += new Vector2(Main.Rand.Next(0, 3) - 1, Main.Rand.Next(0, 3) - 1); }));
+            TimerManager.Timers.Add(new Timer(3500, () => { manager.AddParticle(new UiLabel(phraseAnti[Main.Rand.Next(phraseAnti.Count)], buffer.Position, 400, 1, Color.White)); }));
+            TimerManager.Timers.Add(new Timer(1500, () => { buffer.Position += new Vector2(Main.Rand.Next(0, 3) - 1, Main.Rand.Next(0, 3) - 1); }));
             anticorps.Add(buffer);
         }
     }
