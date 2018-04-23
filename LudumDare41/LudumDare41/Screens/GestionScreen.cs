@@ -65,7 +65,7 @@ namespace LudumDare41.Screens
 
         public override void Create()
         {
-            phraseAnti = new List<string> { "he", "ok", "how are you today ?", "it's ok", "time to go", "good bye" , "hey frank !", "hey mathieu", "celui qui ca est un con", "comment va ?", "la peche", "qu'est ce qu'on est serre", "haha"};
+            phraseAnti = new List<string> { "he", "ok", "how are you today ?", "it's ok", "time to go", "good bye", "hey frank !", "hey mathieu", "celui qui ca est un con", "comment va ?", "la peche", "qu'est ce qu'on est serre", "haha" };
             manager = new UiManager();
             Assets.MusicGestion.Volume = 0.5f;
             Assets.MusicGestion.IsLooped = true;

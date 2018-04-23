@@ -11,13 +11,13 @@ namespace LudumDare41.Graphics
         //SPRITE
         public static Texture2D PixelW, PixelB, CrossAim, Gun, SubMachine, Sniper, Bullet, Enemy, Player;
 
-        public static Texture2D backgroundGestion, factoryButton, GameOver, ReplayButton, QuitButton, Arene;
+        public static Texture2D BackgroundGestion, FactoryButton, GameOver, ReplayButton, QuitButton, Arene;
         //SON
         //SHOOTERPHASE
         public static SoundEffectInstance GunShot, SubMachineShot, SniperShot, EnemyHitted, EnemyDead, PlayerHitted, MusicGestion, MusicShooter;
 
         //GESTIONPHASE
-        public static Texture2D Sucre, Gras, VitC ,/*FACTORY*/ AddAnti;
+        public static Texture2D Sucre, Gras, VitC,/*FACTORY*/ AddAnti;
         public static SoundEffect Drag, Drop;
 
         //TUTOPHASE
@@ -44,8 +44,8 @@ namespace LudumDare41.Graphics
             Enemy = Utils.CreateTexture(50, 50, Color.Red);
             Player = Utils.CreateTexture(50, 50, Color.Blue);
 
-            factoryButton = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/buttonFactory");
-            backgroundGestion = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/corps");
+            FactoryButton = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/buttonFactory");
+            BackgroundGestion = Main.Content.Load<Texture2D>("Assets/Graphics/GestionPhase/corps");
 
             Sucre = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/sucre");
             Gras = Main.Content.Load<Texture2D>("Assets/Graphics/ShooterPhase/gras");

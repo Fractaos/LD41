@@ -114,8 +114,8 @@ namespace LudumDare41.ShooterPhase
                             _speed = 2f;
                         if (distanceWithPlayer < 400)
                             direction *= -1;
-                        Position.X += direction.X * time.ElapsedGameTime.Milliseconds * _speed;
-                        Position.Y += direction.Y * time.ElapsedGameTime.Milliseconds * _speed;
+                        Position.X += direction.X * time.ElapsedGameTime.Milliseconds * _speed * speedFactor;
+                        Position.Y += direction.Y * time.ElapsedGameTime.Milliseconds * _speed * speedFactor;
                         _weaponHolded.Position = Position;
                         if (currentScreen.AreneBounds.Top + Hitbox.Height / 2 >= Position.Y)
                             Position.Y = currentScreen.AreneBounds.Top + Hitbox.Height / 2;
