@@ -12,7 +12,6 @@ namespace LudumDare41
 {
     class Main
     {
-
         public static GraphicsDeviceManager Graphics;
         public static GraphicsDevice Device;
         public static Game Instance;
@@ -42,12 +41,10 @@ namespace LudumDare41
             Graphics.ApplyChanges();
             Instance.IsMouseVisible = true;
 
+            SetScreen(new TutoScreen());
+
             CurrentsScreens.Add(new ShooterScreen());
             CurrentsScreens.Add(new GestionScreen());
-
-            CurrentsScreens.ForEach(screen => screen.Create());
-            SetScreenWithoutReCreating(CurrentsScreens[0]);
-
         }
 
         public void Update(GameTime time)
@@ -55,9 +52,16 @@ namespace LudumDare41
             TimerManager.Update(time.ElapsedGameTime.Milliseconds);
             Input.Update();
 
-            foreach (var currentsScreen in CurrentsScreens)
+            if (CurrentScreen is ShooterScreen || CurrentScreen is GestionScreen)
             {
-                currentsScreen.Update(time);
+                foreach (var currentsScreen in CurrentsScreens)
+                {
+                    currentsScreen.Update(time);
+                }
+            }
+            else
+            {
+                CurrentScreen.Update(time);
             }
         }
 
@@ -70,8 +74,16 @@ namespace LudumDare41
 
         public static void SetScreen(Screen screen)
         {
-            CurrentScreen = screen;
-            CurrentScreen.Create();
+            if (screen is ShooterScreen)
+            {
+                CurrentsScreens.ForEach(screens => screens.Create());
+                SetScreenWithoutReCreating(CurrentsScreens[0]);
+            }
+            else
+            {
+                CurrentScreen = screen;
+                CurrentScreen.Create();
+            }
         }
 
         public static void SetScreenWithoutReCreating(Screen screen)

@@ -245,8 +245,8 @@ namespace LudumDare41.ShooterPhase
 
             if (_canGrabWeapon)
             {
-                string text = "Press E to grab weapon";
-                spriteBatch.DrawString(Assets.BigFont, text, new Vector2(Position.X - Assets.Font.MeasureString(text).X / 2, Position.Y + 100), Color.Gold);
+                string text = "Press [SPACE] to grab weapon";
+                spriteBatch.DrawString(Assets.BigFont, text, new Vector2(Position.X - Assets.Font.MeasureString(text).X / 2, Position.Y + 100), Color.Green);
             }
 
             //Affichage des munitions actuelles de l'armes (si arme équipée)

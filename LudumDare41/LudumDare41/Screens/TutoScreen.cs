@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-
-using LudumDare41.Graphics;
-using Microsoft.Xna.Framework.Graphics;
+﻿using LudumDare41.Graphics;
 using LudumDare41.Utility;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace LudumDare41.Screens
@@ -20,16 +14,16 @@ namespace LudumDare41.Screens
         public override void Create()
         {
             _index = 0;
-             Screens = new Texture2D[] { Assets.Plan1, Assets.Plan2, Assets.Plan3, Assets.Plan4 };
+            Screens = new Texture2D[] { Assets.Plan1, Assets.Plan2, Assets.Plan3, Assets.Plan4 };
         }
 
         public override void Update(GameTime time)
         {
             if (Input.KeyPressed(Keys.Space, true))
             {
-                if(_index == Screens.Length-1)
+                if (_index == Screens.Length - 1)
                 {
-                    //CHANGEMENT DECRAN
+                    Main.SetScreen(Main.CurrentsScreens[0]);
                 }
                 else
                     _index++;
@@ -45,7 +39,7 @@ namespace LudumDare41.Screens
 
         public override void Resume()
         {
-            
+
         }
     }
 }
