@@ -106,7 +106,13 @@ namespace LudumDare41.Screens
 
 
             if (showFactory)
+            {
                 factory.Update(time);
+                if(!Input.MouseOn(factory.Bounds) && Input.Left(true))
+                {
+                    showFactory = false;
+                }
+            }
             manager.Update(time.ElapsedGameTime.Milliseconds);
 
             #endregion
@@ -185,6 +191,7 @@ namespace LudumDare41.Screens
 
             if (_isActive)
                 _timeElapsedSinceOnScreen += time.ElapsedGameTime.Milliseconds;
+
             if (_timeElapsedSinceOnScreen > Utils.TIME_ON_SCREEN)
             {
                 if (Input.KeyPressed(Keys.Tab, true))

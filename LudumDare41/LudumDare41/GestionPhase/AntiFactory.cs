@@ -15,6 +15,7 @@ namespace LudumDare41.GestionPhase
         private GestionScreen _instance;
         public Vector2 position;
         public Texture2D texture;
+        public Rectangle Bounds;
 
         public int sucre, vitC, gras;
         public int maxSucre, maxGras, maxVitC;
@@ -26,6 +27,7 @@ namespace LudumDare41.GestionPhase
             _instance = instance;
             position = new Vector2(200, 200);
             texture = Utils.CreateTexture(1000, 400, Color.Gray);
+            Bounds = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 100), () => { BuyAnticorps(AntiType.Normal); }, Assets.AddAnti));
             manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 200), () => { BuyAnticorps(AntiType.Neighbour); }, Assets.AddAnti));
             manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 300), () => { BuyAnticorps(AntiType.Leader); }, Assets.AddAnti));
