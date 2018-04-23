@@ -46,7 +46,7 @@ namespace LudumDare41.Graphics
         {
             batch.Draw(Texture, Position, Color.White);
 
-            batch.Draw(_hitboxTexture, _hitbox, Color.White);
+            //batch.Draw(_hitboxTexture, _hitbox, Color.White);
         }
 
     }

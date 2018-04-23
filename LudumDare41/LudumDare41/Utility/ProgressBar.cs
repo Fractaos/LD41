@@ -13,11 +13,12 @@ namespace LudumDare41.Utility
         float _width, _height, _percentUp, _maxValue, _currentValue;
         bool _withLabel = false;
 
+
         // Graphics fields
         Color _color;
         Texture2D _barTexture, _barBackgroundTexture;
         Vector2 _position;
-        SpriteFont _font = Assets.Font;
+        SpriteFont _font = Assets.BigFont;
 
         #endregion
 
@@ -60,6 +61,12 @@ namespace LudumDare41.Utility
             set => _position = value;
         }
 
+        public float MaxValue
+        {
+            get => _maxValue;
+            set => _maxValue = value;
+        }
+
         #endregion
 
         #region Public Methods
@@ -95,8 +102,9 @@ namespace LudumDare41.Utility
             _currentValue = _maxValue;
         }
 
-        public void Update(float time)
+        public void Update(GameTime time, int value)
         {
+            _currentValue = value;
             _percentUp = (_currentValue / _maxValue) * _width;
             if (_percentUp > 0)
             {
@@ -120,6 +128,21 @@ namespace LudumDare41.Utility
             if (_percentUp > 0)
             {
                 spriteBatch.Draw(_barTexture, new Vector2(_position.X + 2, _position.Y + 2), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1);
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 position)
+        {
+
+            if (_withLabel)
+            {
+                var text = _currentValue + "/" + _maxValue;
+                spriteBatch.DrawString(_font, text, new Vector2(((position.X + _barBackgroundTexture.Width / 2) - (_font.MeasureString(text) / 2).X), position.Y - (_height + _font.MeasureString(text).Y) / 2), Color.White);
+            }
+            spriteBatch.Draw(_barBackgroundTexture, position, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1);
+            if (_percentUp > 0)
+            {
+                spriteBatch.Draw(_barTexture, new Vector2(position.X + 2, position.Y + 2), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1);
             }
         }
 

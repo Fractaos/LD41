@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
+using LudumDare41.Screens;
 using LudumDare41.Utility;
+using LudumDare41.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using LudumDare41.Screens;
 
 namespace LudumDare41.GestionPhase
 {
@@ -19,38 +15,79 @@ namespace LudumDare41.GestionPhase
         private GestionScreen _instance;
         public Vector2 position;
         public Texture2D texture;
+        public Rectangle Bounds;
 
         public int sucre, vitC, gras;
+        public int maxSucre, maxGras, maxVitC;
 
         public AntiFactory(GestionScreen instance)
         {
-
+            sucre = vitC = gras = maxSucre = maxGras = maxVitC = 100;
             manager = new UiManager();
             _instance = instance;
             position = new Vector2(200, 200);
-            texture = Utils.CreateTexture(1000, 600, Color.Gray);
-            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 100), 50, 50, () => { sucreBar.DecreaseBar(10); }, Color.Red));
-            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 200), 50, 50, () => { vitCBar.DecreaseBar(10); }, Color.Green));
-            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 300), 50, 50, () => { grasBar.DecreaseBar(10); }, Color.Yellow));
+            texture = Utils.CreateTexture(1000, 400, Color.Gray);
+            Bounds = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 100), () => { BuyAnticorps(AntiType.Normal); }, Assets.AddAnti));
+            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 200), () => { BuyAnticorps(AntiType.Neighbour); }, Assets.AddAnti));
+            manager.AddParticle(new UiButton(new Vector2(position.X + 300, position.Y + 300), () => { BuyAnticorps(AntiType.Leader); }, Assets.AddAnti));
+
 
             listProgress = new ProgressBar[3];
-            sucreBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 100), 200, 50, Color.Red, 100, true);
-            vitCBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 200), 200, 50, Color.Green, 100, true);
-            grasBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 300), 200, 50, Color.Yellow, 100, true);
+            sucreBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 100), 200, 50, Color.Red, maxSucre, true);
+            grasBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 200), 200, 50, Color.Yellow, maxGras, true);
+            vitCBar = new ProgressBar(new Vector2(position.X + 50, position.Y + 300), 200, 50, Color.Green, maxVitC, true);
 
             listProgress[0] = sucreBar;
             listProgress[1] = grasBar;
             listProgress[2] = vitCBar;
         }
 
-
-        public void Update(float time)
+        public void BuyAnticorps(AntiType type)
         {
-            manager.Update(time);
-            foreach (var item in listProgress)
+            bool ok = false;
+            switch (type)
             {
-                item.Update(time);
+                case AntiType.Normal:
+                    if (sucre >= 20)
+                    {
+                        ok = true;
+                        sucre -= 20;
+                    }
+                    break;
+                case AntiType.Neighbour:
+                    if (sucre >= 20 && gras >= 10)
+                    {
+                        ok = true;
+                        sucre -= 20;
+                        gras -= 10;
+                    }
+
+                    break;
+                case AntiType.Leader:
+                    if (sucre >= 30 && gras >= 20 && vitC >= 10)
+                    {
+                        ok = true;
+                        sucre -= 30;
+                        gras -= 20;
+                        vitC -= 10;
+                    }
+                    break;
             }
+
+            if (ok)
+                _instance.AddAntiCorps(type, _instance.None);
+
+        }
+
+
+        public void Update(GameTime time)
+        {
+            manager.Update(time.ElapsedGameTime.Milliseconds);
+
+            listProgress[0].Update(time, sucre);
+            listProgress[1].Update(time, gras);
+            listProgress[2].Update(time, vitC);
         }
 
 
@@ -62,6 +99,19 @@ namespace LudumDare41.GestionPhase
             {
                 item.Draw(batch);
             }
+            batch.DrawString(Assets.Font, "Sucre", new Vector2(sucreBar.Position.X, sucreBar.Position.Y + 30), Color.White);
+            batch.DrawString(Assets.Font, "Gras", new Vector2(grasBar.Position.X, grasBar.Position.Y + 30), Color.Black);
+            batch.DrawString(Assets.Font, "Vitamine C", new Vector2(vitCBar.Position.X, vitCBar.Position.Y + 30), Color.White);
+
+            batch.DrawString(Assets.Font, "- Cellule basique, ajoutant 10% d'avantage la ou vous la posez. Coute 20 Sucre", new Vector2(position.X + 400, position.Y + 125), Color.White);
+            batch.DrawString(Assets.Font, "- Coute 20 Sucre", new Vector2(position.X + 400, position.Y + 145), Color.Red);
+            batch.DrawString(Assets.Font, "- Cellule bonne voisine, ajoutant 5% la ou vous la posez,", new Vector2(position.X + 400, position.Y + 225), Color.White);
+            batch.DrawString(Assets.Font, " et 5% aux parties du corps adjacentes .", new Vector2(position.X + 400, position.Y + 245), Color.White);
+            batch.DrawString(Assets.Font, " - Coute 10 gras et 20 sucre", new Vector2(position.X + 400, position.Y + 265), Color.Red);
+            batch.DrawString(Assets.Font, "- Cellule Leader, n'apporte aucun avantage seul, mais ajoute 2%.", new Vector2(position.X + 400, position.Y + 325), Color.White);
+            batch.DrawString(Assets.Font, "pour chaque cellule dans la partie du corps ou elle se trouve.", new Vector2(position.X + 400, position.Y + 345), Color.White);
+            batch.DrawString(Assets.Font, "- Coute 10 Vitamine C, 20 Gras et 30 Sucre", new Vector2(position.X + 400, position.Y + 365), Color.Red);
+
         }
     }
 }

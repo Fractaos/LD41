@@ -1,10 +1,8 @@
-﻿using System;
-using System.Diagnostics;
-using LudumDare41.Graphics;
+﻿using LudumDare41.Graphics;
+using LudumDare41.Screens;
 using LudumDare41.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace LudumDare41.ShooterPhase
 {
@@ -31,7 +29,7 @@ namespace LudumDare41.ShooterPhase
             Position = new Vector2(_player.Position.X - (float)Texture.Width/2 + ((float)Math.Cos(angleRadians)*Distance),
             _player.Position.Y - (float)Texture.Height/2 + ((float)Math.Sin(angleRadians)*Distance));*/
 
-            Position = new Vector2(Input.MousePos.X - (float)Texture.Width/2, Input.MousePos.Y - (float)Texture.Height/2);
+            Position = new Vector2(Input.MousePos.X - (float)Texture.Width / 2, Input.MousePos.Y - (float)Texture.Height / 2);
             ClampWithOffset(50);
 
 
@@ -52,10 +50,10 @@ namespace LudumDare41.ShooterPhase
                 Position.Y = Utils.HEIGHT - offset - Texture.Height;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public new void Draw(SpriteBatch spriteBatch)
         {
-
-            base.Draw(spriteBatch);
+            ShooterScreen tempScreen = (ShooterScreen)Main.CurrentsScreens[0];
+            spriteBatch.Draw(Texture, tempScreen.Camera.ScreenToWorld(Position), Color.White);
         }
     }
 }

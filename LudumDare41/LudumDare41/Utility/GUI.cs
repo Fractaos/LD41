@@ -1,4 +1,5 @@
 ﻿using LudumDare41.Graphics;
+using LudumDare41.ShooterPhase;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -29,6 +30,18 @@ namespace LudumDare41.Utility
             for (var i = 0; i < UiList.Count; i++)
             {
                 UiList[i].Draw(batch);
+            }
+        }
+
+        public void Draw(SpriteBatch batch, Camera camera)
+        {
+
+            for (var i = 0; i < UiList.Count; i++)
+            {
+                if (UiList[i] is UiButton uiButton)
+                    uiButton.Draw(batch, camera);
+                else
+                    UiList[i].Draw(batch);
             }
         }
 
@@ -119,6 +132,16 @@ namespace LudumDare41.Utility
             this._action = action;
             if (texture != null)
                 this._texture = texture;
+            else
+                _texture = Utils.CreateTexture(width, height, normalColor);
+        }
+
+        public UiButton(Vector2 position, WhenPressed action, Texture2D texture) : base(position)
+        {
+            _action = action;
+            _texture = texture;
+            _bounds = new Rectangle((int)position.X, (int)position.Y, _texture.Width, _texture.Height);
+
         }
 
         public UiButton(Vector2 position, int width, int height, WhenPressed action, Color color) : base(position)
@@ -130,6 +153,8 @@ namespace LudumDare41.Utility
 
         public override void Update(float time)
         {
+
+            //_bounds = new Rectangle((int)Position.X, (int)Position.Y, _bounds.Width, _bounds.Height);
             if (Input.MouseBox.Intersects(_bounds))
             {
                 _actualColor = _survoledColor;
@@ -148,6 +173,15 @@ namespace LudumDare41.Utility
         {
             if (_texture != null)
                 batch.Draw(_texture, Position, Color.White);
+            else
+                batch.Draw(Assets.PixelW, _bounds, _actualColor);
+
+        }
+
+        public void Draw(SpriteBatch batch, Camera camera)
+        {
+            if (_texture != null)
+                batch.Draw(_texture, camera.ScreenToWorld(Position), Color.White);
             else
                 batch.Draw(Assets.PixelW, _bounds, _actualColor);
 
